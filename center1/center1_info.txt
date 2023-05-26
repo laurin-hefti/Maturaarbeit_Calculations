@@ -1,0 +1,5 @@
+Der center1 Versuch ist ein Versuch das aktive Zentrum eines CO2 splatendes Molekül zu modelieren. Es besteht aus einem CO2, mehreren Methanol Molekülen um das CO2 zu sabilisieren und ein 
+CH3NH2 Teilchen an welches ein O Atom vom CO2 zu CH3NO oder (CH3N)2- + H2O werden sollte.
+Es wurde eine Thermodynamik Rechnung durchgeführt um die Enthalpy, Entrophy und die Gibbs-free Energy herauszufinden.
+Viel überlegt wurde sich dabei nicht weil es sich lediglich um einen test gehandelt hat um zu schauen was man bekommt wenn man diese Rechnung durchführt und wie lange es ungefähr braucht um
+eine solche rechnung durchzuführen.
