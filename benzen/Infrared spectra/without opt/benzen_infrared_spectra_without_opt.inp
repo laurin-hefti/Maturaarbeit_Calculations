@@ -1,4 +1,4 @@
-!BP86 DEF2-SVP OPT FREQ
+!BP86 DEF2-SVP FREQ
 
 * xyz 0 1
   C      -4.127240      1.598090      0.000000
