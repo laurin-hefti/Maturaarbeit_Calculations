@@ -1,0 +1,134 @@
+-------------------------------------------------------------
+----------------------- !PROPERTIES! ------------------------
+-------------------------------------------------------------
+# -----------------------------------------------------------
+$ SCF_Energy
+   description: The SCF energy
+   geom. index: 1
+   prop. index: 1
+        SCF Energy:     -231.5936019976
+# -----------------------------------------------------------
+$ DFT_Energy
+   description: The DFT energy
+   geom. index: 1
+   prop. index: 1
+   Number of Alpha Electrons                 20.9999845900 
+   Number of Beta  Electrons                 19.9999706053 
+   Total number of  Electrons                40.9999551952 
+   Exchange energy                          -26.1253633906 
+   Correlation energy                        -1.5958007169 
+   Correlation energy NL                      0.0000000000 
+   Exchange-Correlation energy              -27.7211641074 
+   Embedding correction                       0.0000000000 
+   Total DFT Energy (No VdW correction)    -231.5936019976 
+# -----------------------------------------------------------
+$ Mayer_Pop
+   description: The Mayer population analysis
+   geom. index: 1
+   prop. index: 1
+     Number of atoms                     : 12
+     Threshold for printing              : 0.1000000
+     Number of bond orders printed       : 14
+  NA   - Mulliken gross atomic population
+  ZA   - Total nuclear charge
+  QA   - Mulliken gross atomic charge
+  VA   - Mayer's total valence
+  BVA  - Mayer's bonded valence
+  FA   - Mayer's free valence
+  ATOM       NA         ZA         QA         VA         BVA        FA
+  0   0     5.9097     6.0000     0.0903     3.7990     3.7547     0.0443
+  1   0     5.8774     6.0000     0.1226     3.7583     3.6274     0.1309
+  2   0     5.9600     6.0000     0.0400     3.8464     3.8403     0.0061
+  3   0     5.9097     6.0000     0.0903     3.7990     3.7547     0.0443
+  4   0     5.8774     6.0000     0.1226     3.7583     3.6274     0.1309
+  5   0     5.9600     6.0000     0.0400     3.8464     3.8403     0.0061
+  6   0     0.9158     1.0000     0.0842     0.9793     0.9792     0.0001
+  7   0     0.9263     1.0000     0.0737     0.9826     0.9826     0.0000
+  8   0     0.9109     1.0000     0.0891     0.9775     0.9771     0.0004
+  9   0     0.9158     1.0000     0.0842     0.9793     0.9792     0.0001
+ 10   0     0.9263     1.0000     0.0737     0.9826     0.9826     0.0000
+ 11   0     0.9109     1.0000     0.0891     0.9775     0.9771     0.0004
+      Bond orders larger than 0.1000000
+           Atom A     A.N. of A          Atom B    A.N. of B              Bond order
+                0             6               1            6                1.167858
+                0             6               4            6                0.106669
+                0             6               5            6                1.460559
+                0             6               6            1                0.986356
+                1             6               2            6                1.310455
+                1             6               3            6                0.106665
+                1             6              11            1                0.985480
+                2             6               3            6                1.460565
+                2             6              10            1                0.988251
+                3             6               4            6                1.167854
+                3             6               9            1                0.986357
+                4             6               5            6                1.310461
+                4             6               8            1                0.985479
+                5             6               7            1                0.988253
+# -----------------------------------------------------------
+$ VdW_Correction
+   description: The Van der Waals Correction
+   geom. index: 1
+   prop. index: 1
+        Van der Waals Correction:       -0.0189149631
+# -----------------------------------------------------------
+$ Calculation_Info
+   description: Details of the calculation
+   geom. index: 1
+   prop. index: 1
+     Multiplicity:                          2
+     Charge:                                1
+     number of atoms:                       12
+     number of electrons:                   0
+     number of frozen core electrons:       1
+     number of correlated electrons:        0
+     number of basis functions:             114
+     number of aux C basis functions:       0
+     number of aux J basis functions:       360
+     number of aux JK basis functions:      0
+     number of aux CABS basis functions:    0
+     Total Energy                           -231.612517
+# -----------------------------------------------------------
+$ SCF_Electric_Properties
+   description: The SCF Calculated Electric Properties
+   geom. index: 1
+   prop. index: 1
+       Filename                          : benzen_fukui_kation.scfp 
+       Do Dipole Moment Calculation      : true 
+       Do Quadrupole Moment Calculation  : false 
+       Do Polarizability Calculation     : false 
+** Dipole moment part of electric properties **
+        Magnitude of dipole moment (Debye) :        0.0000042010
+        Electronic Contribution:
+                  0    
+      0       0.000010
+      1       0.000000
+      2      -0.000000
+        Nuclear Contribution:
+                  0    
+      0      -0.000009
+      1      -0.000000
+      2       0.000000
+        Total Dipole moment:
+                  0    
+      0       0.000002
+      1       0.000000
+      2      -0.000000
+# -------------------------------------------------------------
+----------------------- !GEOMETRIES! ------------------------
+# -------------------------------------------------------------
+------------------------ !GEOMETRY! -------------------------
+    Number of atoms:    12 
+    Geometry Index:     1 
+    Coordinates:
+               0 C     -4.127240000000    1.598090000000    0.000000000000
+               1 C     -5.236140000000    0.753090000000    0.000000000000
+               2 C     -5.058790000000   -0.629750000000    0.000000000000
+               3 C     -3.772550000000   -1.167590000000    0.000000000000
+               4 C     -2.663650000000   -0.322590000000    0.000000000000
+               5 C     -2.840990000000    1.060250000000    0.000000000000
+               6 H     -4.265550000000    2.676550000000    0.000000000000
+               7 H     -1.976170000000    1.719260000000    0.000000000000
+               8 H     -1.660520000000   -0.742040000000    0.000000000000
+               9 H     -3.634240000000   -2.246050000000    0.000000000000
+              10 H     -5.923620000000   -1.288760000000    0.000000000000
+              11 H     -6.239270000000    1.172540000000    0.000000000000
