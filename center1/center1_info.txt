@@ -1,5 +1,8 @@
-Der center1 Versuch ist ein Versuch das aktive Zentrum eines CO2 splatendes Molekül zu modelieren. Es besteht aus einem CO2, mehreren Methanol Molekülen um das CO2 zu sabilisieren und ein 
-CH3NH2 Teilchen an welches ein O Atom vom CO2 zu CH3NO oder (CH3N)2- + H2O werden sollte.
+Der center1 Versuch ist ein Versuch das aktive Zentrum eines CO2 splatenden Moleküls zu modelieren. Es besteht aus einem CO2, mehreren Methanol Molekülen um das CO2 zu stabilisieren und ein 
+CH3NH2 Teilchen, an welches ein O Atom vom CO2 zu CH3NO oder (CH3N)2- + H2O reagieren sollte.
+Dabei wurde absichtlich keine Geometrieobtimierung durchgeführ. Das CH3NH2 Teilchen ist mit absicht zu nahe am CO2 um eine Reaktion zu verursachen. Dieser Mechanismus bei dem NH2 mit CO2 reagiert
+ist auch im RuBisCO Enzym in Pflanzen forzufinden. Dort wird Lysin durch ein Mg2+ deprotoniert worauf es sich in die trans Konfiguration dreht und sich die Distanz zwischen dem NH2 und dem CO2 verringert.
 Es wurde eine Thermodynamik Rechnung durchgeführt um die Enthalpy, Entrophy und die Gibbs-free Energy herauszufinden.
-Viel überlegt wurde sich dabei nicht weil es sich lediglich um einen test gehandelt hat um zu schauen was man bekommt wenn man diese Rechnung durchführt und wie lange es ungefähr braucht um
-eine solche rechnung durchzuführen.
+Viel überlegt wurde sich dabei nicht, weil es sich lediglich um einen test gehandelt hat, um zu schauen was man als Resultat wenn man diese Rechnung durchführt hat, und wie lange es ungefähr braucht um
+eine solche Rechnung durchzuführen.
+Die center1producs Dokumente kann man ignorieren weil mit denen keine Berechnungen durchgefürhrt wurden.
