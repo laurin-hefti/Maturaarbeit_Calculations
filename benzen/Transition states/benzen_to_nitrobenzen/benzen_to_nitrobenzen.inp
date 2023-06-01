@@ -1,0 +1,7 @@
+!B3LYP DEF2-SVP D4 NEB-TS FREQ
+%NEB NEB_END_XYZFILE "nitrobenzen_opt.xyz" END
+* XYZfile 1 1 benzen_nitrodioxid.xyz
+%maxcore 2000
+%pal
+nprocs 4
+end
