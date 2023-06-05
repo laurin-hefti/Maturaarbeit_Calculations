@@ -1,0 +1,7 @@
+benzen_to_nitrobenzen        # BaseName
+benzen_to_nitrobenzen        # GBWName
+8       # number of calculations
+1       # number of CPUs        
+5       # program flag
+0       # printing flag
+0       # free_end
