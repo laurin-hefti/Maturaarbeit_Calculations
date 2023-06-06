@@ -66,7 +66,7 @@ Primitive shell pairs kept                  ...      6469
 
 Calculating one electron integrals          ... done (  0.0 sec)
 Calculating RI/J V-Matrix + Cholesky decomp.... done (  0.0 sec)
-Calculating Nuclear repulsion               ... done (  0.0 sec) ENN=    405.462284137521 Eh
+Calculating Nuclear repulsion               ... done (  0.0 sec) ENN=    405.462284137540 Eh
 
 SHARK setup successfully completed in   0.2 seconds
 

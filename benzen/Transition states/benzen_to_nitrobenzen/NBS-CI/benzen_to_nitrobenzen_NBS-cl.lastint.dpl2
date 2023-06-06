@@ -1,0 +1,67 @@
+------------------------------------------------------------------------------
+                           ORCA NDO INTEGRAL CALCULATION
+------------------------------------------------------------------------------
+
+--------------
+NDO PARAMETERS
+--------------
+
+Gamma integral treatment              ... MOPAC
+Nuclear repulsuion treatment          ... AM1-style
+Interaction factors:
+s-s (sigma) =    1.0000
+s-p (sigma) =    1.0000
+s-d (sigma) =    1.0000
+p-p (sigma) =    1.0000  p-p(pi) =    1.0000
+p-d (sigma) =    1.0000  p-d(pi) =    1.0000
+d-d (sigma) =    1.0000  d-d(pi) =    1.0000 d-d (delta) =    1.0000
+
+--------------------------
+Parameters for Element H :
+--------------------------
+ One-electron parameters (in eV)
+  U(s)  =   -13.073321 Beta(s) =     5.626512 Neff(s) =     1.000000
+ One-center electron repulsion parameters (in eV)
+  G(s,s)=    14.794208
+--------------------------
+Parameters for Element C :
+--------------------------
+ One-electron parameters (in eV)
+  U(s)  =   -47.270320 Beta(s) =    11.910015 Neff(s) =     2.000000
+  U(p)  =   -36.266918 Beta(p) =     9.802755 Neff(p) =     2.000000 
+ One-center electron repulsion parameters (in eV)
+  G(s,s)=    11.200708
+  G(s,p)=    10.265027 G(p,p)  =     9.627141
+ Slater-Condon parameters (in eV)
+ F2(p,p)=     7.3072 G1(s,p)=    6.8729
+--------------------------
+Parameters for Element N :
+--------------------------
+ One-electron parameters (in eV)
+  U(s)  =   -49.335672 Beta(s) =    14.062521 Neff(s) =     2.000000
+  U(p)  =   -47.509736 Beta(p) =    20.043848 Neff(p) =     3.000000 
+ One-center electron repulsion parameters (in eV)
+  G(s,s)=    11.904787
+  G(s,p)=     7.348565 G(p,p)  =    11.123075
+ Slater-Condon parameters (in eV)
+ F2(p,p)=     3.9475 G1(s,p)=    3.4101
+--------------------------
+Parameters for Element O :
+--------------------------
+ One-electron parameters (in eV)
+  U(s)  =   -86.993002 Beta(s) =    45.202651 Neff(s) =     2.000000
+  U(p)  =   -71.879580 Beta(p) =    24.752515 Neff(p) =     4.000000 
+ One-center electron repulsion parameters (in eV)
+  G(s,s)=    15.755760
+  G(s,p)=    10.621160 G(p,p)  =    12.822069
+ Slater-Condon parameters (in eV)
+ F2(p,p)=     5.1997 G1(s,p)=    1.7816
+
+ Number of atoms                    ....   15
+ Number of basis functions          ....   42
+
+ Overlap integrals                  .... done
+ One electron matrix                .... done
+ Nuclear repulsion                  .... done
+ Integral list                      .... done
+ Electron-electron repulsion        .... done

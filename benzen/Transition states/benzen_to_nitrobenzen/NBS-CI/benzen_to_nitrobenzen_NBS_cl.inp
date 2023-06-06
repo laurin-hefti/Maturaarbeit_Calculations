@@ -1,6 +1,0 @@
-! PM3 NEB-CI
-%neb
-NEB_End_XYZFile "nitrobenzen_opt.xyz"
-Nimages 6
-end
-* XYZfile 1 1 b1.xyz
