@@ -1,0 +1,393 @@
+-------------------------------------------------------------------------------
+                                 ORCA SCF
+-------------------------------------------------------------------------------
+
+------------
+SCF SETTINGS
+------------
+Hamiltonian:
+ Density Functional     Method          .... DFT(GTOs)
+ Exchange Functional    Exchange        .... B88
+   X-Alpha parameter    XAlpha          ....  0.666667
+   Becke's b parameter  XBeta           ....  0.004200
+ Correlation Functional Correlation     .... LYP
+ LDA part of GGA corr.  LDAOpt          .... VWN-5
+ Gradients option       PostSCFGGA      .... off
+ Hybrid DFT is turned on
+   Fraction HF Exchange ScalHFX         ....  0.200000
+   Scaling of DF-GGA-X  ScalDFX         ....  0.720000
+   Scaling of DF-GGA-C  ScalDFC         ....  0.810000
+   Scaling of DF-LDA-C  ScalLDAC        ....  1.000000
+   Perturbative correction              ....  0.000000
+   Density functional embedding theory  .... OFF
+   NL short-range parameter             ....  4.800000
+ RI-approximation to the Coulomb term is turned on
+   Number of AuxJ basis functions       .... 507
+   RIJ-COSX (HFX calculated with COS-X)).... on
+
+
+General Settings:
+ Integral files         IntName         .... benzen_to_nitrobenzen_im2
+ Hartree-Fock type      HFTyp           .... RHF
+ Total Charge           Charge          ....    1
+ Multiplicity           Mult            ....    1
+ Number of Electrons    NEL             ....   64
+ Basis Dimension        Dim             ....  156
+ Nuclear Repulsion      ENuc            ....    400.7421302566 Eh
+
+Convergence Acceleration:
+ DIIS                   CNVDIIS         .... off
+ Trust-Rad. Augm. Hess. CNVTRAH         .... auto
+   Auto Start mean grad. ratio tolernc. ....  1.125000
+   Auto Start start iteration           ....     1
+   Auto Start num. interpolation iter.  ....    10
+   Max. Number of Micro iterations      ....    16
+   Max. Number of Macro iterations      .... Maxiter - #DIIS iter
+   Number of Davidson start vectors     ....     2
+   Converg. threshold I  (grad. norm)   ....   1.000e-05
+   Converg. threshold II (energy diff.) ....   1.000e-08
+   Grad. Scal. Fac. for Micro threshold ....   0.100
+   Minimum threshold for Micro iter.    ....   0.010
+   NR start threshold (gradient norm)   ....   0.001
+   Initial trust radius                 ....   0.400
+   Minimum AH scaling param. (alpha)    ....   1.000
+   Maximum AH scaling param. (alpha)    .... 1000.000
+   Orbital update algorithm             .... Taylor
+   White noise on init. David. guess    .... on
+   Maximum white noise                  ....   0.010
+   Quad. conv. algorithm                .... NR
+ SOSCF                  CNVSOSCF        .... on
+   Start iteration      SOSCFMaxIt      ....   150
+   Startup grad/error   SOSCFStart      ....  0.003300
+ Level Shifting         CNVShift        .... off
+ Zerner damping         CNVZerner       .... off
+ Static damping         CNVDamp         .... on
+   Fraction old density DampFac         ....    0.7000
+   Max. Damping (<1)    DampMax         ....    0.9800
+   Min. Damping (>=0)   DampMin         ....    0.0000
+   Turn off err/grad.   DampErr         ....    0.1000
+ Fernandez-Rico         CNVRico         .... off
+
+SCF Procedure:
+ Maximum # iterations   MaxIter         ....   125
+ SCF integral mode      SCFMode         .... Direct
+   Integral package                     .... SHARK and LIBINT hybrid scheme
+ Reset frequency        DirectResetFreq ....    20
+ Integral Threshold     Thresh          ....  2.500e-11 Eh
+ Primitive CutOff       TCut            ....  2.500e-12 Eh
+
+Convergence Tolerance:
+ Convergence Check Mode ConvCheckMode   .... Total+1el-Energy
+ Convergence forced     ConvForced      .... 0
+ Energy Change          TolE            ....  1.000e-08 Eh
+ 1-El. energy change                    ....  1.000e-05 Eh
+ Orbital Gradient       TolG            ....  1.000e-05
+ Orbital Rotation angle TolX            ....  1.000e-05
+
+
+Diagonalization of the overlap matrix:
+Smallest eigenvalue                        ... 3.918e-04
+Time for diagonalization                   ...    0.005 sec
+Threshold for overlap eigenvalues          ... 1.000e-08
+Number of eigenvalues below threshold      ... 0
+Time for construction of square roots      ...    0.002 sec
+Total time needed                          ...    0.008 sec
+
+---------------------
+INITIAL GUESS: MOREAD
+---------------------
+Guess MOs are being read from file: benzen_to_nitrobenzen_im2.ges
+Input geometry compatible with but different from current geometry
+Input basis set matches current basis set (good)
+MOs were renormalized
+MOs were reorthogonalized (Cholesky)
+                      ------------------
+                      INITIAL GUESS DONE (   0.0 sec)
+                      ------------------
+-------------------
+DFT GRID GENERATION
+-------------------
+
+General Integration Accuracy     IntAcc      ... 4.388
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 4 (Lebedev-302)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... Becke
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Angular grids for H and He will be reduced by one unit
+Partially contracted basis set               ... off
+Rotationally invariant grid construction     ... off
+
+Total number of grid points                  ...    73814
+Total number of batches                      ...     1160
+Average number of points per batch           ...       63
+Average number of grid points per atom       ...     4921
+Time for grid setup =    0.961 sec
+
+--------------------
+COSX GRID GENERATION
+--------------------
+
+GRIDX 1
+-------
+General Integration Accuracy     IntAcc      ... 3.816
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 1 (Lebedev-50)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... Becke
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Angular grids for H and He will be reduced by one unit
+Partially contracted basis set               ... on
+Rotationally invariant grid construction     ... off
+
+Total number of grid points                  ...     9410
+Total number of batches                      ...      152
+Average number of points per batch           ...       61
+Average number of grid points per atom       ...      627
+UseSFitting                                  ... on
+
+GRIDX 2
+-------
+General Integration Accuracy     IntAcc      ... 4.020
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 2 (Lebedev-110)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... Becke
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Angular grids for H and He will be reduced by one unit
+Partially contracted basis set               ... on
+Rotationally invariant grid construction     ... off
+
+Total number of grid points                  ...    20906
+Total number of batches                      ...      334
+Average number of points per batch           ...       62
+Average number of grid points per atom       ...     1394
+UseSFitting                                  ... on
+
+GRIDX 3
+-------
+General Integration Accuracy     IntAcc      ... 4.338
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 3 (Lebedev-194)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... Becke
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Angular grids for H and He will be reduced by one unit
+Partially contracted basis set               ... on
+Rotationally invariant grid construction     ... off
+
+Total number of grid points                  ...    46062
+Total number of batches                      ...      727
+Average number of points per batch           ...       63
+Average number of grid points per atom       ...     3071
+UseSFitting                                  ... on
+
+Time for X-Grid setup             =    1.116 sec
+
+--------------
+SCF ITERATIONS
+--------------
+ITER       Energy         Delta-E        Max-DP      RMS-DP        Damp
+               ***  Starting incremental Fock matrix formation  ***
+  0   -436.2805979194   0.000000000000 0.13574457  0.00469124 0.7000
+  1   -436.1258976102   0.154700309268 0.08048106  0.00249306 0.7000
+  2   -436.2333821693  -0.107484559126 0.04174272  0.00117126 0.7000
+  3   -436.2713025589  -0.037920389655 0.04534142  0.00157072 0.7000
+  4   -436.2961520965  -0.024849537572 0.02279736  0.00077732 0.7000
+  5   -436.3145429130  -0.018390816481 0.05631492  0.00158757 0.7000
+  6   -436.3223293780  -0.007786465022 0.03892327  0.00116726 0.7000
+  7   -436.3322905921  -0.009961214085 0.05330510  0.00149859 0.7000
+  8   -436.3339865851  -0.001695993003 0.04559613  0.00128783 0.7000
+  9   -436.3400474253  -0.006060840148 0.05111253  0.00145196 0.7000
+ 10   -436.3391364440   0.000910981203 0.04796327  0.00134414 0.7000
+ 11   -436.3434671953  -0.004330751262 0.04983397  0.00142887 0.7000
+ 12   -436.3413851606   0.002082034703 0.04894901  0.00137358 0.7000
+ 13   -436.3449576621  -0.003572501525 0.04923182  0.00141705 0.7000
+ 14   -436.3423515541   0.002606107985 0.04941002  0.00138902 0.7000
+ 15   -436.3455886714  -0.003237117202 0.04945695  0.00141165 0.7000
+ 16   -436.3427416415   0.002847029814 0.04965410  0.00139758 0.7000
+ 17   -436.3458348351  -0.003093193531 0.04961793  0.00140936 0.7000
+ 18   -436.3428786508   0.002956184223 0.04979219  0.00140241 0.7000
+ 19   -436.3459137198  -0.003035068949 0.04973521  0.00140858 0.7000
+               *** Restarting incremental Fock matrix formation ***
+ 20   -436.3429088960   0.003004823792 0.04987431  0.00140521 0.7000
+ 21   -436.3459238771  -0.003014981112 0.04981944  0.00140844 0.7000
+ 22   -436.3428984372   0.003025439892 0.04992458  0.00140686 0.7000
+ 23   -436.3459093135  -0.003010876272 0.04987921  0.00140856 0.7000
+ 24   -436.3428759044   0.003033409137 0.04995607  0.00140786 0.7000
+ 25   -436.3458887441  -0.003012839767 0.04992115  0.00140876 0.7000
+ 26   -436.3428528882   0.003035855949 0.04997614  0.00140847 0.7000
+ 27   -436.3458694371  -0.003016548888 0.04995034  0.00140895 0.7000
+ 28   -436.3428333766   0.003036060441 0.04998911  0.00140886 0.7000
+ 29   -436.3458536406  -0.003020263988 0.04997054  0.00140911 0.7000
+ 30   -436.3428181614   0.003035479254 0.04999760  0.00140910 0.7000
+ 31   -436.3458415538  -0.003023392457 0.04998445  0.00140924 0.7000
+ 32   -436.3428068257   0.003034728158 0.05000320  0.00140926 0.7000
+ 33   -436.3458326515  -0.003025825823 0.04999400  0.00140934 0.7000
+ 34   -436.3427986106   0.003034040867 0.05000693  0.00140937 0.7000
+ 35   -436.3458262477  -0.003027637130 0.05000055  0.00140941 0.7000
+ 36   -436.3427927621   0.003033485671 0.05000943  0.00140943 0.7000
+ 37   -436.3458217118  -0.003028949711 0.05000503  0.00140946 0.7000
+ 38   -436.3427886476   0.003033064194 0.05001112  0.00140948 0.7000
+ 39   -436.3458185321  -0.003029884478 0.05000810  0.00140949 0.7000
+               *** Restarting incremental Fock matrix formation ***
+ 40   -436.3427857766   0.003032755441 0.05001226  0.00140951 0.7000
+ 41   -436.3458163191  -0.003030542460 0.05001019  0.00140952 0.7000
+ 42   -436.3427837847   0.003032534407 0.05001303  0.00140953 0.7000
+ 43   -436.3458147866  -0.003031001882 0.05001161  0.00140953 0.7000
+ 44   -436.3427824082   0.003032378313 0.05001355  0.00140954 0.7000
+ 45   -436.3458137291  -0.003031320837 0.05001259  0.00140955 0.7000
+ 46   -436.3427814599   0.003032269221 0.05001391  0.00140955 0.7000
+ 47   -436.3458130012  -0.003031541384 0.05001325  0.00140955 0.7000
+ 48   -436.3427808078   0.003032193485 0.05001415  0.00140956 0.7000
+ 49   -436.3458125012  -0.003031693441 0.05001371  0.00140956 0.7000
+ 50   -436.3427803600   0.003032141156 0.05001432  0.00140956 0.7000
+ 51   -436.3458121581  -0.003031798044 0.05001402  0.00140956 0.7000
+ 52   -436.3427800530   0.003032105109 0.05001444  0.00140957 0.7000
+ 53   -436.3458119229  -0.003031869906 0.05001423  0.00140957 0.7000
+ 54   -436.3427798425   0.003032080351 0.05001451  0.00140957 0.7000
+ 55   -436.3458117618  -0.003031919216 0.05001437  0.00140957 0.7000
+ 56   -436.3427796984   0.003032063381 0.05001457  0.00140957 0.7000
+ 57   -436.3458116514  -0.003031953029 0.05001447  0.00140957 0.7000
+ 58   -436.3427795997   0.003032051735 0.05001460  0.00140957 0.7000
+ 59   -436.3458115759  -0.003031976188 0.05001454  0.00140957 0.7000
+               *** Restarting incremental Fock matrix formation ***
+ 60   -436.3427795321   0.003032043775 0.05001463  0.00140957 0.7000
+ 61   -436.3458115241  -0.003031992062 0.05001458  0.00140957 0.7000
+ 62   -436.3427794858   0.003032038331 0.05001464  0.00140957 0.7000
+ 63   -436.3458114887  -0.003032002937 0.05001461  0.00140957 0.7000
+ 64   -436.3427794541   0.003032034619 0.05001466  0.00140957 0.7000
+ 65   -436.3458114645  -0.003032010387 0.05001464  0.00140957 0.7000
+ 66   -436.3427794324   0.003032032069 0.05001466  0.00140957 0.7000
+ 67   -436.3458114479  -0.003032015485 0.05001465  0.00140957 0.7000
+ 68   -436.3427794176   0.003032030324 0.05001467  0.00140957 0.7000
+ 69   -436.3458114366  -0.003032018965 0.05001466  0.00140957 0.7000
+ 70   -436.3427794074   0.003032029137 0.05001467  0.00140957 0.7000
+ 71   -436.3458114288  -0.003032021358 0.05001467  0.00140957 0.7000
+ 72   -436.3427794005   0.003032028323 0.05001468  0.00140957 0.7000
+ 73   -436.3458114235  -0.003032023006 0.05001467  0.00140957 0.7000
+ 74   -436.3427793957   0.003032027775 0.05001468  0.00140957 0.7000
+ 75   -436.3458114198  -0.003032024123 0.05001468  0.00140957 0.7000
+ 76   -436.3427793924   0.003032027394 0.05001468  0.00140957 0.7000
+ 77   -436.3458114173  -0.003032024896 0.05001468  0.00140957 0.7000
+ 78   -436.3427793902   0.003032027130 0.05001468  0.00140957 0.7000
+ 79   -436.3458114156  -0.003032025418 0.05001468  0.00140957 0.7000
+               *** Restarting incremental Fock matrix formation ***
+ 80   -436.3427793887   0.003032026952 0.05001468  0.00140957 0.7000
+ 81   -436.3458114144  -0.003032025780 0.05001468  0.00140957 0.7000
+ 82   -436.3427793876   0.003032026831 0.05001468  0.00140957 0.7000
+ 83   -436.3458114136  -0.003032026025 0.05001468  0.00140957 0.7000
+ 84   -436.3427793869   0.003032026742 0.05001468  0.00140957 0.7000
+ 85   -436.3458114131  -0.003032026196 0.05001468  0.00140957 0.7000
+ 86   -436.3427793864   0.003032026700 0.05001468  0.00140957 0.7000
+ 87   -436.3458114127  -0.003032026323 0.05001468  0.00140957 0.7000
+ 88   -436.3427793860   0.003032026663 0.05001468  0.00140957 0.7000
+ 89   -436.3458114124  -0.003032026401 0.05001468  0.00140957 0.7000
+ 90   -436.3427793858   0.003032026627 0.05001468  0.00140957 0.7000
+ 91   -436.3458114123  -0.003032026448 0.05001468  0.00140957 0.7000
+ 92   -436.3427793857   0.003032026610 0.05001468  0.00140957 0.7000
+ 93   -436.3458114121  -0.003032026488 0.05001468  0.00140957 0.7000
+ 94   -436.3427793855   0.003032026599 0.05001468  0.00140957 0.7000
+ 95   -436.3458114121  -0.003032026513 0.05001468  0.00140957 0.7000
+ 96   -436.3427793855   0.003032026592 0.05001468  0.00140957 0.7000
+ 97   -436.3458114120  -0.003032026535 0.05001468  0.00140957 0.7000
+ 98   -436.3427793854   0.003032026584 0.05001468  0.00140957 0.7000
+ 99   -436.3458114120  -0.003032026545 0.05001468  0.00140957 0.7000
+               *** Restarting incremental Fock matrix formation ***
+100   -436.3427793854   0.003032026581 0.05001468  0.00140957 0.7000
+101   -436.3458114119  -0.003032026550 0.05001468  0.00140957 0.7000
+102   -436.3427793854   0.003032026573 0.05001468  0.00140957 0.7000
+103   -436.3458114119  -0.003032026556 0.05001468  0.00140957 0.7000
+104   -436.3427793853   0.003032026572 0.05001468  0.00140957 0.7000
+105   -436.3458114119  -0.003032026563 0.05001468  0.00140957 0.7000
+106   -436.3427793853   0.003032026576 0.05001468  0.00140957 0.7000
+107   -436.3458114119  -0.003032026566 0.05001468  0.00140957 0.7000
+108   -436.3427793853   0.003032026572 0.05001468  0.00140957 0.7000
+109   -436.3458114119  -0.003032026563 0.05001468  0.00140957 0.7000
+110   -436.3427793853   0.003032026575 0.05001468  0.00140957 0.7000
+111   -436.3458114119  -0.003032026568 0.05001468  0.00140957 0.7000
+112   -436.3427793853   0.003032026568 0.05001468  0.00140957 0.7000
+113   -436.3458114119  -0.003032026569 0.05001468  0.00140957 0.7000
+114   -436.3427793853   0.003032026573 0.05001468  0.00140957 0.7000
+115   -436.3458114119  -0.003032026570 0.05001468  0.00140957 0.7000
+116   -436.3427793853   0.003032026571 0.05001468  0.00140957 0.7000
+117   -436.3458114119  -0.003032026571 0.05001468  0.00140957 0.7000
+118   -436.3427793853   0.003032026575 0.05001468  0.00140957 0.7000
+119   -436.3458114119  -0.003032026573 0.05001468  0.00140957 0.7000
+               *** Restarting incremental Fock matrix formation ***
+120   -436.3427793853   0.003032026569 0.05001468  0.00140957 0.7000
+121   -436.3458114119  -0.003032026570 0.05001468  0.00140957 0.7000
+122   -436.3427793853   0.003032026571 0.05001468  0.00140957 0.7000
+123   -436.3458114119  -0.003032026566 0.05001468  0.00140957 0.7000
+124   -436.3427793853   0.003032026566 0.05001468  0.00140957 0.7000
+
+TRAH GRIDX
+----------
+
+General Integration Accuracy     IntAcc      ... 3.067
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 1 (Lebedev-50)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... Becke
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Angular grids for H and He will be reduced by one unit
+Partially contracted basis set               ... on
+Rotationally invariant grid construction     ... off
+
+Total number of grid points                  ...     5000
+Total number of batches                      ...       88
+Average number of points per batch           ...       56
+Average number of grid points per atom       ...      333
+
+
+TRAH GRID
+---------
+
+General Integration Accuracy     IntAcc      ... 3.467
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 1 (Lebedev-50)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... Becke
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Angular grids for H and He will be reduced by one unit
+Partially contracted basis set               ... off
+Rotationally invariant grid construction     ... off
+
+Total number of grid points                  ...    10957
+Total number of batches                      ...      181
+Average number of points per batch           ...       60
+Average number of grid points per atom       ...      730
+
+ --------------------------------------------------------------------------------------------
+   Iter.        energy            ||Error||_2        Shift      TRadius  Mac/Mic        Rej.
+ --------------------------------------------------------------------------------------------
+
+               *****************************************************
+               *                      ERROR                        *
+               *        SCF NOT CONVERGED AFTER 125 CYCLES         *
+               *****************************************************
+
+
+---------------
+SCF CONVERGENCE
+---------------
+
+  Last Energy change         ...    0.0000e+00  Tolerance :   1.0000e-08
+  Last Orbital Gradient      ...    0.0000e+00  Tolerance :   1.0000e-05
+  Last Orbital Rotation      ...    0.0000e+00
+
+     --------------------------------------------------------------------
+                                      ERROR
+     This wavefunction IS NOT CONVERGED! 
+     And it is 'too far' from meeting the convergence thresholds.
+     Aborting ...
+     Please restart calculation (with larger maxiter?)
+     --------------------------------------------------------------------
+
+
