@@ -1,0 +1,346 @@
+
+                                 *****************
+                                 * O   R   C   A *
+                                 *****************
+
+                                            #,                                       
+                                            ###                                      
+                                            ####                                     
+                                            #####                                    
+                                            ######                                   
+                                           ########,                                 
+                                     ,,################,,,,,                         
+                               ,,#################################,,                 
+                          ,,##########################################,,             
+                       ,#########################################, ''#####,          
+                    ,#############################################,,   '####,        
+                  ,##################################################,,,,####,       
+                ,###########''''           ''''###############################       
+              ,#####''   ,,,,##########,,,,          '''####'''          '####       
+            ,##' ,,,,###########################,,,                        '##       
+           ' ,,###''''                  '''############,,,                           
+         ,,##''                                '''############,,,,        ,,,,,,###''
+      ,#''                                            '''#######################'''  
+     '                                                          ''''####''''         
+             ,#######,   #######,   ,#######,      ##                                
+            ,#'     '#,  ##    ##  ,#'     '#,    #''#        ######   ,####,        
+            ##       ##  ##   ,#'  ##            #'  '#       #        #'  '#        
+            ##       ##  #######   ##           ,######,      #####,   #    #        
+            '#,     ,#'  ##    ##  '#,     ,#' ,#      #,         ##   #,  ,#        
+             '#######'   ##     ##  '#######'  #'      '#     #####' # '####'        
+
+
+
+                  #######################################################
+                  #                        -***-                        #
+                  #          Department of theory and spectroscopy      #
+                  #    Directorship and core code : Frank Neese         #
+                  #        Max Planck Institute fuer Kohlenforschung    #
+                  #                Kaiser Wilhelm Platz 1               #
+                  #                 D-45470 Muelheim/Ruhr               #
+                  #                      Germany                        #
+                  #                                                     #
+                  #                  All rights reserved                #
+                  #                        -***-                        #
+                  #######################################################
+
+
+
+                         Program Version 5.0.4 -  RELEASE  -
+
+ With contributions from (in alphabetic order):
+   Daniel Aravena         : Magnetic Suceptibility
+   Michael Atanasov       : Ab Initio Ligand Field Theory (pilot matlab implementation)
+   Alexander A. Auer      : GIAO ZORA, VPT2 properties, NMR spectrum
+   Ute Becker             : Parallelization
+   Giovanni Bistoni       : ED, misc. LED, open-shell LED, HFLD
+   Martin Brehm           : Molecular dynamics
+   Dmytro Bykov           : SCF Hessian
+   Vijay G. Chilkuri      : MRCI spin determinant printing, contributions to CSF-ICE
+   Dipayan Datta          : RHF DLPNO-CCSD density
+   Achintya Kumar Dutta   : EOM-CC, STEOM-CC
+   Dmitry Ganyushin       : Spin-Orbit,Spin-Spin,Magnetic field MRCI
+   Miquel Garcia          : C-PCM and meta-GGA Hessian, CC/C-PCM, Gaussian charge scheme
+   Yang Guo               : DLPNO-NEVPT2, F12-NEVPT2, CIM, IAO-localization
+   Andreas Hansen         : Spin unrestricted coupled pair/coupled cluster methods
+   Benjamin Helmich-Paris : MC-RPA, TRAH-SCF, COSX integrals
+   Lee Huntington         : MR-EOM, pCC
+   Robert Izsak           : Overlap fitted RIJCOSX, COSX-SCS-MP3, EOM
+   Marcus Kettner         : VPT2
+   Christian Kollmar      : KDIIS, OOCD, Brueckner-CCSD(T), CCSD density, CASPT2, CASPT2-K
+   Simone Kossmann        : Meta GGA functionals, TD-DFT gradient, OOMP2, MP2 Hessian
+   Martin Krupicka        : Initial AUTO-CI
+   Lucas Lang             : DCDCAS
+   Marvin Lechner         : AUTO-CI (C++ implementation), FIC-MRCC
+   Dagmar Lenk            : GEPOL surface, SMD
+   Dimitrios Liakos       : Extrapolation schemes; Compound Job, initial MDCI parallelization
+   Dimitrios Manganas     : Further ROCIS development; embedding schemes
+   Dimitrios Pantazis     : SARC Basis sets
+   Anastasios Papadopoulos: AUTO-CI, single reference methods and gradients
+   Taras Petrenko         : DFT Hessian,TD-DFT gradient, ASA, ECA, R-Raman, ABS, FL, XAS/XES, NRVS
+   Peter Pinski           : DLPNO-MP2, DLPNO-MP2 Gradient
+   Christoph Reimann      : Effective Core Potentials
+   Marius Retegan         : Local ZFS, SOC
+   Christoph Riplinger    : Optimizer, TS searches, QM/MM, DLPNO-CCSD(T), (RO)-DLPNO pert. Triples
+   Tobias Risthaus        : Range-separated hybrids, TD-DFT gradient, RPA, STAB
+   Michael Roemelt        : Original ROCIS implementation
+   Masaaki Saitow         : Open-shell DLPNO-CCSD energy and density
+   Barbara Sandhoefer     : DKH picture change effects
+   Avijit Sen             : IP-ROCIS
+   Kantharuban Sivalingam : CASSCF convergence, NEVPT2, FIC-MRCI
+   Bernardo de Souza      : ESD, SOC TD-DFT
+   Georgi Stoychev        : AutoAux, RI-MP2 NMR, DLPNO-MP2 response
+   Willem Van den Heuvel  : Paramagnetic NMR
+   Boris Wezisla          : Elementary symmetry handling
+   Frank Wennmohs         : Technical directorship
+
+
+ We gratefully acknowledge several colleagues who have allowed us to
+ interface, adapt or use parts of their codes:
+   Stefan Grimme, W. Hujo, H. Kruse, P. Pracht,  : VdW corrections, initial TS optimization,
+                  C. Bannwarth, S. Ehlert          DFT functionals, gCP, sTDA/sTD-DF
+   Ed Valeev, F. Pavosevic, A. Kumar             : LibInt (2-el integral package), F12 methods
+   Garnet Chan, S. Sharma, J. Yang, R. Olivares  : DMRG
+   Ulf Ekstrom                                   : XCFun DFT Library
+   Mihaly Kallay                                 : mrcc  (arbitrary order and MRCC methods)
+   Jiri Pittner, Ondrej Demel                    : Mk-CCSD
+   Frank Weinhold                                : gennbo (NPA and NBO analysis)
+   Christopher J. Cramer and Donald G. Truhlar   : smd solvation model
+   Lars Goerigk                                  : TD-DFT with DH, B97 family of functionals
+   V. Asgeirsson, H. Jonsson                     : NEB implementation
+   FAccTs GmbH                                   : IRC, NEB, NEB-TS, DLPNO-Multilevel, CI-OPT
+                                                   MM, QMMM, 2- and 3-layer-ONIOM, Crystal-QMMM,
+                                                   LR-CPCM, SF, NACMEs, symmetry and pop. for TD-DFT,
+                                                   nearIR, NL-DFT gradient (VV10), updates on ESD,
+                                                   ML-optimized integration grids
+   S Lehtola, MJT Oliveira, MAL Marques          : LibXC Library
+   Liviu Ungur et al                             : ANISO software
+
+
+ Your calculation uses the libint2 library for the computation of 2-el integrals
+ For citations please refer to: http://libint.valeyev.net
+
+ Your ORCA version has been built with support for libXC version: 5.1.0
+ For citations please refer to: https://tddft.org/programs/libxc/
+
+ This ORCA versions uses:
+   CBLAS   interface :  Fast vector & matrix operations
+   LAPACKE interface :  Fast linear algebra routines
+   Shared memory     :  Shared parallel matrices
+
+
+
+
+***************************************
+The coordinates will be read from file: educts.xyz
+***************************************
+
+
+Your calculation utilizes the atom-pairwise dispersion correction
+based on tight binding partial charges (D4)
+Cite in your paper:
+E.Caldeweyher, C.Bannwarth, S.Grimme, J.Chem.Phys., (2017), 147, 034112.
+E.Caldeweyher, S.Ehlert, A.Hansen, H.Neugebauer, S.Grimme, J.Chem.Phys., (2018), in progress.
+   
+
+Your calculation utilizes a Nudged-Elastic-Band implementation
+ by V.Asgeirsson, C. Riplinger & H. Jonsson
+Please cite in your paper:
+ V. Asgeirsson et al., in prep. (2019)
+   
+
+================================================================================
+
+----- Orbital basis set information -----
+Your calculation utilizes the basis: def2-SVP
+   F. Weigend and R. Ahlrichs, Phys. Chem. Chem. Phys. 7, 3297 (2005).
+
+----- AuxJ basis set information -----
+Your calculation utilizes the auxiliary basis: def2/J
+   F. Weigend, Phys. Chem. Chem. Phys. 8, 1057 (2006).
+
+================================================================================
+                                        WARNINGS
+                       Please study these warnings very carefully!
+================================================================================
+
+
+WARNING: Geometry Optimization
+  ===> : Switching off AutoStart
+         For restart on a previous wavefunction, please use MOREAD
+
+INFO   : the flag for use of the SHARK integral package has been found!
+
+================================================================================
+                                       INPUT FILE
+================================================================================
+NAME = neb_orto_educts_products.inp
+|  1> !B3LYP DEF2-SVP D4 NEB-TS FREQ
+|  2> 
+|  3> %NEB NEB_END_XYZFILE "products.xyz" END
+|  4> * XYZfile 1 1 educts.xyz
+|  5> 
+|  6>                          ****END OF INPUT****
+================================================================================
+
+
+--------------------------------------------------------------------------------
+                        Nudged Elastic Band Calculation
+--------------------------------------------------------------------------------
+
+Number of images (incl. end points)     ....  10
+Number of intermediate images           ....  8
+Number of optimized images              ....  8
+Optimization of end points before NEB   ....  NO
+Use existing gbw files for MO input     ....  NO
+Number of atoms                         ....  18
+Number of (active) degrees of freedom   ....  54
+Constrained atoms                       ....  None
+
+-----------------------------------------
+  REACTANT (ANGSTROEM)
+-----------------------------------------
+C     -6.161968     0.634566     1.800700 
+C     -6.686632     0.953238     0.522419 
+C     -6.437207     0.134332    -0.568571 
+C     -5.652732    -1.028385    -0.412427 
+C     -5.121454    -1.361049     0.850207 
+C     -5.372111    -0.543159     1.939055 
+C     -6.418759     1.503942     2.984963 
+H     -5.468541     1.911885     3.377793 
+H     -6.855088     0.917483     3.813666 
+H     -7.087672     2.343605     2.753468 
+H     -7.292489     1.854902     0.406451 
+H     -6.846695     0.384589    -1.549670 
+H     -5.457205    -1.672339    -1.273416 
+H     -4.516241    -2.262803     0.965806 
+H     -4.965511    -0.796339     2.921393 
+N     -8.625284    -0.883899   -13.512125 
+O     -8.330279    -0.946435   -12.394661 
+O     -8.704631    -0.300985   -14.508101 
+
+-----------------------------------------
+  PRODUCT (ANGSTROEM)
+-----------------------------------------
+C     -6.330009     0.349502    -0.597845 
+C     -6.450210     0.081587    -1.979483 
+C     -6.069879    -1.141283    -2.545643 
+C     -5.529168    -2.140213    -1.740417 
+C     -5.394515    -1.911292    -0.367232 
+C     -5.795517    -0.692592     0.183040 
+C     -6.736055     1.635945     0.077896 
+H     -6.072471     2.464108    -0.213253 
+H     -6.695890     1.513416     1.170461 
+H     -7.750207     1.950043    -0.207473 
+H      3.493613     2.121273    -2.319143 
+H     -6.213099    -1.282492    -3.617011 
+H     -5.222452    -3.092326    -2.179922 
+H     -4.981654    -2.688344     0.281785 
+H     -5.696436    -0.532135     1.260150 
+N     -6.994689     1.088146    -2.919099 
+O     -7.396317     0.691775    -4.001040 
+O     -6.998894     2.259052    -2.567270 
+
+
+
+----------------------
+NEB settings
+----------------------
+Method type                             ....  climbing image
+Threshold for climbing image            ....  2.00e-02 Eh/Bohr 
+Free endpoints                          ....  off 
+Tangent type                            ....  improved 
+Number of intermediate images           ....  8 
+Number of images free to move           ....  8 
+Spring type for image distribution      ....  distance between adjacent images 
+Spring constant                         ....  energy weighted (0.0100 -to- 0.1000) Eh/Bohr^2 
+Spring force perp. to the path          ....  none 
+Generation of initial path              ....  image dependent pair potential 
+Initial path via TS guess               ....  off 
+
+Minimization of RMSD: Rotation          ....  always 
+Minimization of RMSD: Translation type  ....  centroid 
+Center fixed to origin                  ....  true 
+Remove external force                   ....  true 
+
+Reparametrization of the path           ....  off 
+Convergence thresholds:
+Convergence monitored for               ....  all images
+Scaling factor                          ....  10.00
+
+Convergence parameters for regular images:
+               Max(|Fp|)                ....  2.00e-02 Eh/Bohr
+               RMS(Fp)                  ....  1.00e-02 Eh/Bohr
+
+Convergence parameters for climbing image:
+               Max(|F|)                 ....  2.00e-03 Eh/Bohr
+               RMS(F)                   ....  1.00e-03 Eh/Bohr
+Optimization method:
+Method                                  ....  L-BFGS
+Max. iterations                         ....  500 
+Step size                               ....  1.00 
+Maximum allowed step size               ....  0.10 Bohr
+
+LBFGS parameters: 
+               Memory                   ....  20 
+               Initial step size        ....  0.0010 
+               Estimate curvature       ....  YES 
+               Reset on maxmove         ....  YES 
+               Reparam. on reset        ....  NO 
+Generation of  the initial path:
+Minimize RMSD between reactant and product configurations     .... done
+       RMSD before minimization         ....  6.0247 Bohr
+       RMSD after minimization          ....  5.7937 Bohr
+Performing linear interpolation         ....  done
+Interpolation using                     ....  IDPP (Image Dependent Pair Potential)
+IDPP-Settings:
+       Remove global transl. and rot.   ...   true
+       Convergence tolerance            ....  0.0100 1/Ang.^3
+       Max. numer of iterations         ....    7000
+       Spring constant                  ....  1.0000 1/Ang.^4
+       Time step                        ....  0.0100 fs
+       Max. movement per iteration      ....  0.0500 Ang.
+       Full print                       ....  false 
+idpp initial path generation successfully converged in 124 iterations
+Displacement along initial path:             43.7082 Bohr
+Writing initial trajectory to file      ....  neb_orto_educts_products_initial_path_trj.xyz
+
+
+
+----------------------
+NEB OPTIMIZATION      
+----------------------
+
+Following output files will be written:
+Energy profile during opt. written to    ....  neb_orto_educts_products.interp
+Optimization log-file                    ....  neb_orto_educts_products.NEB.log
+Current trajectory will be written to    ....  neb_orto_educts_products_MEP_trj.xyz
+       and to allxyz file                ....  neb_orto_educts_products_MEP.allxyz
+       and individual images to xyz file ....  neb_orto_educts_products_im{NIm}.xyz
+Trajectory history will be written to    ....  neb_orto_educts_products_MEP_ALL_trj.xyz
+Converged CI will be written to          ....  neb_orto_educts_products_NEB-CI_converged.xyz
+Converged TS will be written to          ....  neb_orto_educts_products_NEB-TS_converged.xyz
+
+Single point energy and gradient calculation of reactant and
+product configurations (have to be performed only once)
+Properties of fixed NEB end points:
+               Reactant:
+                         E               ....   -475.663167 Eh
+                         RMS(F)          ....      0.020257 Eh/Bohr
+                         MAX(|F|)        ....      0.092650 Eh/Bohr
+      Warning: Reactant seems to be less converged than convergence tolerances.
+               You might want to use free end NEB or preopt_ends true.
+               Product:
+                         E               ....   -475.478075 Eh
+                         RMS(F)          ....      0.000350 Eh/Bohr
+                         MAX(|F|)        ....      0.000894 Eh/Bohr
+
+
+
+Starting iterations:
+
+Optim.  Iteration  HEI  E(HEI)-E(0)  max(|Fp|)   RMS(Fp)    dS
+Switch-on CI threshold               0.020000 
+   LBFGS     0      6    0.209468    0.114382   0.017834  43.7082       
+   LBFGS     1      6    0.208893    0.068621   0.016107  43.7069       
+   LBFGS     2      6    0.208893    0.068621   0.015784  43.6837       

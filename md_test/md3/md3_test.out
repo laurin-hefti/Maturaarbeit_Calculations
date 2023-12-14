@@ -1,0 +1,719 @@
+
+                                 *****************
+                                 * O   R   C   A *
+                                 *****************
+
+                                            #,                                       
+                                            ###                                      
+                                            ####                                     
+                                            #####                                    
+                                            ######                                   
+                                           ########,                                 
+                                     ,,################,,,,,                         
+                               ,,#################################,,                 
+                          ,,##########################################,,             
+                       ,#########################################, ''#####,          
+                    ,#############################################,,   '####,        
+                  ,##################################################,,,,####,       
+                ,###########''''           ''''###############################       
+              ,#####''   ,,,,##########,,,,          '''####'''          '####       
+            ,##' ,,,,###########################,,,                        '##       
+           ' ,,###''''                  '''############,,,                           
+         ,,##''                                '''############,,,,        ,,,,,,###''
+      ,#''                                            '''#######################'''  
+     '                                                          ''''####''''         
+             ,#######,   #######,   ,#######,      ##                                
+            ,#'     '#,  ##    ##  ,#'     '#,    #''#        ######   ,####,        
+            ##       ##  ##   ,#'  ##            #'  '#       #        #'  '#        
+            ##       ##  #######   ##           ,######,      #####,   #    #        
+            '#,     ,#'  ##    ##  '#,     ,#' ,#      #,         ##   #,  ,#        
+             '#######'   ##     ##  '#######'  #'      '#     #####' # '####'        
+
+
+
+                  #######################################################
+                  #                        -***-                        #
+                  #          Department of theory and spectroscopy      #
+                  #    Directorship and core code : Frank Neese         #
+                  #        Max Planck Institute fuer Kohlenforschung    #
+                  #                Kaiser Wilhelm Platz 1               #
+                  #                 D-45470 Muelheim/Ruhr               #
+                  #                      Germany                        #
+                  #                                                     #
+                  #                  All rights reserved                #
+                  #                        -***-                        #
+                  #######################################################
+
+
+
+                         Program Version 5.0.4 -  RELEASE  -
+
+ With contributions from (in alphabetic order):
+   Daniel Aravena         : Magnetic Suceptibility
+   Michael Atanasov       : Ab Initio Ligand Field Theory (pilot matlab implementation)
+   Alexander A. Auer      : GIAO ZORA, VPT2 properties, NMR spectrum
+   Ute Becker             : Parallelization
+   Giovanni Bistoni       : ED, misc. LED, open-shell LED, HFLD
+   Martin Brehm           : Molecular dynamics
+   Dmytro Bykov           : SCF Hessian
+   Vijay G. Chilkuri      : MRCI spin determinant printing, contributions to CSF-ICE
+   Dipayan Datta          : RHF DLPNO-CCSD density
+   Achintya Kumar Dutta   : EOM-CC, STEOM-CC
+   Dmitry Ganyushin       : Spin-Orbit,Spin-Spin,Magnetic field MRCI
+   Miquel Garcia          : C-PCM and meta-GGA Hessian, CC/C-PCM, Gaussian charge scheme
+   Yang Guo               : DLPNO-NEVPT2, F12-NEVPT2, CIM, IAO-localization
+   Andreas Hansen         : Spin unrestricted coupled pair/coupled cluster methods
+   Benjamin Helmich-Paris : MC-RPA, TRAH-SCF, COSX integrals
+   Lee Huntington         : MR-EOM, pCC
+   Robert Izsak           : Overlap fitted RIJCOSX, COSX-SCS-MP3, EOM
+   Marcus Kettner         : VPT2
+   Christian Kollmar      : KDIIS, OOCD, Brueckner-CCSD(T), CCSD density, CASPT2, CASPT2-K
+   Simone Kossmann        : Meta GGA functionals, TD-DFT gradient, OOMP2, MP2 Hessian
+   Martin Krupicka        : Initial AUTO-CI
+   Lucas Lang             : DCDCAS
+   Marvin Lechner         : AUTO-CI (C++ implementation), FIC-MRCC
+   Dagmar Lenk            : GEPOL surface, SMD
+   Dimitrios Liakos       : Extrapolation schemes; Compound Job, initial MDCI parallelization
+   Dimitrios Manganas     : Further ROCIS development; embedding schemes
+   Dimitrios Pantazis     : SARC Basis sets
+   Anastasios Papadopoulos: AUTO-CI, single reference methods and gradients
+   Taras Petrenko         : DFT Hessian,TD-DFT gradient, ASA, ECA, R-Raman, ABS, FL, XAS/XES, NRVS
+   Peter Pinski           : DLPNO-MP2, DLPNO-MP2 Gradient
+   Christoph Reimann      : Effective Core Potentials
+   Marius Retegan         : Local ZFS, SOC
+   Christoph Riplinger    : Optimizer, TS searches, QM/MM, DLPNO-CCSD(T), (RO)-DLPNO pert. Triples
+   Tobias Risthaus        : Range-separated hybrids, TD-DFT gradient, RPA, STAB
+   Michael Roemelt        : Original ROCIS implementation
+   Masaaki Saitow         : Open-shell DLPNO-CCSD energy and density
+   Barbara Sandhoefer     : DKH picture change effects
+   Avijit Sen             : IP-ROCIS
+   Kantharuban Sivalingam : CASSCF convergence, NEVPT2, FIC-MRCI
+   Bernardo de Souza      : ESD, SOC TD-DFT
+   Georgi Stoychev        : AutoAux, RI-MP2 NMR, DLPNO-MP2 response
+   Willem Van den Heuvel  : Paramagnetic NMR
+   Boris Wezisla          : Elementary symmetry handling
+   Frank Wennmohs         : Technical directorship
+
+
+ We gratefully acknowledge several colleagues who have allowed us to
+ interface, adapt or use parts of their codes:
+   Stefan Grimme, W. Hujo, H. Kruse, P. Pracht,  : VdW corrections, initial TS optimization,
+                  C. Bannwarth, S. Ehlert          DFT functionals, gCP, sTDA/sTD-DF
+   Ed Valeev, F. Pavosevic, A. Kumar             : LibInt (2-el integral package), F12 methods
+   Garnet Chan, S. Sharma, J. Yang, R. Olivares  : DMRG
+   Ulf Ekstrom                                   : XCFun DFT Library
+   Mihaly Kallay                                 : mrcc  (arbitrary order and MRCC methods)
+   Jiri Pittner, Ondrej Demel                    : Mk-CCSD
+   Frank Weinhold                                : gennbo (NPA and NBO analysis)
+   Christopher J. Cramer and Donald G. Truhlar   : smd solvation model
+   Lars Goerigk                                  : TD-DFT with DH, B97 family of functionals
+   V. Asgeirsson, H. Jonsson                     : NEB implementation
+   FAccTs GmbH                                   : IRC, NEB, NEB-TS, DLPNO-Multilevel, CI-OPT
+                                                   MM, QMMM, 2- and 3-layer-ONIOM, Crystal-QMMM,
+                                                   LR-CPCM, SF, NACMEs, symmetry and pop. for TD-DFT,
+                                                   nearIR, NL-DFT gradient (VV10), updates on ESD,
+                                                   ML-optimized integration grids
+   S Lehtola, MJT Oliveira, MAL Marques          : LibXC Library
+   Liviu Ungur et al                             : ANISO software
+
+
+ Your calculation uses the libint2 library for the computation of 2-el integrals
+ For citations please refer to: http://libint.valeyev.net
+
+ Your ORCA version has been built with support for libXC version: 5.1.0
+ For citations please refer to: https://tddft.org/programs/libxc/
+
+ This ORCA versions uses:
+   CBLAS   interface :  Fast vector & matrix operations
+   LAPACKE interface :  Fast linear algebra routines
+   Shared memory     :  Shared parallel matrices
+
+
+Your calculation utilizes the atom-pairwise dispersion correction
+with the Becke-Johnson damping scheme (D3BJ)
+Cite in your paper:
+S.Grimme, S.Ehrlich, L.Goerigk, J Comput Chem, (2011), 32, 1456–1465 
+S.Grimme, J.Antony, S.Ehrlich and H.Krieg, J.Chem.Phys., 132, (2010), 154104 
+   
+
+================================================================================
+
+----- Orbital basis set information -----
+Your calculation utilizes the basis: 3-21G
+   H-Ne       : J. S. Binkley, J. A. Pople and W. J. Hehre, J. Am. Chem. Soc. 102 939 (1980).
+   Na-Ar      : M. S. Gordon, J. S. Binkley, J. A. Pople, W. J. Pietro and W.J. Hehre, J. Am. Chem. Soc. 104, 2797 (1983).
+   K-Ca, Ga-Kr: K. D. Dobbs and W. J. Hehre, J. Comput. Chem. 7, 359 (1986).
+   Sc-Zn      : K. D. Dobbs and W. J. Hehre, J. Comput. Chem. 8, 861 (1987).
+   Y-Cd       : K. D. Dobbs and W. J. Hehre, J. Comput. Chem. 8, 880 (1987).
+
+----- AuxJ basis set information -----
+Your calculation utilizes the auxiliary basis: def2/J
+   F. Weigend, Phys. Chem. Chem. Phys. 8, 1057 (2006).
+
+================================================================================
+                                        WARNINGS
+                       Please study these warnings very carefully!
+================================================================================
+
+
+WARNING: Found SCFConvIgnored == true
+  ===> : Will try to continue after any unconverged SCF -
+         no matter how far from convergence the wavefunction might be.
+
+         Please be very careful with your results!
+
+
+INFO   : the flag for use of the SHARK integral package has been found!
+
+================================================================================
+                                       INPUT FILE
+================================================================================
+NAME = md3_test.inp
+|  1> !MD BLYP D3 3-21G
+|  2> 
+|  3> %md
+|  4> initvel 3000_k
+|  5> timestep 1.0_fs
+|  6> thermostat berendsen 3000_K timecon 20.0_fs
+|  7> dump position stride 1 filename "trajectotry.xyz"
+|  8> run 200
+|  9> end
+| 10> 
+| 11> * xyz 0 1
+| 12>    C       -2.56310        1.38400       -0.24445
+| 13>    C       -3.93802        1.91485        0.21191
+| 14>    O       -4.98283        1.12801       -0.41120
+| 15>    H       -4.05871        2.95917       -0.08779
+| 16>    H       -4.02696        1.83763        1.29932
+| 17>    C       -2.36721       -0.08322        0.18397
+| 18>    O       -1.08723       -0.54992       -0.31119
+| 19>    H       -3.15822       -0.70884       -0.23969
+| 20>    H       -2.38176       -0.16072        1.27460
+| 21>    O       -1.52216        2.17761        0.38570
+| 22>    H       -2.47007        1.45197       -1.33221
+| 23>    N       -6.34713        1.45968       -0.12474
+| 24>    N       -1.24003        3.49639       -0.10149
+| 25>    N       -0.68211       -1.88760        0.00232
+| 26>    O       -6.57266        2.37325        0.65292
+| 27>    O       -0.35712        4.08756        0.49470
+| 28>    O       -1.43418       -2.58255        0.66708
+| 29>    O       -7.17629        0.74940       -0.66566
+| 30>    O       -1.83470        3.89478       -1.09024
+| 31>    O        0.40135       -2.21938       -0.44587
+| 32> **                         ****END OF INPUT****
+================================================================================
+
+Will write log file to "md3_test.md.log".
+
+Command line:  orca_md md3_test orca
+
+
+    ################################################################
+    ########    ORCA ab initio Molecular Dynamics Module    ########
+    ########          and SANscript Interpreter             ########
+    ########          Martin Brehm, 2016 - 2022             ########
+    ########       https://brehm-research.de/orcamd         ########
+    ################################################################
+
+
+  * Compiled as ORCA module.
+  * Called from ORCA.
+  * Base name: "md3_test"
+  * Source code version: Jan 31 2022
+  * Compiled at Mar  1 2023 13:21:21, compiler Intel Compiler "Version 19.0.4.245 Build 20190417" MSVC++ 16.3, VS 2019
+  * Machine: x86_64, int=4b, long=8b, addr=8b, 0xA0B0C0D0=D0,C0,B0,A0.
+  * Executable name: "orca_md"
+  * Running on NB-LH1 at Sat Oct  7 11:34:58 2023 (PID 3160)
+  * Running in C:\Users\l.hefti\Desktop\Maturaarbeit_Calculations\md_test\md3
+
+Initializing SAN engine...
+
+Started parsing input script.
+Reading input file "md3_test.mdinput" ...
+139 Bytes read.
+Tokenizing input...
+Found 17 tokens in file.
+Handling brackets...
+Handling reference parentheses...
+Handling keywords...
+Handling operators...
+Grouping commas...
+Removing commas...
+Handling variables...
+Found unit "K", which is the default.
+Found unit "fs", which is the default.
+Found unit "K", which is the default.
+Found unit "fs", which is the default.
+Handling functions, iteration 1...
+Handling functions, iteration 2...
+Handling functions, iteration 3...
+Flattening tree...
+Checking keyword syntax...
+Finished parsing input script.
+
+Initializing MD engine with interface "ORCA" ...
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+>>>   Output of System Information (from ORCA)   >>>
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+---------------------------------
+CARTESIAN COORDINATES (ANGSTROEM)
+---------------------------------
+  C     -2.563100    1.384000   -0.244450
+  C     -3.938020    1.914850    0.211910
+  O     -4.982830    1.128010   -0.411200
+  H     -4.058710    2.959170   -0.087790
+  H     -4.026960    1.837630    1.299320
+  C     -2.367210   -0.083220    0.183970
+  O     -1.087230   -0.549920   -0.311190
+  H     -3.158220   -0.708840   -0.239690
+  H     -2.381760   -0.160720    1.274600
+  O     -1.522160    2.177610    0.385700
+  H     -2.470070    1.451970   -1.332210
+  N     -6.347130    1.459680   -0.124740
+  N     -1.240030    3.496390   -0.101490
+  N     -0.682110   -1.887600    0.002320
+  O     -6.572660    2.373250    0.652920
+  O     -0.357120    4.087560    0.494700
+  O     -1.434180   -2.582550    0.667080
+  O     -7.176290    0.749400   -0.665660
+  O     -1.834700    3.894780   -1.090240
+  O      0.401350   -2.219380   -0.445870
+
+----------------------------
+CARTESIAN COORDINATES (A.U.)
+----------------------------
+  NO LB      ZA    FRAG     MASS         X           Y           Z
+   0 C     6.0000    0    12.011   -4.843557    2.615381   -0.461944
+   1 C     6.0000    0    12.011   -7.441779    3.618542    0.400452
+   2 O     8.0000    0    15.999   -9.416184    2.131630   -0.777055
+   3 H     1.0000    0     1.008   -7.669850    5.592021   -0.165899
+   4 H     1.0000    0     1.008   -7.609852    3.472617    2.455359
+   5 C     6.0000    0    12.011   -4.473379   -0.157263    0.347653
+   6 O     8.0000    0    15.999   -2.054567   -1.039198   -0.588064
+   7 H     1.0000    0     1.008   -5.968171   -1.339513   -0.452948
+   8 H     1.0000    0     1.008   -4.500874   -0.303717    2.408645
+   9 O     8.0000    0    15.999   -2.876466    4.115087    0.728867
+  10 H     1.0000    0     1.008   -4.667756    2.743826   -2.517512
+  11 N     7.0000    0    14.007  -11.994337    2.758395   -0.235724
+  12 N     7.0000    0    14.007   -2.343317    6.607220   -0.191788
+  13 N     7.0000    0    14.007   -1.289001   -3.567047    0.004384
+  14 O     8.0000    0    15.999  -12.420527    4.484793    1.233840
+  15 O     8.0000    0    15.999   -0.674859    7.724369    0.934848
+  16 O     8.0000    0    15.999   -2.710207   -4.880312    1.260599
+  17 O     8.0000    0    15.999  -13.561223    1.416161   -1.257915
+  18 O     8.0000    0    15.999   -3.467081    7.360068   -2.060255
+  19 O     8.0000    0    15.999    0.758442   -4.194020   -0.842572
+
+---------------------
+BASIS SET INFORMATION
+---------------------
+There are 4 groups of distinct atoms
+
+ Group   1 Type C   : 6s3p contracted to 3s2p pattern {321/21}
+ Group   2 Type O   : 6s3p contracted to 3s2p pattern {321/21}
+ Group   3 Type H   : 3s contracted to 2s pattern {21}
+ Group   4 Type N   : 6s3p contracted to 3s2p pattern {321/21}
+
+Atom   0C    basis set group =>   1
+Atom   1C    basis set group =>   1
+Atom   2O    basis set group =>   2
+Atom   3H    basis set group =>   3
+Atom   4H    basis set group =>   3
+Atom   5C    basis set group =>   1
+Atom   6O    basis set group =>   2
+Atom   7H    basis set group =>   3
+Atom   8H    basis set group =>   3
+Atom   9O    basis set group =>   2
+Atom  10H    basis set group =>   3
+Atom  11N    basis set group =>   4
+Atom  12N    basis set group =>   4
+Atom  13N    basis set group =>   4
+Atom  14O    basis set group =>   2
+Atom  15O    basis set group =>   2
+Atom  16O    basis set group =>   2
+Atom  17O    basis set group =>   2
+Atom  18O    basis set group =>   2
+Atom  19O    basis set group =>   2
+---------------------------------
+AUXILIARY/J BASIS SET INFORMATION
+---------------------------------
+There are 4 groups of distinct atoms
+
+ Group   1 Type C   : 12s5p4d2f1g contracted to 6s4p3d1f1g pattern {711111/2111/211/2/1}
+ Group   2 Type O   : 12s5p4d2f1g contracted to 6s4p3d1f1g pattern {711111/2111/211/2/1}
+ Group   3 Type H   : 5s2p1d contracted to 3s1p1d pattern {311/2/1}
+ Group   4 Type N   : 12s5p4d2f1g contracted to 6s4p3d1f1g pattern {711111/2111/211/2/1}
+
+Atom   0C    basis set group =>   1
+Atom   1C    basis set group =>   1
+Atom   2O    basis set group =>   2
+Atom   3H    basis set group =>   3
+Atom   4H    basis set group =>   3
+Atom   5C    basis set group =>   1
+Atom   6O    basis set group =>   2
+Atom   7H    basis set group =>   3
+Atom   8H    basis set group =>   3
+Atom   9O    basis set group =>   2
+Atom  10H    basis set group =>   3
+Atom  11N    basis set group =>   4
+Atom  12N    basis set group =>   4
+Atom  13N    basis set group =>   4
+Atom  14O    basis set group =>   2
+Atom  15O    basis set group =>   2
+Atom  16O    basis set group =>   2
+Atom  17O    basis set group =>   2
+Atom  18O    basis set group =>   2
+Atom  19O    basis set group =>   2
+
+############################################
+   Total Atom Count:              20
+   Total System Mass:          227.1 a.m.u.
+   Total Basis Dimension:        145
+   Total Electron Number:        116
+   Total Charge:                   0
+   Total Multiplicity:             1
+  ------------------------------------------
+   ReducePrint:                 true
+   Print Mulliken Pop:             1
+   Print Loewdin Pop:              1
+   Print Mayer Pop:                1
+   Print Orbital Energies:         1
+############################################
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<<<          End of System Information           <<<
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+Initializing regions...
+
+Defined regions:
+         all:    20 atoms
+          qm:    20 atoms
+      active:    20 atoms
+
+
+######################################################
+########        Executing Input Script        ########
+######################################################
+
+Execution verbose level is 2.
+
+
+
+>>>>>> Initvel 3000
+
+Initializing atom velocities for region "all" to 3000.00 K:
+  Creating Maxwell-Boltzmann distribution...
+  Removing initial center of mass movement...
+  Rescaling velocities to match exact initial temperature (factor 0.734683)...
+Done.
+
+
+>>>>>> Timestep 1.0
+
+Setting integration time step to 1.00 fs.
+
+
+>>>>>> Thermostat Berendsen, 3000, Timecon, 20.0
+
+Switching on thermostat for region "all": Type Berendsen, temperature 3000.00 K, time constant 20.00 fs, global.
+
+
+>>>>>> Dump Position, Stride, 1, Filename, "trajectotry.xyz"
+
+Modified writing position trajectory for region "all": Format XYZ, stride 1, filename "trajectotry.xyz", append.
+
+
+>>>>>> Run 200
+
+
+***************************************************
+****    Starting MD loop for      200 steps    ****
+***************************************************
+
+
+Dump: Will write Position data of region "all" in XYZ format with stride 1 to "trajectotry.xyz" (append).
+
+Defined regions:
+         all:    20 atoms
+          qm:    20 atoms
+      active:    20 atoms
+
+Active Thermostats:
+  (*) Region "all": Type Berendsen, temperature 3000.00 K, time constant 20.00 fs, global.
+
+
+Will write restart file to "md3_test.mdrestart" after each step.
+Will write energy statistics to "md3_test-md-ener.csv" after each step.
+
+The system contains 60 active degrees of freedom (20 active atoms * 3).
+
+
+            |  Sim. Time |  t_SCF | t_Grad |     Temp |     E_Kin |         E_Pot |         E_Tot |      Cons.Qty |   Drift
+       Step |       [fs] |    [s] |    [s] |      [K] | [Hartree] |     [Hartree] |     [Hartree] |     [Hartree] |     [K]
+------------|------------|--------|--------|----------|-----------|---------------|---------------|---------------|-----------
+          0          0.0     71.0             3000.00    0.285013     -952.697644     -952.412631                          
+          1          1.0     67.4     22.4    2828.42    0.268712     -952.681748     -952.413037     -952.413895      0.00
+          2          2.0     70.2     26.2    2583.24    0.245418     -952.652453     -952.407034     -952.409976     20.62
+          3          3.0     94.3     21.3    2605.58    0.247541     -952.655572     -952.408030     -952.412944      5.00
+          4          4.0     96.2     24.2    2650.39    0.251798     -952.658705     -952.406907     -952.413569      1.71
+          5          5.0     73.9     22.8    2536.21    0.240951     -952.644369     -952.403419     -952.412400      7.86
+          6          6.0     72.2     21.6    2371.55    0.225308     -952.624998     -952.399690     -952.411814     10.95
+          7          7.0     83.0     21.4    2239.45    0.212757     -952.608632     -952.395875     -952.411801     11.02
+          8          8.0     73.1     21.6    2163.89    0.205579     -952.596918     -952.391339     -952.411446     12.89
+          9          9.0     84.4     18.3    2192.10    0.208258     -952.595290     -952.387032     -952.411179     14.29
+         10         10.0     95.0     21.6    2337.00    0.222025     -952.606517     -952.384492     -952.411954     10.21
+         11         11.0     87.9     18.5    2491.19    0.236673     -952.619471     -952.382798     -952.412804      5.74
+         12         12.0     81.6     20.4    2519.79    0.239390     -952.620568     -952.381178     -952.413585      1.63
+         13         13.0     98.3     21.2    2335.96    0.221926     -952.599758     -952.377832     -952.413559      1.76
+         14         14.0     80.3     20.4    2069.68    0.196628     -952.566147     -952.369519     -952.409899     21.03
+         15         15.0     82.5     18.1    2106.37    0.200114     -952.567074     -952.366960     -952.411808     10.98
+         16         16.0     88.5     20.8    2271.84    0.215834     -952.581348     -952.365514     -952.414002     -0.57
+         17         17.0     89.2     17.9    2225.78    0.211459     -952.571706     -952.360248     -952.412608      6.77
+         18         18.0     93.1     18.2    2055.34    0.195266     -952.550031     -952.354765     -952.411849     10.76
+         19         19.0     83.2     19.0    1880.16    0.178623     -952.527301     -952.348678     -952.411361     13.33
+         20         20.0     94.0     22.1    1795.67    0.170596     -952.512485     -952.341889     -952.410594     17.37
+         21         21.0     95.0     25.8    1882.44    0.178840     -952.515680     -952.336840     -952.411134     14.53
+         22         22.0    109.7     20.7    2071.15    0.196768     -952.529779     -952.333011     -952.411948     10.24
+         23         23.0    119.4     20.3    2238.07    0.212626     -952.541950     -952.329325     -952.412072      9.59
+         24         24.0    109.3     19.0    2341.51    0.222454     -952.548524     -952.326070     -952.412110      9.39
+         25         25.0    121.7     21.0    2374.19    0.225559     -952.549192     -952.323634     -952.412803      5.75
+         26         26.0     99.4     19.2    2263.34    0.215027     -952.535638     -952.320611     -952.413464      2.27
+         27         27.0    103.9     19.8    2129.36    0.202298     -952.513685     -952.311387     -952.408593     27.90
+         28         28.0    102.2     20.0    2355.25    0.223759     -952.536509     -952.312750     -952.413180      3.76
+         29         29.0    106.9     21.4    2563.75    0.243567     -952.554908     -952.311341     -952.413952     -0.30
+         30         30.0     99.0     18.3    2479.77    0.235589     -952.542588     -952.306999     -952.412212      8.86
+         31         31.0     84.4     19.0    2305.76    0.219057     -952.520987     -952.301930     -952.410614     17.26
+         32         32.0     92.6     21.1    2250.21    0.213779     -952.511939     -952.298160     -952.410593     17.38
+         33         33.0     75.3     19.6    2337.41    0.222064     -952.517569     -952.295505     -952.411251     13.91
+         34         34.0     86.7     43.6    2476.58    0.235286     -952.528290     -952.293004     -952.411367     13.30
+         35         35.0     87.3     22.6    2624.37    0.249327     -952.540522     -952.291195     -952.411437     12.94
+         36         36.0     72.7     18.8    2766.56    0.262835     -952.552912     -952.290077     -952.411485     12.68
+         37         37.0     91.7     17.6    2913.64    0.276808     -952.565913     -952.289105     -952.410946     15.52
+         38         38.0     87.8     17.9    3111.33    0.295590     -952.585727     -952.290137     -952.411421     13.02
+         39         39.0     77.4     21.7    3280.73    0.311683     -952.605417     -952.293734     -952.413614      1.48
+         40         40.0     84.3     18.5    3190.60    0.303121     -952.598010     -952.294890     -952.413817      0.41
+         41         41.0    111.8     20.7    2975.10    0.282647     -952.572831     -952.290184     -952.409236     24.52
+         42         42.0     78.6     18.8    2999.68    0.284982     -952.579178     -952.294196     -952.413249      3.40
+         43         43.0     93.6     20.5    2965.96    0.281779     -952.575461     -952.293682     -952.412905      5.21
+         44         44.0     79.0     21.3    2764.32    0.262622     -952.553541     -952.290919     -952.411321     13.55
+         45         45.0     87.4     18.5    2564.04    0.243595     -952.532129     -952.288535     -952.411117     14.62
+         46         46.0     82.3     20.7    2417.68    0.229689     -952.515420     -952.285730     -952.411224     14.06
+         47         47.0     80.8     20.5    2320.23    0.220431     -952.502479     -952.282048     -952.410941     15.55
+         48         48.0     88.0     19.5    2310.94    0.219549     -952.497729     -952.278179     -952.410517     17.77
+         49         49.0     87.0     18.2    2433.30    0.231174     -952.506795     -952.275621     -952.410793     16.32
+         50         50.0     81.7     21.1    2644.66    0.251254     -952.525761     -952.274507     -952.411456     12.84
+         51         51.0     84.7     18.5    2841.08    0.269915     -952.544465     -952.274550     -952.412293      8.43
+         52         52.0     81.1     20.7    2901.32    0.275637     -952.550404     -952.274766     -952.413003      4.69
+         53         53.0     80.2     18.5    2809.59    0.266923     -952.538457     -952.271534     -952.410722     16.69
+         54         54.0     74.1     18.7    2817.25    0.267651     -952.537925     -952.270274     -952.410376     18.52
+         55         55.0     77.5     20.3    2966.62    0.281841     -952.553779     -952.271937     -952.412207      8.88
+         56         56.0     87.9     21.0    3049.85    0.289749     -952.561587     -952.271839     -952.411859     10.72
+         57         57.0     79.2     18.2    3051.66    0.289921     -952.561651     -952.271730     -952.411492     12.64
+         58         58.0     77.8     20.8    3023.68    0.287263     -952.558977     -952.271714     -952.411357     13.35
+         59         59.0     72.8     19.3    2992.81    0.284330     -952.555914     -952.271585     -952.411264     13.84
+         60         60.0     86.2     18.8    2972.52    0.282402     -952.553879     -952.271477     -952.411294     13.69
+         61         61.0    128.7     22.5    2962.67    0.281466     -952.552876     -952.271410     -952.411413     13.06
+         62         62.0     88.6     18.8    2945.19    0.279806     -952.551338     -952.271532     -952.411809     10.98
+         63         63.0    101.5     18.4    2857.49    0.271473     -952.543296     -952.271823     -952.412813      5.69
+         64         64.0     85.4     19.9    2609.05    0.247871     -952.517354     -952.269483     -952.412428      7.72
+         65         65.0     83.5     21.9    2394.25    0.227464     -952.489854     -952.262390     -952.408364     29.11
+         66         66.0     81.8     17.8    2568.51    0.244019     -952.507875     -952.263856     -952.411987     10.04
+         67         67.0     95.1     19.4    2808.84    0.266852     -952.530944     -952.264092     -952.413179      3.76
+         68         68.0     87.1     19.1    2840.02    0.269813     -952.532015     -952.262202     -952.412089      9.50
+         69         69.0     81.2     21.0    2767.11    0.262887     -952.522996     -952.260109     -952.411160     14.39
+         70         70.0     96.2     19.9    2722.74    0.258672     -952.517109     -952.258437     -952.410875     15.89
+         71         71.0     89.2     22.3    2737.62    0.260086     -952.517750     -952.257664     -952.411414     13.05
+         72         72.0    118.6     21.0    2755.27    0.261762     -952.518230     -952.256468     -952.411441     12.91
+         73         73.0    121.8     19.6    2760.25    0.262235     -952.517202     -952.254967     -952.411139     14.50
+         74         74.0     95.8     19.3    2779.77    0.264090     -952.517925     -952.253835     -952.411108     14.66
+         75         75.0     91.4     19.3    2810.37    0.266997     -952.520318     -952.253322     -952.411543     12.37
+         76         76.0     92.5     18.9    2786.96    0.264773     -952.517866     -952.253093     -952.412380      7.97
+         77         77.0     96.5     19.2    2643.23    0.251118     -952.501699     -952.250580     -952.411651     11.81
+         78         78.0     89.1     19.7    2561.71    0.243373     -952.489198     -952.245825     -952.409088     25.30
+         79         79.0     86.0     21.1    2750.49    0.261309     -952.509017     -952.247709     -952.412219      8.82
+         80         80.0     91.2     19.1    2903.73    0.275867     -952.523955     -952.248088     -952.413079      4.29
+         81         81.0     83.7     18.5    2827.13    0.268589     -952.514800     -952.246210     -952.412066      9.62
+         82         82.0     78.1     21.7    2663.35    0.253030     -952.495931     -952.242901     -952.410440     18.18
+         83         83.0    108.6     18.8    2622.22    0.249122     -952.490352     -952.241231     -952.410659     17.03
+         84         84.0     97.0     20.0    2694.77    0.256015     -952.496651     -952.240636     -952.411590     12.13
+         85         85.0    103.7     19.5    2766.36    0.262815     -952.501884     -952.239068     -952.411191     14.23
+         86         86.0     86.4     17.5    2858.65    0.271584     -952.509495     -952.237911     -952.410740     16.60
+         87         87.0    115.3     18.4    3020.65    0.286975     -952.525344     -952.238370     -952.411096     14.73
+         88         88.0     96.6     21.7    3193.95    0.303439     -952.544136     -952.240697     -952.412453      7.58
+         89         89.0    102.2     18.2    3236.07    0.307441     -952.549433     -952.241992     -952.412568      6.98
+         90         90.0    104.9     18.5    3244.06    0.308200     -952.548743     -952.240543     -952.409899     21.03
+         91         91.0     88.6     21.1    3402.79    0.323280     -952.569615     -952.246336     -952.413677      1.14
+         92         92.0     98.7     20.3    3356.59    0.318890     -952.567532     -952.248642     -952.414200     -1.61
+         93         93.0     95.8     18.4    2981.60    0.283265     -952.529123     -952.245859     -952.411509     12.55
+         94         94.0     78.3     18.1    2619.37    0.248851     -952.491270     -952.242419     -952.409972     20.64
+         95         95.0     84.1     18.0    2465.90    0.234271     -952.475182     -952.240911     -952.411135     14.52
+         96         96.0     69.2     21.3    2414.94    0.229429     -952.467297     -952.237868     -952.411018     15.14
+         97         97.0     91.3     18.7    2427.41    0.230615     -952.465349     -952.234735     -952.410747     16.56
+         98         98.0     80.1     18.2    2521.29    0.239533     -952.471982     -952.232449     -952.410856     15.99
+         99         99.0     78.7     19.5    2675.38    0.254172     -952.485438     -952.231266     -952.411296     13.68
+        100        100.0     99.1     20.5    2812.84    0.267231     -952.498581     -952.231350     -952.412316      8.31
+        101        101.0     96.1     19.8    2843.86    0.270179     -952.499987     -952.229808     -952.411554     12.32
+        102        102.0     99.5     18.9    2901.93    0.275695     -952.503660     -952.227965     -952.410202     19.44
+        103        103.0    136.1     20.2    3078.68    0.292488     -952.523379     -952.230891     -952.412734      6.11
+        104        104.0    104.4     20.3    3105.58    0.295044     -952.526892     -952.231848     -952.413163      3.85
+        105        105.0    114.7     24.9    2891.84    0.274737     -952.504568     -952.229831     -952.411687     11.62
+        106        106.0     95.6     20.2    2664.58    0.253146     -952.479540     -952.226394     -952.409927     20.88
+        107        107.0    101.5     18.1    2601.88    0.247190     -952.473275     -952.226085     -952.411609     12.03
+        108        108.0    102.0     19.0    2548.37    0.242106     -952.466158     -952.224052     -952.411834     10.84
+        109        109.0    137.8     26.3    2424.68    0.230355     -952.450639     -952.220284     -952.410943     15.53
+        110        110.0     97.7     22.6    2328.62    0.221229     -952.437463     -952.216235     -952.410251     19.18
+        111        111.0    137.5     24.6    2346.96    0.222971     -952.436123     -952.213152     -952.410433     18.22
+        112        112.0    158.8     22.3    2444.07    0.232197     -952.443691     -952.211495     -952.411556     12.31
+        113        113.0    129.4     24.6    2489.96    0.236557     -952.445761     -952.209205     -952.411816     10.94
+        114        114.0    148.6     22.7    2507.67    0.238239     -952.442984     -952.204745     -952.409818     21.45
+        115        115.0    112.3     29.3    2693.53    0.255896     -952.460092     -952.204195     -952.410801     16.28
+        116        116.0    102.6     19.0    2959.98    0.281211     -952.486267     -952.205056     -952.411862     10.70
+        117        117.0     88.9     17.6    3132.32    0.297584     -952.503092     -952.205509     -952.411653     11.80
+        118        118.0     93.8     22.6    3188.53    0.302924     -952.509776     -952.206852     -952.412053      9.69
+        119        119.0    101.8     19.5    3091.20    0.293678     -952.501278     -952.207600     -952.412345      8.15
+        120        120.0    101.1     19.2    2875.61    0.273195     -952.478171     -952.204975     -952.410343     18.69
+        121        121.0    108.7     19.6    2754.78    0.261716     -952.465710     -952.203994     -952.410588     17.40
+        122        122.0     92.9     19.1    2736.25    0.259955     -952.463444     -952.203489     -952.411401     13.12
+        123        123.0     86.2     17.6    2708.37    0.257307     -952.458858     -952.201551     -952.410922     15.65
+        124        124.0     90.9     22.3    2689.81    0.255544     -952.455352     -952.199809     -952.410730     16.65
+        125        125.0     93.1     19.3    2700.69    0.256577     -952.455067     -952.198489     -952.410907     15.72
+        126        126.0     91.3     18.9    2712.96    0.257742     -952.455335     -952.197593     -952.411446     12.89
+        127        127.0    131.2     22.0    2688.45    0.255414     -952.451029     -952.195615     -952.411026     15.10
+        128        128.0     94.1     17.6    2730.97    0.259454     -952.452274     -952.192820     -952.409576     22.73
+        129        129.0     84.8     19.5    2960.42    0.281253     -952.475784     -952.194531     -952.411485     12.68
+        130        130.0    114.8     20.4    3176.10    0.301743     -952.498304     -952.196561     -952.412635      6.63
+        131        131.0    102.5     19.2    3197.03    0.303731     -952.500823     -952.197092     -952.412180      9.02
+        132        132.0    107.9     29.1    3104.68    0.294958     -952.490794     -952.195836     -952.410402     18.38
+        133        133.0    122.6     28.9    3103.89    0.294883     -952.491484     -952.196601     -952.410647     17.09
+        134        134.0    161.7     20.0    3182.02    0.302305     -952.500906     -952.198601     -952.411736     11.36
+        135        135.0     85.4     14.3    3208.41    0.304813     -952.504088     -952.199275     -952.411368     13.30
+        136        136.0     93.1     17.4    3190.80    0.303140     -952.503243     -952.200103     -952.411243     13.96
+        137        137.0    146.5     19.4    3138.28    0.298150     -952.499507     -952.201357     -952.411805     11.00
+        138        138.0    123.3     21.9    3004.57    0.285447     -952.486672     -952.201226     -952.411651     11.81
+        139        139.0    122.1     17.3    2882.60    0.273859     -952.472328     -952.198469     -952.409481     23.23
+        140        140.0    103.0     16.8    2974.31    0.282572     -952.482600     -952.200028     -952.411169     14.35
+        141        141.0    107.5     17.4    3105.98    0.295081     -952.497349     -952.202268     -952.412879      5.35
+        142        142.0    181.9     26.2    3024.15    0.287307     -952.489494     -952.202187     -952.412677      6.41
+        143        143.0    143.2     24.2    2796.28    0.265659     -952.464251     -952.198592     -952.410101     19.97
+        144        144.0    137.8     31.1    2737.21    0.260046     -952.457386     -952.197340     -952.410162     19.64
+        145        145.0    291.6     19.7    2845.15    0.270301     -952.468845     -952.198544     -952.412141      9.23
+        146        146.0    414.5     20.4    2875.47    0.273182     -952.470441     -952.197260     -952.411479     12.71
+        147        147.0    278.7     20.3    2841.34    0.269939     -952.465736     -952.195797     -952.410810     16.24
+        148        148.0    143.8     20.2    2825.71    0.268454     -952.463352     -952.194898     -952.410783     16.38
+        149        149.0    135.0     18.9    2832.02    0.269054     -952.463598     -952.194544     -952.411268     13.82
+        150        150.0    169.9     18.6    2809.00    0.266867     -952.460565     -952.193698     -952.411377     13.25
+        151        151.0    256.7     20.7    2785.46    0.264631     -952.455894     -952.191264     -952.410016     20.41
+        152        152.0    212.1     25.7    2898.77    0.275395     -952.466778     -952.191382     -952.410640     17.13
+        153        153.0    186.1     20.4    3078.85    0.292504     -952.485781     -952.193277     -952.412141      9.23
+        154        154.0    226.8     21.7    3131.31    0.297488     -952.491657     -952.194169     -952.412377      7.99
+        155        155.0    175.2     22.5    3028.64    0.287733     -952.481049     -952.193316     -952.411380     13.23
+        156        156.0    127.2     22.5    2955.82    0.280816     -952.472269     -952.191453     -952.409739     21.87
+        157        157.0    186.1     18.9    3061.70    0.290874     -952.484534     -952.193660     -952.411636     11.88
+        158        158.0    126.9     22.4    3164.04    0.300597     -952.495291     -952.194694     -952.411851     10.76
+        159        159.0    136.0     20.1    3174.02    0.301546     -952.496420     -952.194874     -952.411160     14.39
+        160        160.0    213.7     20.4    3158.35    0.300057     -952.495597     -952.195540     -952.411034     15.05
+        161        161.0    273.9     21.2    3142.89    0.298587     -952.494960     -952.196373     -952.411153     14.43
+        162        162.0    128.8     27.2    3113.75    0.295819     -952.492947     -952.197128     -952.411339     13.45
+        163        163.0    119.8     19.5    3051.56    0.289912     -952.487337     -952.197425     -952.411379     13.24
+        164        164.0    125.5     21.7    2978.86    0.283005     -952.479477     -952.196473     -952.410532     17.70
+        165        165.0    234.1     18.6    3001.03    0.285111     -952.481333     -952.196222     -952.410276     19.04
+        166        166.0    189.2     22.3    3121.58    0.296563     -952.495006     -952.198443     -952.411889     10.55
+        167        167.0    160.4     20.0    3152.77    0.299526     -952.499512     -952.199986     -952.412668      6.45
+        168        168.0    112.0     23.3    3041.93    0.288996     -952.487102     -952.198106     -952.410578     17.45
+        169        169.0    117.0     22.4    3041.17    0.288924     -952.486847     -952.197922     -952.410189     19.50
+        170        170.0    448.5     32.1    3183.53    0.302449     -952.503293     -952.200845     -952.412194      8.95
+        171        171.0    353.3     18.8    3231.06    0.306965     -952.508641     -952.201676     -952.411870     10.65
+        172        172.0    235.7     21.1    3162.64    0.300464     -952.502352     -952.201888     -952.411268     13.82
+        173        173.0    176.9     18.2    3052.41    0.289991     -952.491989     -952.201998     -952.411116     14.62
+        174        174.0    162.3     17.9    2925.78    0.277961     -952.479774     -952.201813     -952.411303     13.64
+        175        175.0    148.0     18.2    2770.21    0.263181     -952.463782     -952.200601     -952.411239     13.97
+        176        176.0    232.4     20.9    2624.79    0.249366     -952.447037     -952.197671     -952.410186     19.52
+        177        177.0    248.7     20.3    2610.84    0.248041     -952.443796     -952.195755     -952.410216     19.36
+        178        178.0    155.6     17.8    2713.36    0.257781     -952.453420     -952.195640     -952.411533     12.43
+        179        179.0    338.1     22.3    2759.75    0.262188     -952.457413     -952.195225     -952.412320      8.29
+        180        180.0    168.4     17.3    2645.06    0.251292     -952.444305     -952.193013     -952.411883     10.59
+        181        181.0    241.5     20.4    2504.76    0.237963     -952.425859     -952.187897     -952.409243     24.48
+        182        182.0    286.6     20.4    2600.92    0.247098     -952.434597     -952.187498     -952.410840     16.08
+        183        183.0    156.4     21.2    2795.79    0.265612     -952.453253     -952.187641     -952.412004      9.95
+        184        184.0    171.1     22.2    2889.28    0.274494     -952.461087     -952.186594     -952.411510     12.55
+        185        185.0    295.8     19.5    2915.97    0.277030     -952.462596     -952.185566     -952.410902     15.75
+        186        186.0    245.8     19.5    2962.62    0.281462     -952.466782     -952.185320     -952.410843     16.06
+        187        187.0     96.6     20.2    3058.91    0.290610     -952.476190     -952.185580     -952.410809     16.24
+        188        188.0    125.2     18.4    3220.61    0.305971     -952.492534     -952.186563     -952.410689     16.87
+        189        189.0    187.3     25.4    3418.81    0.324802     -952.514744     -952.189942     -952.411974     10.11
+        190        190.0     82.4     21.6    3499.77    0.332493     -952.525509     -952.193016     -952.412548      7.08
+        191        191.0     80.7     18.4    3382.33    0.321335     -952.515715     -952.194380     -952.412000      9.97
+        192        192.0     74.7     23.9    3163.38    0.300534     -952.494267     -952.193733     -952.410537     17.67
+        193        193.0     98.5     18.4    3012.48    0.286198     -952.480172     -952.193974     -952.410716     16.73
+        194        194.0    110.3     19.2    2931.55    0.278510     -952.472808     -952.194298     -952.411382     13.22
+        195        195.0     89.1     18.4    2839.44    0.269759     -952.463102     -952.193343     -952.411230     14.02
+        196        196.0     73.9     19.6    2738.18    0.260139     -952.451888     -952.191749     -952.410945     15.52
+        197        197.0     75.9     18.6    2670.29    0.253689     -952.443483     -952.189794     -952.410639     17.13
+        198        198.0     74.9     18.1    2677.94    0.254415     -952.442549     -952.188134     -952.410589     17.40
+        199        199.0     68.5     18.8    2776.40    0.263769     -952.450701     -952.186931     -952.410504     17.84
+        200        200.0     70.8     17.6    2973.96    0.282539     -952.469307     -952.186768     -952.410471     18.02
+------------|------------|--------|--------|----------|-----------|---------------|---------------|---------------|-----------
+            |  Sim. Time |  t_SCF | t_Grad |     Temp |     E_Kin |         E_Pot |         E_Tot |      Cons.Qty |   Drift
+       Step |       [fs] |    [s] |    [s] |      [K] | [Hartree] |     [Hartree] |     [Hartree] |     [Hartree] |     [K]
+
+
+Finished MD run of 200 steps.
+
+
+Thermostat Summary:
+  (*) Region "all": Injected 587.33 kJ/mol of energy into the system (equivalent to 2354.66 K).
+
+
+>>> Timing data >>>
+    MD loop was running for 28291.651 seconds ( 7:51:31.651 h:m:s).
+    Performance: 141.458 seconds/step, 0.0254 ps/hour.
+    Time spent within the MD module (overhead): 2.385 seconds (0.0084 % of total time).
+<<< Timing data <<<
+
+
+Finished MD loop.
+
+
+###############################################################
+########        Finished Executing Input Script        ########
+###############################################################
+
+
+    5 function calls, 0 operator calls, 18 evaluated expressions.
+
+
+Timings for individual modules during the MD run:
+
+GTO integral calculation        ...      163.853 sec (=   2.731 min)   0.6 %
+SCF iterations                  ...    23797.527 sec (= 396.625 min)  84.9 %
+SCF Gradient evaluation         ...     4060.496 sec (=  67.675 min)  14.5 %
+Self time inside of MD module   ...       41.487 sec (=   0.691 min)   0.1 %
+
+Sum of individual times         ...    28063.363 sec (= 467.723 min)
+
+Total wall time of MD module    ...    28330.723 sec (= 472.179 min)
+             --> "dark time"    ...      267.360 sec (=   4.456 min)   0.9 %
+
+( The "dark time" is spent in the ORCA-internal routines for energy and gradient calculation,
+  but not inside of the sub-programs which do so. It contains operating system overhead for
+  spawning new processes in each MD step and some file IO time. )
+
+
+
+    #########################################################
+    ####    ORCA ab initio Molecular Dynamics leaving    ####
+    ####           Martin Brehm, 2016 - 2022             ####
+    ####        https://brehm-research.de/orcamd         ####
+    #########################################################
+
+
+Timings for individual modules:
+
+Sum of individual times         ...    28330.993 sec (= 472.183 min)
+Molecular Dynamics run          ...    28330.993 sec (= 472.183 min) 100.0 %
+                             ****ORCA TERMINATED NORMALLY****
+TOTAL RUN TIME: 0 days 7 hours 52 minutes 15 seconds 216 msec
