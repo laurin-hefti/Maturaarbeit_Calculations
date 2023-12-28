@@ -1,17 +1,2812 @@
-15
-Coordinates from ORCA-job Fe_test
-  Fe  -5.82475000000000      2.98383000000000      0.55217000000000
-  Fe  -5.13692000000000      0.48616000000000     -0.94817000000000
-  Fe  -5.66694000000000     -1.89909000000000      0.82751000000000
-  Fe  -8.80308000000000      2.97327000000000      1.20441000000000
-  Fe  -9.99209000000000      0.48593000000000     -0.02877000000000
-  Fe  -7.68570000000000     -1.08599000000000     -1.38378000000000
-  Fe  -7.76944000000000      1.93781000000000     -1.46935000000000
-  Fe  -7.29331000000000      0.48361000000000      1.00605000000000
-  Fe  -4.56957000000000      0.63878000000000      2.04255000000000
-  Fe  -9.38501000000000      0.58132000000000      2.97902000000000
-  Fe  -6.76825000000000      2.23960000000000      3.24495000000000
-  Fe  -4.93117000000000      0.83594000000000      5.05529000000000
-  Fe  -6.77203000000000     -0.85957000000000      3.49634000000000
-  Fe  -9.35249000000000      3.27399000000000      4.17997000000000
-  Fe  -7.94849000000000      0.93779000000000      5.58047000000000
+
+                                 *****************
+                                 * O   R   C   A *
+                                 *****************
+
+                                            #,                                       
+                                            ###                                      
+                                            ####                                     
+                                            #####                                    
+                                            ######                                   
+                                           ########,                                 
+                                     ,,################,,,,,                         
+                               ,,#################################,,                 
+                          ,,##########################################,,             
+                       ,#########################################, ''#####,          
+                    ,#############################################,,   '####,        
+                  ,##################################################,,,,####,       
+                ,###########''''           ''''###############################       
+              ,#####''   ,,,,##########,,,,          '''####'''          '####       
+            ,##' ,,,,###########################,,,                        '##       
+           ' ,,###''''                  '''############,,,                           
+         ,,##''                                '''############,,,,        ,,,,,,###''
+      ,#''                                            '''#######################'''  
+     '                                                          ''''####''''         
+             ,#######,   #######,   ,#######,      ##                                
+            ,#'     '#,  ##    ##  ,#'     '#,    #''#        ######   ,####,        
+            ##       ##  ##   ,#'  ##            #'  '#       #        #'  '#        
+            ##       ##  #######   ##           ,######,      #####,   #    #        
+            '#,     ,#'  ##    ##  '#,     ,#' ,#      #,         ##   #,  ,#        
+             '#######'   ##     ##  '#######'  #'      '#     #####' # '####'        
+
+
+
+                  #######################################################
+                  #                        -***-                        #
+                  #          Department of theory and spectroscopy      #
+                  #    Directorship and core code : Frank Neese         #
+                  #        Max Planck Institute fuer Kohlenforschung    #
+                  #                Kaiser Wilhelm Platz 1               #
+                  #                 D-45470 Muelheim/Ruhr               #
+                  #                      Germany                        #
+                  #                                                     #
+                  #                  All rights reserved                #
+                  #                        -***-                        #
+                  #######################################################
+
+
+
+                         Program Version 5.0.4 -  RELEASE  -
+
+ With contributions from (in alphabetic order):
+   Daniel Aravena         : Magnetic Suceptibility
+   Michael Atanasov       : Ab Initio Ligand Field Theory (pilot matlab implementation)
+   Alexander A. Auer      : GIAO ZORA, VPT2 properties, NMR spectrum
+   Ute Becker             : Parallelization
+   Giovanni Bistoni       : ED, misc. LED, open-shell LED, HFLD
+   Martin Brehm           : Molecular dynamics
+   Dmytro Bykov           : SCF Hessian
+   Vijay G. Chilkuri      : MRCI spin determinant printing, contributions to CSF-ICE
+   Dipayan Datta          : RHF DLPNO-CCSD density
+   Achintya Kumar Dutta   : EOM-CC, STEOM-CC
+   Dmitry Ganyushin       : Spin-Orbit,Spin-Spin,Magnetic field MRCI
+   Miquel Garcia          : C-PCM and meta-GGA Hessian, CC/C-PCM, Gaussian charge scheme
+   Yang Guo               : DLPNO-NEVPT2, F12-NEVPT2, CIM, IAO-localization
+   Andreas Hansen         : Spin unrestricted coupled pair/coupled cluster methods
+   Benjamin Helmich-Paris : MC-RPA, TRAH-SCF, COSX integrals
+   Lee Huntington         : MR-EOM, pCC
+   Robert Izsak           : Overlap fitted RIJCOSX, COSX-SCS-MP3, EOM
+   Marcus Kettner         : VPT2
+   Christian Kollmar      : KDIIS, OOCD, Brueckner-CCSD(T), CCSD density, CASPT2, CASPT2-K
+   Simone Kossmann        : Meta GGA functionals, TD-DFT gradient, OOMP2, MP2 Hessian
+   Martin Krupicka        : Initial AUTO-CI
+   Lucas Lang             : DCDCAS
+   Marvin Lechner         : AUTO-CI (C++ implementation), FIC-MRCC
+   Dagmar Lenk            : GEPOL surface, SMD
+   Dimitrios Liakos       : Extrapolation schemes; Compound Job, initial MDCI parallelization
+   Dimitrios Manganas     : Further ROCIS development; embedding schemes
+   Dimitrios Pantazis     : SARC Basis sets
+   Anastasios Papadopoulos: AUTO-CI, single reference methods and gradients
+   Taras Petrenko         : DFT Hessian,TD-DFT gradient, ASA, ECA, R-Raman, ABS, FL, XAS/XES, NRVS
+   Peter Pinski           : DLPNO-MP2, DLPNO-MP2 Gradient
+   Christoph Reimann      : Effective Core Potentials
+   Marius Retegan         : Local ZFS, SOC
+   Christoph Riplinger    : Optimizer, TS searches, QM/MM, DLPNO-CCSD(T), (RO)-DLPNO pert. Triples
+   Tobias Risthaus        : Range-separated hybrids, TD-DFT gradient, RPA, STAB
+   Michael Roemelt        : Original ROCIS implementation
+   Masaaki Saitow         : Open-shell DLPNO-CCSD energy and density
+   Barbara Sandhoefer     : DKH picture change effects
+   Avijit Sen             : IP-ROCIS
+   Kantharuban Sivalingam : CASSCF convergence, NEVPT2, FIC-MRCI
+   Bernardo de Souza      : ESD, SOC TD-DFT
+   Georgi Stoychev        : AutoAux, RI-MP2 NMR, DLPNO-MP2 response
+   Willem Van den Heuvel  : Paramagnetic NMR
+   Boris Wezisla          : Elementary symmetry handling
+   Frank Wennmohs         : Technical directorship
+
+
+ We gratefully acknowledge several colleagues who have allowed us to
+ interface, adapt or use parts of their codes:
+   Stefan Grimme, W. Hujo, H. Kruse, P. Pracht,  : VdW corrections, initial TS optimization,
+                  C. Bannwarth, S. Ehlert          DFT functionals, gCP, sTDA/sTD-DF
+   Ed Valeev, F. Pavosevic, A. Kumar             : LibInt (2-el integral package), F12 methods
+   Garnet Chan, S. Sharma, J. Yang, R. Olivares  : DMRG
+   Ulf Ekstrom                                   : XCFun DFT Library
+   Mihaly Kallay                                 : mrcc  (arbitrary order and MRCC methods)
+   Jiri Pittner, Ondrej Demel                    : Mk-CCSD
+   Frank Weinhold                                : gennbo (NPA and NBO analysis)
+   Christopher J. Cramer and Donald G. Truhlar   : smd solvation model
+   Lars Goerigk                                  : TD-DFT with DH, B97 family of functionals
+   V. Asgeirsson, H. Jonsson                     : NEB implementation
+   FAccTs GmbH                                   : IRC, NEB, NEB-TS, DLPNO-Multilevel, CI-OPT
+                                                   MM, QMMM, 2- and 3-layer-ONIOM, Crystal-QMMM,
+                                                   LR-CPCM, SF, NACMEs, symmetry and pop. for TD-DFT,
+                                                   nearIR, NL-DFT gradient (VV10), updates on ESD,
+                                                   ML-optimized integration grids
+   S Lehtola, MJT Oliveira, MAL Marques          : LibXC Library
+   Liviu Ungur et al                             : ANISO software
+
+
+ Your calculation uses the libint2 library for the computation of 2-el integrals
+ For citations please refer to: http://libint.valeyev.net
+
+ Your ORCA version has been built with support for libXC version: 5.1.0
+ For citations please refer to: https://tddft.org/programs/libxc/
+
+ This ORCA versions uses:
+   CBLAS   interface :  Fast vector & matrix operations
+   LAPACKE interface :  Fast linear algebra routines
+   Shared memory     :  Shared parallel matrices
+
+
+Your calculation utilizes the atom-pairwise dispersion correction
+based on tight binding partial charges (D4)
+Cite in your paper:
+E.Caldeweyher, C.Bannwarth, S.Grimme, J.Chem.Phys., (2017), 147, 034112.
+E.Caldeweyher, S.Ehlert, A.Hansen, H.Neugebauer, S.Grimme, J.Chem.Phys., (2018), in progress.
+   
+
+================================================================================
+
+----- Orbital basis set information -----
+Your calculation utilizes the basis: def2-TZVP
+   F. Weigend and R. Ahlrichs, Phys. Chem. Chem. Phys. 7, 3297 (2005).
+
+----- AuxJ basis set information -----
+Your calculation utilizes the auxiliary basis: def2/J
+   F. Weigend, Phys. Chem. Chem. Phys. 8, 1057 (2006).
+
+================================================================================
+                                        WARNINGS
+                       Please study these warnings very carefully!
+================================================================================
+
+
+WARNING: Geometry Optimization
+  ===> : Switching off AutoStart
+         For restart on a previous wavefunction, please use MOREAD
+
+INFO   : the flag for use of the SHARK integral package has been found!
+
+================================================================================
+                                       INPUT FILE
+================================================================================
+NAME = Fe_test.inp
+|  1> !B3LYP DEF2-TZVP D4 OPT FREQ def2/J RIJCOSX SOSCF
+|  2> 
+|  3> %geom
+|  4> convergence loose
+|  5> end
+|  6> 
+|  7> * xyz 0 1
+|  8>   Fe       -5.82475        2.98383        0.55217
+|  9>   Fe       -5.13692        0.48616       -0.94817
+| 10>   Fe       -5.66694       -1.89909        0.82751
+| 11>   Fe       -8.80308        2.97327        1.20441
+| 12>   Fe       -9.99209        0.48593       -0.02877
+| 13>   Fe       -7.68570       -1.08599       -1.38378
+| 14>   Fe       -7.76944        1.93781       -1.46935
+| 15>   Fe       -7.29331        0.48361        1.00605
+| 16>   Fe       -4.56957        0.63878        2.04255
+| 17>   Fe       -9.38501        0.58132        2.97902
+| 18>   Fe       -6.76825        2.23960        3.24495
+| 19>   Fe       -4.93117        0.83594        5.05529
+| 20>   Fe       -6.77203       -0.85957        3.49634
+| 21>   Fe       -9.35249        3.27399        4.17997
+| 22>   Fe       -7.94849        0.93779        5.58047
+| 23> **                         ****END OF INPUT****
+================================================================================
+
+                       *****************************
+                       * Geometry Optimization Run *
+                       *****************************
+
+Geometry optimization settings:
+Update method            Update   .... BFGS
+Choice of coordinates    CoordSys .... Z-matrix Internals
+Initial Hessian          InHess   .... Almoef's Model
+
+Convergence Tolerances:
+Energy Change            TolE     ....  3.0000e-05 Eh
+Max. Gradient            TolMAXG  ....  2.0000e-03 Eh/bohr
+RMS Gradient             TolRMSG  ....  5.0000e-04 Eh/bohr
+Max. Displacement        TolMAXD  ....  1.0000e-02 bohr
+RMS Displacement         TolRMSD  ....  7.0000e-03 bohr
+Strict Convergence                ....  False
+------------------------------------------------------------------------------
+                        ORCA OPTIMIZATION COORDINATE SETUP
+------------------------------------------------------------------------------
+
+The optimization will be done in new redundant internal coordinates
+Making redundant internal coordinates   ...  (new redundants) done
+Evaluating the initial hessian          ...  (Almloef) done
+Evaluating the coordinates              ...  done
+Calculating the B-matrix                .... done
+Calculating the G-matrix                .... done
+Diagonalizing the G-matrix              .... done
+The first mode is                       .... 1740
+The number of degrees of freedom        ....   39
+
+    -----------------------------------------------------------------
+                    Redundant Internal Coordinates
+
+
+    -----------------------------------------------------------------
+         Definition                    Initial Value    Approx d2E/dq
+    -----------------------------------------------------------------
+      1. B(Fe  1,Fe  0)                  2.9937         0.176735   
+      2. B(Fe  2,Fe  1)                  3.0205         0.160192   
+      3. B(Fe  3,Fe  0)                  3.0489         0.144301   
+      4. B(Fe  4,Fe  3)                  3.0202         0.160391   
+      5. B(Fe  5,Fe  2)                  3.1026         0.118466   
+      6. B(Fe  5,Fe  4)                  3.1026         0.118459   
+      7. B(Fe  5,Fe  1)                  3.0262         0.156887   
+      8. B(Fe  6,Fe  5)                  3.0262         0.156886   
+      9. B(Fe  6,Fe  4)                  3.0205         0.160190   
+     10. B(Fe  6,Fe  3)                  3.0479         0.144859   
+     11. B(Fe  6,Fe  1)                  3.0511         0.143167   
+     12. B(Fe  6,Fe  0)                  2.9937         0.176731   
+     13. B(Fe  7,Fe  2)                  2.8904         0.258375   
+     14. B(Fe  7,Fe  1)                  2.9102         0.240258   
+     15. B(Fe  7,Fe  0)                  2.9349         0.219362   
+     16. B(Fe  7,Fe  6)                  2.9102         0.240258   
+     17. B(Fe  7,Fe  5)                  2.8860         0.262568   
+     18. B(Fe  7,Fe  4)                  2.8904         0.258366   
+     19. B(Fe  7,Fe  3)                  2.9184         0.233075   
+     20. B(Fe  8,Fe  7)                  2.9184         0.233074   
+     21. B(Fe  8,Fe  2)                  3.0202         0.160392   
+     22. B(Fe  8,Fe  1)                  3.0479         0.144858   
+     23. B(Fe  8,Fe  0)                  3.0489         0.144302   
+     24. B(Fe  9,Fe  7)                  2.8770         0.271337   
+     25. B(Fe  9,Fe  4)                  3.0699         0.133590   
+     26. B(Fe  9,Fe  3)                  3.0347         0.152055   
+     27. B(Fe 10,Fe  8)                  2.9736         0.190274   
+     28. B(Fe 10,Fe  7)                  2.8934         0.255495   
+     29. B(Fe 10,Fe  3)                  2.9737         0.190271   
+     30. B(Fe 10,Fe  9)                  3.1093         0.115579   
+     31. B(Fe 10,Fe  0)                  2.9488         0.208497   
+     32. B(Fe 11,Fe 10)                  2.9364         0.218174   
+     33. B(Fe 11,Fe  8)                  3.0408         0.148698   
+     34. B(Fe 12,Fe 10)                  3.1094         0.115577   
+     35. B(Fe 12,Fe  9)                  3.0284         0.155583   
+     36. B(Fe 12,Fe  8)                  3.0347         0.152047   
+     37. B(Fe 12,Fe  7)                  2.8770         0.271329   
+     38. B(Fe 12,Fe 11)                  2.9485         0.208665   
+     39. B(Fe 12,Fe  2)                  3.0699         0.133587   
+     40. B(Fe 13,Fe 10)                  2.9364         0.218165   
+     41. B(Fe 13,Fe  9)                  2.9485         0.208669   
+     42. B(Fe 13,Fe  3)                  3.0408         0.148696   
+     43. B(Fe 14,Fe 13)                  3.0644         0.136338   
+     44. B(Fe 14,Fe 12)                  2.9930         0.177204   
+     45. B(Fe 14,Fe 11)                  3.0644         0.136341   
+     46. B(Fe 14,Fe 10)                  2.9227         0.229415   
+     47. B(Fe 14,Fe  9)                  2.9930         0.177200   
+     48. A(Fe  7,Fe  0,Fe 10)           58.9135         0.441163   
+     49. A(Fe  1,Fe  0,Fe  3)          109.1933         0.397552   
+     50. A(Fe  7,Fe  0,Fe  8)           58.3439         0.413018   
+     51. A(Fe  3,Fe  0,Fe 10)           59.4171         0.409313   
+     52. A(Fe  1,Fe  0,Fe  7)           58.7845         0.428232   
+     53. A(Fe  3,Fe  0,Fe  6)           60.5739         0.397551   
+     54. A(Fe  3,Fe  0,Fe  8)          107.1522         0.383713   
+     55. A(Fe  6,Fe  0,Fe 10)          108.6993         0.424353   
+     56. A(Fe  6,Fe  0,Fe  8)          109.1933         0.397551   
+     57. A(Fe  8,Fe  0,Fe 10)           59.4170         0.409314   
+     58. A(Fe  3,Fe  0,Fe  7)           58.3438         0.413017   
+     59. A(Fe  1,Fe  0,Fe 10)          108.6994         0.424354   
+     60. A(Fe  1,Fe  0,Fe  8)           60.5740         0.397553   
+     61. A(Fe  1,Fe  0,Fe  6)           61.2711         0.412040   
+     62. A(Fe  6,Fe  0,Fe  7)           58.7844         0.428231   
+     63. A(Fe  2,Fe  1,Fe  5)           61.7430         0.396530   
+     64. A(Fe  2,Fe  1,Fe  7)           58.2990         0.427674   
+     65. A(Fe  2,Fe  1,Fe  6)          108.9497         0.390226   
+     66. A(Fe  5,Fe  1,Fe  6)           59.7274         0.388808   
+     67. A(Fe  5,Fe  1,Fe  8)          108.9076         0.389606   
+     68. A(Fe  2,Fe  1,Fe  8)           59.6922         0.391028   
+     69. A(Fe  0,Fe  1,Fe  2)          108.8989         0.404935   
+     70. A(Fe  6,Fe  1,Fe  8)          107.7221         0.383444   
+     71. A(Fe  0,Fe  1,Fe  8)           60.6089         0.397821   
+     72. A(Fe  0,Fe  1,Fe  6)           59.3645         0.397002   
+     73. A(Fe  0,Fe  1,Fe  5)          108.1836         0.403448   
+     74. A(Fe  5,Fe  1,Fe  7)           58.1372         0.426079   
+     75. A(Fe  7,Fe  1,Fe  8)           58.6041         0.420048   
+     76. A(Fe  6,Fe  1,Fe  7)           58.3848         0.419169   
+     77. A(Fe  0,Fe  1,Fe  7)           59.5988         0.435291   
+     78. A(Fe  7,Fe  2,Fe 12)           57.6296         0.419426   
+     79. A(Fe  1,Fe  2,Fe  5)           59.2184         0.377587   
+     80. A(Fe  5,Fe  2,Fe  7)           57.4435         0.410563   
+     81. A(Fe  1,Fe  2,Fe 12)          107.8686         0.385541   
+     82. A(Fe  7,Fe  2,Fe  8)           59.1283         0.433389   
+     83. A(Fe  5,Fe  2,Fe 12)          107.2556         0.365964   
+     84. A(Fe  8,Fe  2,Fe 12)           59.7687         0.385625   
+     85. A(Fe  1,Fe  2,Fe  8)           60.6046         0.398072   
+     86. A(Fe  5,Fe  2,Fe  8)          107.6337         0.377668   
+     87. A(Fe  1,Fe  2,Fe  7)           58.9399         0.433292   
+     88. A(Fe  4,Fe  3,Fe  6)           59.7033         0.391113   
+     89. A(Fe  6,Fe  3,Fe  9)          108.0743         0.387485   
+     90. A(Fe  0,Fe  3,Fe  9)          108.3697         0.387225   
+     91. A(Fe  7,Fe  3,Fe  9)           57.7607         0.421409   
+     92. A(Fe  0,Fe  3,Fe  7)           58.8734         0.417495   
+     93. A(Fe  0,Fe  3,Fe 13)          112.6743         0.385721   
+     94. A(Fe  4,Fe  3,Fe 10)          110.2667         0.410347   
+     95. A(Fe  7,Fe  3,Fe 10)           58.8129         0.438713   
+     96. A(Fe  6,Fe  3,Fe 13)          162.4235         0.385980   
+     97. A(Fe  9,Fe  3,Fe 13)           58.0666         0.389257   
+     98. A(Fe  7,Fe  3,Fe 13)          104.1434         0.419733   
+     99. A(Fe 10,Fe  3,Fe 13)           58.4358         0.404887   
+    100. A(Fe  4,Fe  3,Fe  7)           58.2192         0.425449   
+    101. A(Fe  0,Fe  3,Fe  6)           58.8172         0.383970   
+    102. A(Fe  4,Fe  3,Fe 13)          114.1971         0.392906   
+    103. A(Fe  6,Fe  3,Fe 10)          106.6241         0.403023   
+    104. A(Fe  6,Fe  3,Fe  7)           58.3393         0.417782   
+    105. A(Fe  0,Fe  3,Fe 10)           58.6147         0.402749   
+    106. A(Fe  4,Fe  3,Fe  9)           60.9305         0.394446   
+    107. A(Fe  0,Fe  3,Fe  4)          107.4624         0.390849   
+    108. A(Fe  9,Fe  3,Fe 10)           62.3204         0.406488   
+    109. A(Fe  7,Fe  4,Fe  9)           57.6294         0.419425   
+    110. A(Fe  6,Fe  4,Fe  9)          107.8683         0.385541   
+    111. A(Fe  5,Fe  4,Fe  9)          107.2553         0.365962   
+    112. A(Fe  3,Fe  4,Fe  9)           59.7685         0.385626   
+    113. A(Fe  6,Fe  4,Fe  7)           58.9398         0.433288   
+    114. A(Fe  5,Fe  4,Fe  7)           57.4432         0.410556   
+    115. A(Fe  3,Fe  4,Fe  7)           59.1281         0.433386   
+    116. A(Fe  5,Fe  4,Fe  6)           59.2183         0.377582   
+    117. A(Fe  3,Fe  4,Fe  6)           60.6045         0.398071   
+    118. A(Fe  3,Fe  4,Fe  5)          107.6334         0.377664   
+    119. A(Fe  1,Fe  5,Fe  2)           59.0386         0.376228   
+    120. A(Fe  1,Fe  5,Fe  7)           58.9179         0.432922   
+    121. A(Fe  6,Fe  5,Fe  7)           58.9179         0.432922   
+    122. A(Fe  1,Fe  5,Fe  6)           60.5453         0.395082   
+    123. A(Fe  2,Fe  5,Fe  7)           57.5800         0.411737   
+    124. A(Fe  4,Fe  5,Fe  6)           59.0384         0.376224   
+    125. A(Fe  2,Fe  5,Fe  6)          107.4589         0.376228   
+    126. A(Fe  2,Fe  5,Fe  4)          107.7695         0.358532   
+    127. A(Fe  1,Fe  5,Fe  4)          107.4588         0.376225   
+    128. A(Fe  4,Fe  5,Fe  7)           57.5801         0.411733   
+    129. A(Fe  0,Fe  6,Fe  1)           59.3643         0.397000   
+    130. A(Fe  1,Fe  6,Fe  4)          108.9499         0.390225   
+    131. A(Fe  1,Fe  6,Fe  5)           59.7273         0.388808   
+    132. A(Fe  3,Fe  6,Fe  4)           59.6922         0.391027   
+    133. A(Fe  0,Fe  6,Fe  4)          108.8989         0.404933   
+    134. A(Fe  1,Fe  6,Fe  3)          107.7219         0.383444   
+    135. A(Fe  3,Fe  6,Fe  5)          108.9077         0.389606   
+    136. A(Fe  0,Fe  6,Fe  3)           60.6089         0.397820   
+    137. A(Fe  5,Fe  6,Fe  7)           58.1372         0.426079   
+    138. A(Fe  0,Fe  6,Fe  5)          108.1834         0.403446   
+    139. A(Fe  3,Fe  6,Fe  7)           58.6041         0.420048   
+    140. A(Fe  4,Fe  6,Fe  7)           58.2992         0.427672   
+    141. A(Fe  1,Fe  6,Fe  7)           58.3848         0.419169   
+    142. A(Fe  0,Fe  6,Fe  7)           59.5987         0.435290   
+    143. A(Fe  4,Fe  6,Fe  5)           61.7433         0.396529   
+    144. A(Fe  2,Fe  7,Fe  5)           64.9765         0.474034   
+    145. A(Fe  3,Fe  7,Fe 12)          115.6691         0.467963   
+    146. A(Fe  8,Fe  7,Fe  9)          115.6691         0.467964   
+    147. A(Fe  5,Fe  7,Fe 12)          119.1755         0.478321   
+    148. A(Fe  5,Fe  7,Fe  9)          119.1757         0.478324   
+    149. A(Fe  3,Fe  7,Fe  9)           63.1476         0.467965   
+    150. A(Fe  1,Fe  7,Fe  4)          116.8368         0.466370   
+    151. A(Fe  1,Fe  7,Fe  5)           62.9449         0.467751   
+    152. A(Fe  0,Fe  7,Fe  4)          114.2774         0.458678   
+    153. A(Fe  0,Fe  7,Fe  5)          113.7838         0.460030   
+    154. A(Fe  6,Fe  7,Fe  9)          116.5767         0.470577   
+    155. A(Fe  1,Fe  7,Fe  3)          115.3550         0.457673   
+    156. A(Fe  6,Fe  7,Fe  8)          115.3551         0.457673   
+    157. A(Fe  0,Fe  7,Fe  3)           62.7828         0.450158   
+    158. A(Fe  5,Fe  7,Fe  8)          116.7380         0.465157   
+    159. A(Fe 10,Fe  7,Fe 12)           65.2085         0.475923   
+    160. A(Fe  3,Fe  7,Fe  8)          114.4135         0.455149   
+    161. A(Fe  2,Fe  7,Fe  8)           62.6527         0.463789   
+    162. A(Fe  1,Fe  7,Fe  8)           63.0566         0.457673   
+    163. A(Fe  0,Fe  7,Fe  8)           62.7828         0.450158   
+    164. A(Fe  1,Fe  7,Fe  2)           62.7611         0.466373   
+    165. A(Fe  9,Fe  7,Fe 12)           63.5131         0.481227   
+    166. A(Fe  8,Fe  7,Fe 12)           63.1478         0.467962   
+    167. A(Fe  4,Fe  7,Fe 12)          118.6491         0.476902   
+    168. A(Fe  2,Fe  7,Fe 12)           64.3200         0.476905   
+    169. A(Fe  0,Fe  7,Fe  2)          114.2773         0.458681   
+    170. A(Fe  1,Fe  7,Fe 12)          116.5769         0.470575   
+    171. A(Fe  0,Fe  7,Fe 12)          116.1620         0.462797   
+    172. A(Fe  0,Fe  7,Fe  1)           61.6168         0.452648   
+    173. A(Fe  2,Fe  7,Fe  4)          120.2606         0.472631   
+    174. A(Fe  5,Fe  7,Fe  6)           62.9449         0.467751   
+    175. A(Fe  0,Fe  7,Fe  9)          116.1618         0.462799   
+    176. A(Fe  4,Fe  7,Fe  6)           62.7611         0.466370   
+    177. A(Fe  3,Fe  7,Fe  6)           63.0566         0.457673   
+    178. A(Fe  2,Fe  7,Fe  9)          118.6493         0.476908   
+    179. A(Fe  2,Fe  7,Fe  6)          116.8367         0.466373   
+    180. A(Fe  1,Fe  7,Fe  6)           63.2305         0.460215   
+    181. A(Fe  3,Fe  7,Fe  4)           62.6527         0.463786   
+    182. A(Fe  0,Fe  7,Fe  6)           61.6169         0.452648   
+    183. A(Fe  4,Fe  7,Fe  9)           64.3198         0.476905   
+    184. A(Fe  9,Fe  7,Fe 10)           65.2086         0.475925   
+    185. A(Fe  8,Fe  7,Fe 10)           61.5463         0.462839   
+    186. A(Fe  6,Fe  7,Fe 10)          112.6201         0.465417   
+    187. A(Fe  5,Fe  7,Fe 10)          174.5655         0.473059   
+    188. A(Fe  4,Fe  7,Fe 10)          116.4864         0.471659   
+    189. A(Fe  3,Fe  7,Fe 10)           61.5464         0.462840   
+    190. A(Fe  2,Fe  7,Fe 10)          116.4864         0.471662   
+    191. A(Fe  1,Fe  7,Fe 10)          112.6200         0.465417   
+    192. A(Fe  4,Fe  7,Fe  5)           64.9767         0.474031   
+    193. A(Fe  0,Fe  7,Fe 10)           60.7817         0.457744   
+    194. A(Fe  3,Fe  7,Fe  5)          116.7381         0.465158   
+    195. A(Fe  2,Fe  8,Fe 12)           60.9305         0.394443   
+    196. A(Fe  7,Fe  8,Fe 12)           57.7607         0.421405   
+    197. A(Fe  2,Fe  8,Fe  7)           58.2190         0.425449   
+    198. A(Fe  1,Fe  8,Fe  7)           58.3393         0.417781   
+    199. A(Fe  0,Fe  8,Fe  7)           58.8734         0.417495   
+    200. A(Fe 11,Fe  8,Fe 12)           58.0666         0.389254   
+    201. A(Fe 10,Fe  8,Fe 12)           62.3204         0.406486   
+    202. A(Fe  1,Fe  8,Fe  2)           59.7032         0.391113   
+    203. A(Fe  1,Fe  8,Fe 12)          108.0744         0.387482   
+    204. A(Fe  0,Fe  8,Fe 12)          108.3697         0.387222   
+    205. A(Fe  0,Fe  8,Fe  2)          107.4621         0.390850   
+    206. A(Fe  0,Fe  8,Fe  1)           58.8171         0.383970   
+    207. A(Fe 10,Fe  8,Fe 11)           58.4356         0.404889   
+    208. A(Fe  7,Fe  8,Fe 11)          104.1433         0.419733   
+    209. A(Fe  2,Fe  8,Fe 11)          114.1973         0.392907   
+    210. A(Fe  1,Fe  8,Fe 11)          162.4233         0.385981   
+    211. A(Fe  0,Fe  8,Fe 11)          112.6742         0.385722   
+    212. A(Fe  7,Fe  8,Fe 10)           58.8129         0.438714   
+    213. A(Fe  2,Fe  8,Fe 10)          110.2666         0.410348   
+    214. A(Fe  1,Fe  8,Fe 10)          106.6241         0.403024   
+    215. A(Fe  0,Fe  8,Fe 10)           58.6148         0.402751   
+    216. A(Fe  7,Fe  9,Fe 14)          104.5454         0.445170   
+    217. A(Fe  4,Fe  9,Fe 14)          161.8402         0.392393   
+    218. A(Fe 13,Fe  9,Fe 14)           62.0905         0.424617   
+    219. A(Fe 10,Fe  9,Fe 14)           57.1954         0.382609   
+    220. A(Fe  4,Fe  9,Fe  7)           58.0508         0.423109   
+    221. A(Fe  3,Fe  9,Fe  7)           59.0918         0.433044   
+    222. A(Fe  3,Fe  9,Fe 14)          108.8056         0.401415   
+    223. A(Fe 12,Fe  9,Fe 13)          110.8184         0.414878   
+    224. A(Fe 10,Fe  9,Fe 13)           57.9162         0.393676   
+    225. A(Fe  7,Fe  9,Fe 13)          107.5965         0.458595   
+    226. A(Fe  4,Fe  9,Fe 13)          115.4433         0.403829   
+    227. A(Fe  3,Fe  9,Fe 13)           61.0700         0.413191   
+    228. A(Fe  3,Fe  9,Fe  4)           59.3010         0.382064   
+    229. A(Fe 12,Fe  9,Fe 14)           59.6077         0.403041   
+    230. A(Fe 10,Fe  9,Fe 12)           60.8572         0.374090   
+    231. A(Fe  7,Fe  9,Fe 12)           58.2436         0.434835   
+    232. A(Fe  4,Fe  9,Fe 12)          108.8566         0.383589   
+    233. A(Fe  3,Fe  9,Fe 12)          108.0264         0.392349   
+    234. A(Fe  7,Fe  9,Fe 10)           57.6499         0.412335   
+    235. A(Fe  4,Fe  9,Fe 10)          105.4733         0.364423   
+    236. A(Fe  3,Fe  9,Fe 10)           57.8774         0.372613   
+    237. A(Fe 13,Fe 10,Fe 14)           63.0681         0.448421   
+    238. A(Fe 12,Fe 10,Fe 14)           59.3996         0.400282   
+    239. A(Fe 11,Fe 10,Fe 14)           63.0681         0.448424   
+    240. A(Fe  8,Fe 10,Fe 14)          112.4520         0.437464   
+    241. A(Fe  7,Fe 10,Fe 14)          105.9462         0.461503   
+    242. A(Fe  3,Fe 10,Fe 14)          112.4520         0.437463   
+    243. A(Fe  0,Fe 10,Fe 14)          166.2510         0.444753   
+    244. A(Fe 12,Fe 10,Fe 13)          108.9229         0.396760   
+    245. A(Fe 11,Fe 10,Fe 13)          121.5113         0.444357   
+    246. A(Fe  9,Fe 10,Fe 13)           58.2952         0.396761   
+    247. A(Fe  8,Fe 10,Fe 13)          165.7199         0.433521   
+    248. A(Fe  7,Fe 10,Fe 13)          107.4861         0.457288   
+    249. A(Fe  3,Fe 10,Fe 13)           61.9251         0.433519   
+    250. A(Fe  0,Fe 10,Fe 13)          118.9120         0.440727   
+    251. A(Fe  9,Fe 10,Fe 14)           59.3998         0.400283   
+    252. A(Fe 11,Fe 10,Fe 12)           58.2954         0.396763   
+    253. A(Fe  9,Fe 10,Fe 12)           58.2858         0.355541   
+    254. A(Fe  8,Fe 10,Fe 12)           59.8025         0.387377   
+    255. A(Fe  7,Fe 10,Fe 12)           57.1416         0.407961   
+    256. A(Fe  3,Fe 10,Fe 12)          107.4914         0.387376   
+    257. A(Fe  0,Fe 10,Fe 12)          109.0130         0.393619   
+    258. A(Fe  9,Fe 10,Fe 11)          108.9232         0.396764   
+    259. A(Fe  8,Fe 10,Fe 11)           61.9252         0.433524   
+    260. A(Fe  7,Fe 10,Fe 11)          107.4863         0.457291   
+    261. A(Fe  3,Fe 10,Fe 11)          165.7200         0.433523   
+    262. A(Fe  0,Fe 10,Fe 11)          118.9121         0.440730   
+    263. A(Fe  8,Fe 10,Fe  9)          107.4915         0.387378   
+    264. A(Fe  7,Fe 10,Fe  9)           57.1415         0.407962   
+    265. A(Fe  3,Fe 10,Fe  9)           59.8022         0.387377   
+    266. A(Fe  0,Fe 10,Fe  9)          109.0127         0.393619   
+    267. A(Fe  7,Fe 10,Fe  8)           59.6407         0.446060   
+    268. A(Fe  3,Fe 10,Fe  8)          111.1803         0.423016   
+    269. A(Fe  0,Fe 10,Fe  8)           61.9682         0.430004   
+    270. A(Fe  3,Fe 10,Fe  7)           59.6407         0.446059   
+    271. A(Fe  0,Fe 10,Fe  7)           60.3048         0.453529   
+    272. A(Fe  0,Fe 10,Fe  3)           61.9682         0.430003   
+    273. A(Fe 12,Fe 11,Fe 14)           59.6675         0.405283   
+    274. A(Fe 10,Fe 11,Fe 14)           58.2480         0.408489   
+    275. A(Fe  8,Fe 11,Fe 14)          106.8011         0.381935   
+    276. A(Fe 10,Fe 11,Fe 12)           63.7887         0.440794   
+    277. A(Fe  8,Fe 11,Fe 12)           60.8637         0.411555   
+    278. A(Fe  8,Fe 11,Fe 10)           59.6392         0.414825   
+    279. A(Fe  8,Fe 12,Fe 14)          108.8054         0.401413   
+    280. A(Fe  7,Fe 12,Fe 14)          104.5454         0.445170   
+    281. A(Fe  2,Fe 12,Fe 14)          161.8397         0.392393   
+    282. A(Fe 10,Fe 12,Fe 11)           57.9158         0.393674   
+    283. A(Fe  9,Fe 12,Fe 11)          110.8182         0.414877   
+    284. A(Fe  8,Fe 12,Fe 11)           61.0697         0.413185   
+    285. A(Fe  7,Fe 12,Fe 11)          107.5960         0.458591   
+    286. A(Fe  2,Fe 12,Fe 11)          115.4430         0.403826   
+    287. A(Fe  9,Fe 12,Fe 10)           60.8571         0.374089   
+    288. A(Fe  8,Fe 12,Fe 10)           57.8771         0.372609   
+    289. A(Fe  7,Fe 12,Fe 10)           57.6498         0.412332   
+    290. A(Fe  2,Fe 12,Fe 10)          105.4728         0.364421   
+    291. A(Fe  8,Fe 12,Fe  9)          108.0260         0.392346   
+    292. A(Fe  7,Fe 12,Fe  9)           58.2434         0.434833   
+    293. A(Fe  2,Fe 12,Fe  9)          108.8562         0.383588   
+    294. A(Fe  7,Fe 12,Fe  8)           59.0916         0.433038   
+    295. A(Fe  2,Fe 12,Fe  8)           59.3008         0.382059   
+    296. A(Fe  2,Fe 12,Fe  7)           58.0504         0.423105   
+    297. A(Fe 11,Fe 12,Fe 14)           62.0904         0.424617   
+    298. A(Fe 10,Fe 12,Fe 14)           57.1954         0.382610   
+    299. A(Fe  9,Fe 12,Fe 14)           59.6079         0.403043   
+    300. A(Fe  9,Fe 13,Fe 10)           63.7886         0.440793   
+    301. A(Fe  3,Fe 13,Fe 10)           59.6392         0.414821   
+    302. A(Fe  3,Fe 13,Fe  9)           60.8634         0.411556   
+    303. A(Fe 10,Fe 13,Fe 14)           58.2478         0.408485   
+    304. A(Fe  9,Fe 13,Fe 14)           59.6676         0.405283   
+    305. A(Fe  3,Fe 13,Fe 14)          106.8009         0.381933   
+    306. A(Fe 10,Fe 14,Fe 11)           58.6839         0.412143   
+    307. A(Fe  9,Fe 14,Fe 11)          108.6428         0.393796   
+    308. A(Fe  9,Fe 14,Fe 10)           63.4048         0.431894   
+    309. A(Fe 12,Fe 14,Fe 13)          108.6429         0.393796   
+    310. A(Fe 11,Fe 14,Fe 13)          113.4622         0.376238   
+    311. A(Fe 10,Fe 14,Fe 13)           58.6841         0.412141   
+    312. A(Fe  9,Fe 14,Fe 13)           58.2419         0.393794   
+    313. A(Fe 11,Fe 14,Fe 12)           58.2422         0.393798   
+    314. A(Fe 10,Fe 14,Fe 12)           63.4050         0.431896   
+    315. A(Fe  9,Fe 14,Fe 12)           60.7845         0.412428   
+    316. D(Fe  7,Fe  1,Fe  0,Fe  3)    -30.6010         0.001525   
+    317. D(Fe  5,Fe  1,Fe  0,Fe 10)     65.7782         0.001525   
+    318. D(Fe  8,Fe  1,Fe  0,Fe  7)    -68.7316         0.001525   
+    319. D(Fe  6,Fe  1,Fe  0,Fe 10)    101.5635         0.001525   
+    320. D(Fe  8,Fe  1,Fe  0,Fe 10)    -36.1360         0.001525   
+    321. D(Fe  5,Fe  1,Fe  0,Fe  8)    101.9142         0.001525   
+    322. D(Fe  2,Fe  1,Fe  0,Fe  7)    -32.3450         0.001525   
+    323. D(Fe  8,Fe  1,Fe  0,Fe  3)    -99.3326         0.001525   
+    324. D(Fe  2,Fe  1,Fe  0,Fe  6)   -101.3129         0.001525   
+    325. D(Fe  8,Fe  1,Fe  0,Fe  6)   -137.6995         0.001525   
+    326. D(Fe  6,Fe  1,Fe  0,Fe  8)    137.6995         0.001525   
+    327. D(Fe  5,Fe  1,Fe  0,Fe  6)    -35.7852         0.001525   
+    328. D(Fe  6,Fe  1,Fe  0,Fe  7)     68.9678         0.001525   
+    329. D(Fe  2,Fe  1,Fe  0,Fe  3)    -62.9460         0.001525   
+    330. D(Fe  2,Fe  1,Fe  0,Fe  8)     36.3866         0.001525   
+    331. D(Fe  5,Fe  1,Fe  0,Fe  3)      2.5816         0.001525   
+    332. D(Fe  7,Fe  1,Fe  0,Fe  8)     68.7316         0.001525   
+    333. D(Fe  2,Fe  1,Fe  0,Fe 10)      0.2506         0.001525   
+    334. D(Fe  7,Fe  1,Fe  0,Fe 10)     32.5956         0.001525   
+    335. D(Fe  7,Fe  1,Fe  0,Fe  6)    -68.9678         0.001525   
+    336. D(Fe  6,Fe  1,Fe  0,Fe  3)     38.3668         0.001525   
+    337. D(Fe  5,Fe  1,Fe  0,Fe  7)     33.1826         0.001525   
+    338. D(Fe  5,Fe  2,Fe  1,Fe  7)     68.1342         0.001520   
+    339. D(Fe 12,Fe  2,Fe  1,Fe  0)      1.1491         0.001520   
+    340. D(Fe  5,Fe  2,Fe  1,Fe  0)    100.9796         0.001520   
+    341. D(Fe  7,Fe  2,Fe  1,Fe  8)     69.6224         0.001520   
+    342. D(Fe  8,Fe  2,Fe  1,Fe  0)    -36.7770         0.001520   
+    343. D(Fe  8,Fe  2,Fe  1,Fe  7)    -69.6224         0.001520   
+    344. D(Fe  5,Fe  2,Fe  1,Fe  6)     37.8470         0.001520   
+    345. D(Fe 12,Fe  2,Fe  1,Fe  6)    -61.9836         0.001520   
+    346. D(Fe 12,Fe  2,Fe  1,Fe  5)    -99.8306         0.001520   
+    347. D(Fe 12,Fe  2,Fe  1,Fe  7)    -31.6963         0.001520   
+    348. D(Fe  7,Fe  2,Fe  1,Fe  5)    -68.1342         0.001520   
+    349. D(Fe  7,Fe  2,Fe  1,Fe  6)    -30.2872         0.001520   
+    350. D(Fe  5,Fe  2,Fe  1,Fe  8)    137.7567         0.001520   
+    351. D(Fe  7,Fe  2,Fe  1,Fe  0)     32.8454         0.001520   
+    352. D(Fe  8,Fe  2,Fe  1,Fe  6)    -99.9097         0.001520   
+    353. D(Fe  8,Fe  2,Fe  1,Fe  5)   -137.7567         0.001520   
+    354. D(Fe 12,Fe  2,Fe  1,Fe  8)     37.9261         0.001520   
+    355. D(Fe  9,Fe  3,Fe  2,Fe  5)    108.0790         0.001500   
+    356. D(Fe 10,Fe  3,Fe  2,Fe  1)   -105.8656         0.001500   
+    357. D(Fe  4,Fe  3,Fe  0,Fe  8)    -66.7177         0.001518   
+    358. D(Fe  6,Fe  3,Fe  2,Fe  8)    109.0129         0.001500   
+    359. D(Fe  7,Fe  3,Fe  0,Fe  1)     30.7608         0.001518   
+    360. D(Fe  9,Fe  3,Fe  0,Fe  8)     -2.3269         0.001518   
+    361. D(Fe  6,Fe  3,Fe  0,Fe  8)   -102.7634         0.001518   
+    362. D(Fe  6,Fe  3,Fe  0,Fe  7)    -69.4363         0.001518   
+    363. D(Fe  6,Fe  3,Fe  0,Fe 10)   -139.5463         0.001518   
+    364. D(Fe  4,Fe  3,Fe  0,Fe  7)    -33.3906         0.001518   
+    365. D(Fe  7,Fe  3,Fe  0,Fe  6)     69.4363         0.001518   
+    366. D(Fe  0,Fe  3,Fe  2,Fe  8)     38.1385         0.001500   
+    367. D(Fe  4,Fe  3,Fe  0,Fe 10)   -103.5006         0.001518   
+    368. D(Fe  9,Fe  3,Fe  2,Fe  1)    179.1940         0.001500   
+    369. D(Fe  4,Fe  3,Fe  2,Fe  8)   -179.9999         0.001500   
+    370. D(Fe  6,Fe  3,Fe  2,Fe  1)     35.8411         0.001500   
+    371. D(Fe  9,Fe  3,Fe  0,Fe  7)     31.0002         0.001518   
+    372. D(Fe  0,Fe  3,Fe  2,Fe  1)    -35.0333         0.001500   
+    373. D(Fe 13,Fe  3,Fe  2,Fe  1)   -143.1468         0.001500   
+    374. D(Fe  0,Fe  3,Fe  2,Fe  5)   -106.1483         0.001500   
+    375. D(Fe 13,Fe  3,Fe  2,Fe  5)    145.7382         0.001500   
+    376. D(Fe 13,Fe  3,Fe  0,Fe  6)    162.7078         0.001518   
+    377. D(Fe 10,Fe  3,Fe  2,Fe 12)     39.5830         0.001500   
+    378. D(Fe  7,Fe  3,Fe  0,Fe  8)    -33.3271         0.001518   
+    379. D(Fe  9,Fe  3,Fe  2,Fe 12)    -35.3574         0.001500   
+    380. D(Fe 13,Fe  3,Fe  2,Fe  8)    -69.9750         0.001500   
+    381. D(Fe 13,Fe  3,Fe  0,Fe  8)     59.9444         0.001518   
+    382. D(Fe  4,Fe  3,Fe  2,Fe  5)     35.7133         0.001500   
+    383. D(Fe  4,Fe  3,Fe  0,Fe  6)     36.0457         0.001518   
+    384. D(Fe  6,Fe  3,Fe  2,Fe 12)   -178.7102         0.001500   
+    385. D(Fe  6,Fe  3,Fe  2,Fe  5)    -35.2739         0.001500   
+    386. D(Fe  6,Fe  3,Fe  0,Fe  1)    -38.6755         0.001518   
+    387. D(Fe  9,Fe  3,Fe  2,Fe  8)   -107.6343         0.001500   
+    388. D(Fe 13,Fe  3,Fe  0,Fe  1)    124.0324         0.001518   
+    389. D(Fe  4,Fe  3,Fe  2,Fe 12)   -107.7230         0.001500   
+    390. D(Fe 10,Fe  3,Fe  2,Fe  8)    -32.6939         0.001500   
+    391. D(Fe  9,Fe  3,Fe  0,Fe  6)    100.4365         0.001518   
+    392. D(Fe 10,Fe  3,Fe  0,Fe  6)    139.5463         0.001518   
+    393. D(Fe 10,Fe  3,Fe  0,Fe  7)     70.1100         0.001518   
+    394. D(Fe  7,Fe  3,Fe  0,Fe 10)    -70.1100         0.001518   
+    395. D(Fe 10,Fe  3,Fe  0,Fe  1)    100.8708         0.001518   
+    396. D(Fe  4,Fe  3,Fe  0,Fe  1)     -2.6298         0.001518   
+    397. D(Fe 10,Fe  3,Fe  2,Fe  5)   -176.9806         0.001500   
+    398. D(Fe  4,Fe  3,Fe  2,Fe  1)    106.8283         0.001500   
+    399. D(Fe  9,Fe  3,Fe  0,Fe  1)     61.7611         0.001518   
+    400. D(Fe 13,Fe  3,Fe  0,Fe  7)     93.2715         0.001518   
+    401. D(Fe  0,Fe  3,Fe  2,Fe 12)    110.4154         0.001500   
+    402. D(Fe 10,Fe  3,Fe  0,Fe  8)     36.7829         0.001518   
+    403. D(Fe 13,Fe  3,Fe  0,Fe 10)     23.1615         0.001518   
+    404. D(Fe 13,Fe  3,Fe  2,Fe 12)      2.3019         0.001500   
+    405. D(Fe  9,Fe  3,Fe  0,Fe 10)    -39.1098         0.001518   
+    406. D(Fe  6,Fe  4,Fe  3,Fe 10)    -97.9014         0.001521   
+    407. D(Fe  9,Fe  4,Fe  3,Fe 10)     39.4827         0.001521   
+    408. D(Fe  9,Fe  4,Fe  3,Fe  6)    137.3841         0.001521   
+    409. D(Fe  6,Fe  4,Fe  3,Fe 13)   -161.4254         0.001521   
+    410. D(Fe  6,Fe  4,Fe  3,Fe  9)   -137.3841         0.001521   
+    411. D(Fe  6,Fe  4,Fe  3,Fe  0)    -35.6649         0.001521   
+    412. D(Fe  5,Fe  4,Fe  3,Fe 10)    -60.5968         0.001521   
+    413. D(Fe  5,Fe  4,Fe  3,Fe  6)     37.3045         0.001521   
+    414. D(Fe  5,Fe  4,Fe  3,Fe 13)   -124.1209         0.001521   
+    415. D(Fe  5,Fe  4,Fe  3,Fe  0)      1.6396         0.001521   
+    416. D(Fe  5,Fe  4,Fe  3,Fe  9)   -100.0796         0.001521   
+    417. D(Fe  5,Fe  4,Fe  3,Fe  7)    -32.0160         0.001521   
+    418. D(Fe  7,Fe  4,Fe  3,Fe  9)    -68.0635         0.001521   
+    419. D(Fe  6,Fe  4,Fe  3,Fe  7)    -69.3206         0.001521   
+    420. D(Fe  7,Fe  4,Fe  3,Fe  0)     33.6557         0.001521   
+    421. D(Fe  9,Fe  4,Fe  3,Fe  0)    101.7192         0.001521   
+    422. D(Fe  7,Fe  4,Fe  3,Fe 13)    -92.1049         0.001521   
+    423. D(Fe  7,Fe  4,Fe  3,Fe 10)    -28.5808         0.001521   
+    424. D(Fe  9,Fe  4,Fe  3,Fe  7)     68.0635         0.001521   
+    425. D(Fe  9,Fe  4,Fe  3,Fe 13)    -24.0413         0.001521   
+    426. D(Fe  7,Fe  4,Fe  3,Fe  6)     69.3206         0.001521   
+    427. D(Fe  7,Fe  5,Fe  1,Fe  6)    -69.3983         0.001519   
+    428. D(Fe  6,Fe  5,Fe  1,Fe  2)    137.7838         0.001519   
+    429. D(Fe  6,Fe  5,Fe  1,Fe  8)     99.9407         0.001519   
+    430. D(Fe  6,Fe  5,Fe  1,Fe  0)     35.6319         0.001519   
+    431. D(Fe  4,Fe  5,Fe  1,Fe  7)     32.2405         0.001519   
+    432. D(Fe  6,Fe  5,Fe  4,Fe  9)   -100.8914         0.001511   
+    433. D(Fe  2,Fe  5,Fe  4,Fe  7)     29.4874         0.001511   
+    434. D(Fe  6,Fe  5,Fe  1,Fe  7)     69.3983         0.001519   
+    435. D(Fe  7,Fe  5,Fe  4,Fe  3)     32.6755         0.001511   
+    436. D(Fe  2,Fe  5,Fe  1,Fe  7)    -68.3856         0.001519   
+    437. D(Fe  2,Fe  5,Fe  4,Fe  3)     62.1629         0.001511   
+    438. D(Fe  1,Fe  5,Fe  4,Fe  6)     37.8309         0.001511   
+    439. D(Fe  7,Fe  5,Fe  4,Fe  9)    -30.2926         0.001511   
+    440. D(Fe  1,Fe  5,Fe  4,Fe  7)    -32.7680         0.001511   
+    441. D(Fe  6,Fe  5,Fe  2,Fe  1)    -37.8310         0.001511   
+    442. D(Fe  7,Fe  5,Fe  1,Fe  8)     30.5425         0.001519   
+    443. D(Fe  4,Fe  5,Fe  2,Fe 12)      0.8054         0.001511   
+    444. D(Fe  7,Fe  5,Fe  2,Fe 12)     30.2928         0.001511   
+    445. D(Fe  6,Fe  5,Fe  2,Fe  7)     32.7679         0.001511   
+    446. D(Fe  6,Fe  5,Fe  2,Fe 12)     63.0607         0.001511   
+    447. D(Fe  2,Fe  5,Fe  4,Fe  9)     -0.8051         0.001511   
+    448. D(Fe  1,Fe  5,Fe  4,Fe  3)     -0.0925         0.001511   
+    449. D(Fe  2,Fe  5,Fe  1,Fe  8)    -37.8431         0.001519   
+    450. D(Fe  7,Fe  5,Fe  4,Fe  6)     70.5989         0.001511   
+    451. D(Fe  2,Fe  5,Fe  1,Fe  6)   -137.7838         0.001519   
+    452. D(Fe  1,Fe  5,Fe  4,Fe  9)    -63.0605         0.001511   
+    453. D(Fe  2,Fe  5,Fe  1,Fe  0)   -102.1519         0.001519   
+    454. D(Fe  6,Fe  5,Fe  4,Fe  3)    -37.9234         0.001511   
+    455. D(Fe  2,Fe  5,Fe  4,Fe  6)    100.0863         0.001511   
+    456. D(Fe  6,Fe  5,Fe  4,Fe  7)    -70.5989         0.001511   
+    457. D(Fe  4,Fe  5,Fe  1,Fe  6)    -37.1578         0.001519   
+    458. D(Fe  4,Fe  5,Fe  1,Fe  8)     62.7830         0.001519   
+    459. D(Fe  4,Fe  5,Fe  1,Fe  2)    100.6260         0.001519   
+    460. D(Fe  6,Fe  5,Fe  2,Fe  8)      0.0923         0.001511   
+    461. D(Fe  7,Fe  5,Fe  1,Fe  0)    -33.7664         0.001519   
+    462. D(Fe  7,Fe  5,Fe  1,Fe  2)     68.3856         0.001519   
+    463. D(Fe  7,Fe  5,Fe  2,Fe  1)    -70.5988         0.001511   
+    464. D(Fe  4,Fe  5,Fe  2,Fe  8)    -62.1631         0.001511   
+    465. D(Fe  7,Fe  5,Fe  2,Fe  8)    -32.6756         0.001511   
+    466. D(Fe  1,Fe  5,Fe  2,Fe  7)     70.5988         0.001511   
+    467. D(Fe  1,Fe  5,Fe  2,Fe  8)     37.9233         0.001511   
+    468. D(Fe  4,Fe  5,Fe  2,Fe  1)   -100.0863         0.001511   
+    469. D(Fe  4,Fe  5,Fe  1,Fe  0)     -1.5259         0.001519   
+    470. D(Fe  1,Fe  5,Fe  2,Fe 12)    100.8917         0.001511   
+    471. D(Fe  4,Fe  5,Fe  2,Fe  7)    -29.4875         0.001511   
+    472. D(Fe  1,Fe  6,Fe  3,Fe  0)     37.4401         0.001518   
+    473. D(Fe  3,Fe  6,Fe  5,Fe  4)     37.8434         0.001519   
+    474. D(Fe  1,Fe  6,Fe  3,Fe  9)    -63.5113         0.001518   
+    475. D(Fe  1,Fe  6,Fe  3,Fe 13)    -27.8235         0.001518   
+    476. D(Fe  3,Fe  6,Fe  5,Fe  1)    -99.9406         0.001519   
+    477. D(Fe  4,Fe  6,Fe  0,Fe  8)     62.9461         0.001525   
+    478. D(Fe  4,Fe  6,Fe  3,Fe  7)     69.1249         0.001518   
+    479. D(Fe  4,Fe  6,Fe  3,Fe  9)     38.4995         0.001518   
+    480. D(Fe  4,Fe  6,Fe  3,Fe 13)     74.1873         0.001518   
+    481. D(Fe  5,Fe  6,Fe  4,Fe  7)     68.1340         0.001520   
+    482. D(Fe  7,Fe  6,Fe  4,Fe  9)     31.6963         0.001520   
+    483. D(Fe  5,Fe  6,Fe  3,Fe  9)     -0.2523         0.001518   
+    484. D(Fe  5,Fe  6,Fe  3,Fe 10)     65.3849         0.001518   
+    485. D(Fe  5,Fe  6,Fe  3,Fe 13)     35.4356         0.001518   
+    486. D(Fe  1,Fe  6,Fe  4,Fe  3)     99.9094         0.001520   
+    487. D(Fe  7,Fe  6,Fe  3,Fe  9)    -30.6255         0.001518   
+    488. D(Fe  0,Fe  6,Fe  4,Fe  3)     36.7769         0.001520   
+    489. D(Fe  7,Fe  6,Fe  3,Fe  4)    -69.1249         0.001518   
+    490. D(Fe  4,Fe  6,Fe  0,Fe  3)    -36.3865         0.001525   
+    491. D(Fe  3,Fe  6,Fe  1,Fe  0)    -37.9961         0.001517   
+    492. D(Fe  1,Fe  6,Fe  3,Fe  7)    -32.8859         0.001518   
+    493. D(Fe  3,Fe  6,Fe  5,Fe  2)    -62.7826         0.001519   
+    494. D(Fe  0,Fe  6,Fe  3,Fe  7)    -70.3259         0.001518   
+    495. D(Fe  7,Fe  6,Fe  1,Fe  8)    -32.9728         0.001517   
+    496. D(Fe  0,Fe  6,Fe  1,Fe  5)    139.9643         0.001517   
+    497. D(Fe  5,Fe  6,Fe  1,Fe  8)   -101.9681         0.001517   
+    498. D(Fe  0,Fe  6,Fe  1,Fe  7)     70.9690         0.001517   
+    499. D(Fe  5,Fe  6,Fe  1,Fe  2)    -38.7389         0.001517   
+    500. D(Fe  5,Fe  6,Fe  0,Fe  3)   -101.9144         0.001525   
+    501. D(Fe  7,Fe  6,Fe  1,Fe  2)     30.2563         0.001517   
+    502. D(Fe  3,Fe  6,Fe  0,Fe  8)     99.3326         0.001525   
+    503. D(Fe  4,Fe  6,Fe  1,Fe  5)     38.7390         0.001517   
+    504. D(Fe  3,Fe  6,Fe  1,Fe  2)     63.2293         0.001517   
+    505. D(Fe  3,Fe  6,Fe  1,Fe  5)    101.9682         0.001517   
+    506. D(Fe  4,Fe  6,Fe  1,Fe  2)      0.0001         0.001517   
+    507. D(Fe  4,Fe  6,Fe  1,Fe  0)   -101.2253         0.001517   
+    508. D(Fe  5,Fe  6,Fe  0,Fe  8)     -2.5818         0.001525   
+    509. D(Fe  4,Fe  6,Fe  1,Fe  8)    -63.2291         0.001517   
+    510. D(Fe  3,Fe  6,Fe  1,Fe  7)     32.9729         0.001517   
+    511. D(Fe  0,Fe  6,Fe  1,Fe  8)     37.9962         0.001517   
+    512. D(Fe  7,Fe  6,Fe  0,Fe  1)     68.9679         0.001525   
+    513. D(Fe  4,Fe  6,Fe  1,Fe  7)    -30.2563         0.001517   
+    514. D(Fe  3,Fe  6,Fe  1,Fe  8)      0.0001         0.001517   
+    515. D(Fe  0,Fe  6,Fe  3,Fe 10)    -35.3142         0.001518   
+    516. D(Fe  7,Fe  6,Fe  0,Fe  8)     30.6010         0.001525   
+    517. D(Fe  5,Fe  6,Fe  1,Fe  0)   -139.9643         0.001517   
+    518. D(Fe  7,Fe  6,Fe  0,Fe 10)    -32.5956         0.001525   
+    519. D(Fe  7,Fe  6,Fe  0,Fe  3)    -68.7316         0.001525   
+    520. D(Fe  5,Fe  6,Fe  1,Fe  7)    -68.9952         0.001517   
+    521. D(Fe  7,Fe  6,Fe  1,Fe  0)    -70.9690         0.001517   
+    522. D(Fe  7,Fe  6,Fe  1,Fe  5)     68.9952         0.001517   
+    523. D(Fe  0,Fe  6,Fe  1,Fe  2)    101.2254         0.001517   
+    524. D(Fe  0,Fe  6,Fe  3,Fe  4)   -139.4509         0.001518   
+    525. D(Fe  0,Fe  6,Fe  3,Fe 13)    -65.2636         0.001518   
+    526. D(Fe  4,Fe  6,Fe  0,Fe  7)     32.3451         0.001525   
+    527. D(Fe  0,Fe  6,Fe  5,Fe  7)     33.7665         0.001519   
+    528. D(Fe  0,Fe  6,Fe  3,Fe  9)   -100.9514         0.001518   
+    529. D(Fe  4,Fe  6,Fe  0,Fe  1)    101.3130         0.001525   
+    530. D(Fe  7,Fe  6,Fe  4,Fe  5)    -68.1340         0.001520   
+    531. D(Fe  4,Fe  6,Fe  3,Fe  0)    139.4509         0.001518   
+    532. D(Fe  5,Fe  6,Fe  0,Fe  7)    -33.1828         0.001525   
+    533. D(Fe  1,Fe  6,Fe  3,Fe 10)      2.1258         0.001518   
+    534. D(Fe  3,Fe  6,Fe  4,Fe  9)    -37.9260         0.001520   
+    535. D(Fe  5,Fe  6,Fe  4,Fe  9)     99.8303         0.001520   
+    536. D(Fe  4,Fe  6,Fe  3,Fe 10)    104.1366         0.001518   
+    537. D(Fe  3,Fe  6,Fe  4,Fe  5)   -137.7563         0.001520   
+    538. D(Fe  3,Fe  6,Fe  0,Fe 10)     36.1360         0.001525   
+    539. D(Fe  4,Fe  6,Fe  0,Fe 10)     -0.2504         0.001525   
+    540. D(Fe  5,Fe  6,Fe  3,Fe  4)    -38.7517         0.001518   
+    541. D(Fe  0,Fe  6,Fe  5,Fe  2)      1.5262         0.001519   
+    542. D(Fe  1,Fe  6,Fe  5,Fe  7)     69.3983         0.001519   
+    543. D(Fe  0,Fe  6,Fe  4,Fe  7)    -32.8454         0.001520   
+    544. D(Fe  1,Fe  6,Fe  0,Fe  8)    -38.3669         0.001525   
+    545. D(Fe  3,Fe  6,Fe  0,Fe  1)    137.6995         0.001525   
+    546. D(Fe  7,Fe  6,Fe  3,Fe 13)      5.0624         0.001518   
+    547. D(Fe  0,Fe  6,Fe  4,Fe  9)     -1.1491         0.001520   
+    548. D(Fe  7,Fe  6,Fe  3,Fe 10)     35.0117         0.001518   
+    549. D(Fe  0,Fe  6,Fe  4,Fe  5)   -100.9794         0.001520   
+    550. D(Fe  1,Fe  6,Fe  4,Fe  7)     30.2871         0.001520   
+    551. D(Fe  7,Fe  6,Fe  3,Fe  0)     70.3259         0.001518   
+    552. D(Fe  3,Fe  6,Fe  4,Fe  7)    -69.6223         0.001520   
+    553. D(Fe  5,Fe  6,Fe  4,Fe  3)    137.7563         0.001520   
+    554. D(Fe  5,Fe  6,Fe  3,Fe  7)     30.3732         0.001518   
+    555. D(Fe  1,Fe  6,Fe  4,Fe  9)     61.9834         0.001520   
+    556. D(Fe  7,Fe  6,Fe  4,Fe  3)     69.6223         0.001520   
+    557. D(Fe  1,Fe  6,Fe  0,Fe 10)   -101.5635         0.001525   
+    558. D(Fe  0,Fe  6,Fe  5,Fe  1)    -35.6318         0.001519   
+    559. D(Fe  0,Fe  6,Fe  5,Fe  4)    102.1522         0.001519   
+    560. D(Fe  3,Fe  6,Fe  0,Fe  7)     68.7316         0.001525   
+    561. D(Fe  1,Fe  6,Fe  5,Fe  4)    137.7839         0.001519   
+    562. D(Fe  1,Fe  6,Fe  0,Fe  7)    -68.9679         0.001525   
+    563. D(Fe  1,Fe  6,Fe  5,Fe  2)     37.1579         0.001519   
+    564. D(Fe  5,Fe  6,Fe  3,Fe  0)    100.6991         0.001518   
+    565. D(Fe  1,Fe  6,Fe  3,Fe  4)   -102.0108         0.001518   
+    566. D(Fe  5,Fe  6,Fe  0,Fe  1)     35.7852         0.001525   
+    567. D(Fe  3,Fe  6,Fe  5,Fe  7)    -30.5423         0.001519   
+    568. D(Fe  4,Fe  6,Fe  5,Fe  7)    -68.3857         0.001519   
+    569. D(Fe  7,Fe  6,Fe  5,Fe  4)     68.3857         0.001519   
+    570. D(Fe  7,Fe  6,Fe  5,Fe  2)    -32.2403         0.001519   
+    571. D(Fe  4,Fe  6,Fe  5,Fe  2)   -100.6260         0.001519   
+    572. D(Fe  7,Fe  6,Fe  5,Fe  1)    -69.3983         0.001519   
+    573. D(Fe  1,Fe  6,Fe  0,Fe  3)   -137.6995         0.001525   
+    574. D(Fe  5,Fe  6,Fe  0,Fe 10)    -65.7783         0.001525   
+    575. D(Fe  4,Fe  6,Fe  5,Fe  1)   -137.7839         0.001519   
+    576. D(Fe  1,Fe  6,Fe  4,Fe  5)    -37.8470         0.001520   
+    577. D(Fe  3,Fe  7,Fe  6,Fe  4)    -71.4620         0.001554   
+    578. D(Fe  2,Fe  7,Fe  6,Fe  5)     37.7492         0.001554   
+    579. D(Fe  9,Fe  7,Fe  3,Fe  6)   -145.0711         0.001553   
+    580. D(Fe  2,Fe  7,Fe  6,Fe  0)   -104.4995         0.001554   
+    581. D(Fe 10,Fe  7,Fe  3,Fe  6)    140.0114         0.001553   
+    582. D(Fe  1,Fe  7,Fe  6,Fe  0)    -70.5730         0.001554   
+    583. D(Fe 12,Fe  7,Fe  3,Fe  4)   -110.5064         0.001553   
+    584. D(Fe  0,Fe  7,Fe  6,Fe  3)    -72.0298         0.001554   
+    585. D(Fe  0,Fe  7,Fe  6,Fe  1)     70.5730         0.001554   
+    586. D(Fe 12,Fe  7,Fe  5,Fe  1)   -106.8709         0.001562   
+    587. D(Fe 12,Fe  7,Fe  3,Fe 13)     -0.5612         0.001553   
+    588. D(Fe 10,Fe  7,Fe  5,Fe  6)    -36.0611         0.001562   
+    589. D(Fe 10,Fe  7,Fe  5,Fe  1)     36.0581         0.001562   
+    590. D(Fe  9,Fe  7,Fe  5,Fe  1)    178.9897         0.001562   
+    591. D(Fe 10,Fe  7,Fe  5,Fe  2)    106.8642         0.001562   
+    592. D(Fe  1,Fe  7,Fe  4,Fe  9)   -177.7829         0.001560   
+    593. D(Fe  8,Fe  7,Fe  5,Fe  2)     36.5982         0.001562   
+    594. D(Fe  8,Fe  7,Fe  5,Fe  1)    -34.2079         0.001562   
+    595. D(Fe  6,Fe  7,Fe  5,Fe  4)    -70.8060         0.001562   
+    596. D(Fe  4,Fe  7,Fe  5,Fe  6)     70.8060         0.001562   
+    597. D(Fe  4,Fe  7,Fe  5,Fe  1)    142.9251         0.001562   
+    598. D(Fe  3,Fe  7,Fe  5,Fe  4)    -36.5982         0.001562   
+    599. D(Fe  5,Fe  7,Fe  4,Fe  9)    145.2259         0.001560   
+    600. D(Fe  2,Fe  7,Fe  5,Fe  4)    146.2688         0.001562   
+    601. D(Fe  1,Fe  7,Fe  5,Fe  4)   -142.9251         0.001562   
+    602. D(Fe  1,Fe  7,Fe  5,Fe  2)     70.8061         0.001562   
+    603. D(Fe  2,Fe  7,Fe  5,Fe  6)   -142.9252         0.001562   
+    604. D(Fe  0,Fe  7,Fe  5,Fe  4)   -106.8657         0.001562   
+    605. D(Fe  0,Fe  7,Fe  5,Fe  1)     36.0594         0.001562   
+    606. D(Fe 12,Fe  7,Fe  4,Fe  9)     34.2479         0.001560   
+    607. D(Fe 12,Fe  7,Fe  4,Fe  3)    105.8522         0.001560   
+    608. D(Fe 12,Fe  7,Fe  4,Fe  6)    177.9431         0.001560   
+    609. D(Fe  0,Fe  7,Fe  5,Fe  2)    106.8655         0.001562   
+    610. D(Fe 10,Fe  7,Fe  4,Fe  3)     31.0183         0.001560   
+    611. D(Fe  9,Fe  7,Fe  4,Fe  6)    143.6952         0.001560   
+    612. D(Fe  9,Fe  7,Fe  4,Fe  5)   -145.2259         0.001560   
+    613. D(Fe  0,Fe  7,Fe  5,Fe  6)    -36.0597         0.001562   
+    614. D(Fe  9,Fe  7,Fe  4,Fe  3)     71.6043         0.001560   
+    615. D(Fe  6,Fe  7,Fe  4,Fe  9)   -143.6952         0.001560   
+    616. D(Fe 12,Fe  7,Fe  4,Fe  5)   -110.9779         0.001560   
+    617. D(Fe  3,Fe  7,Fe  5,Fe  1)    106.3269         0.001562   
+    618. D(Fe  5,Fe  7,Fe  4,Fe  6)    -71.0789         0.001560   
+    619. D(Fe  2,Fe  7,Fe  5,Fe  1)    -70.8061         0.001562   
+    620. D(Fe  3,Fe  7,Fe  5,Fe  6)     34.2078         0.001562   
+    621. D(Fe  3,Fe  7,Fe  4,Fe  6)     72.0909         0.001560   
+    622. D(Fe  3,Fe  7,Fe  4,Fe  5)    143.1699         0.001560   
+    623. D(Fe  4,Fe  7,Fe  5,Fe  2)   -146.2688         0.001562   
+    624. D(Fe  6,Fe  7,Fe  5,Fe  2)    142.9252         0.001562   
+    625. D(Fe  2,Fe  7,Fe  4,Fe  3)   -178.8001         0.001560   
+    626. D(Fe  6,Fe  7,Fe  5,Fe  1)     72.1191         0.001562   
+    627. D(Fe  1,Fe  7,Fe  4,Fe  6)    -34.0877         0.001560   
+    628. D(Fe  1,Fe  7,Fe  4,Fe  3)   -106.1787         0.001560   
+    629. D(Fe  9,Fe  7,Fe  5,Fe  2)   -110.2042         0.001562   
+    630. D(Fe  8,Fe  7,Fe  5,Fe  4)   -177.1330         0.001562   
+    631. D(Fe  1,Fe  7,Fe  5,Fe  6)    -72.1191         0.001562   
+    632. D(Fe  0,Fe  7,Fe  4,Fe  6)     35.0436         0.001560   
+    633. D(Fe 10,Fe  7,Fe  5,Fe  4)   -106.8670         0.001562   
+    634. D(Fe  9,Fe  7,Fe  5,Fe  6)    106.8706         0.001562   
+    635. D(Fe 12,Fe  7,Fe  3,Fe 10)     37.8527         0.001553   
+    636. D(Fe 12,Fe  7,Fe  3,Fe  9)    -37.0648         0.001553   
+    637. D(Fe 12,Fe  7,Fe  3,Fe  6)    177.8641         0.001553   
+    638. D(Fe 12,Fe  7,Fe  5,Fe  6)   -178.9900         0.001562   
+    639. D(Fe  0,Fe  7,Fe  6,Fe  5)    142.2487         0.001554   
+    640. D(Fe 10,Fe  7,Fe  3,Fe 13)    -38.4140         0.001553   
+    641. D(Fe 10,Fe  7,Fe  3,Fe  9)    -74.9175         0.001553   
+    642. D(Fe 10,Fe  7,Fe  3,Fe  4)   -148.3591         0.001553   
+    643. D(Fe 10,Fe  7,Fe  3,Fe  0)     69.7801         0.001553   
+    644. D(Fe  9,Fe  7,Fe  3,Fe 13)     36.5036         0.001553   
+    645. D(Fe  1,Fe  7,Fe  6,Fe  4)    145.9352         0.001554   
+    646. D(Fe  9,Fe  7,Fe  5,Fe  4)     36.0646         0.001562   
+    647. D(Fe  2,Fe  7,Fe  6,Fe  4)    112.0087         0.001554   
+    648. D(Fe  9,Fe  7,Fe  3,Fe  0)    144.6976         0.001553   
+    649. D(Fe  3,Fe  7,Fe  6,Fe  1)    142.6028         0.001554   
+    650. D(Fe  8,Fe  7,Fe  3,Fe 10)    -32.7442         0.001553   
+    651. D(Fe  8,Fe  7,Fe  3,Fe  9)   -107.6617         0.001553   
+    652. D(Fe  8,Fe  7,Fe  3,Fe  6)    107.2671         0.001553   
+    653. D(Fe  2,Fe  7,Fe  6,Fe  3)   -176.5293         0.001554   
+    654. D(Fe  6,Fe  7,Fe  3,Fe 13)   -178.4253         0.001553   
+    655. D(Fe  6,Fe  7,Fe  3,Fe 10)   -140.0114         0.001553   
+    656. D(Fe  5,Fe  7,Fe  2,Fe  1)     71.0790         0.001560   
+    657. D(Fe  6,Fe  7,Fe  3,Fe  0)    -70.2313         0.001553   
+    658. D(Fe  5,Fe  7,Fe  3,Fe 13)    147.4056         0.001553   
+    659. D(Fe  8,Fe  7,Fe  3,Fe  4)    178.8967         0.001553   
+    660. D(Fe  5,Fe  7,Fe  3,Fe  4)     37.4604         0.001553   
+    661. D(Fe  1,Fe  7,Fe  2,Fe 12)    143.6953         0.001560   
+    662. D(Fe  4,Fe  7,Fe  3,Fe  9)     73.4416         0.001553   
+    663. D(Fe  1,Fe  7,Fe  3,Fe 10)   -103.1380         0.001553   
+    664. D(Fe  1,Fe  7,Fe  3,Fe  6)     36.8733         0.001553   
+    665. D(Fe  1,Fe  7,Fe  3,Fe  4)    108.5029         0.001553   
+    666. D(Fe  1,Fe  7,Fe  3,Fe  0)    -33.3579         0.001553   
+    667. D(Fe  2,Fe  7,Fe  6,Fe  1)    -33.9265         0.001554   
+    668. D(Fe 12,Fe  7,Fe  1,Fe  0)   -106.8619         0.001554   
+    669. D(Fe  0,Fe  7,Fe  3,Fe 13)   -108.1941         0.001553   
+    670. D(Fe  0,Fe  7,Fe  3,Fe  6)     70.2313         0.001553   
+    671. D(Fe 12,Fe  7,Fe  2,Fe  8)    -71.6044         0.001560   
+    672. D(Fe 12,Fe  7,Fe  2,Fe  1)   -143.6953         0.001560   
+    673. D(Fe 10,Fe  7,Fe  2,Fe  5)   -174.1881         0.001560   
+    674. D(Fe 10,Fe  7,Fe  2,Fe 12)     40.5862         0.001560   
+    675. D(Fe 10,Fe  7,Fe  2,Fe  1)   -103.1091         0.001560   
+    676. D(Fe 12,Fe  7,Fe  2,Fe  5)    145.2257         0.001560   
+    677. D(Fe  9,Fe  7,Fe  2,Fe  5)    110.9779         0.001560   
+    678. D(Fe  9,Fe  7,Fe  2,Fe  1)   -177.9431         0.001560   
+    679. D(Fe  0,Fe  7,Fe  3,Fe  4)    141.8608         0.001553   
+    680. D(Fe  8,Fe  7,Fe  2,Fe 12)     71.6044         0.001560   
+    681. D(Fe  8,Fe  7,Fe  2,Fe  5)   -143.1699         0.001560   
+    682. D(Fe  0,Fe  7,Fe  3,Fe 10)    -69.7801         0.001553   
+    683. D(Fe  6,Fe  7,Fe  2,Fe  8)    106.1788         0.001560   
+    684. D(Fe  9,Fe  7,Fe  2,Fe  8)   -105.8522         0.001560   
+    685. D(Fe  9,Fe  7,Fe  2,Fe 12)    -34.2478         0.001560   
+    686. D(Fe  8,Fe  7,Fe  2,Fe  1)    -72.0909         0.001560   
+    687. D(Fe  0,Fe  7,Fe  3,Fe  9)   -144.6976         0.001553   
+    688. D(Fe 10,Fe  7,Fe  2,Fe  8)    -31.0182         0.001560   
+    689. D(Fe  0,Fe  7,Fe  2,Fe  5)   -106.1224         0.001560   
+    690. D(Fe  6,Fe  7,Fe  2,Fe 12)    177.7833         0.001560   
+    691. D(Fe  6,Fe  7,Fe  2,Fe  1)     34.0879         0.001560   
+    692. D(Fe  0,Fe  7,Fe  2,Fe  8)     37.0474         0.001560   
+    693. D(Fe  0,Fe  7,Fe  2,Fe  1)    -35.0435         0.001560   
+    694. D(Fe  1,Fe  7,Fe  2,Fe  5)    -71.0790         0.001560   
+    695. D(Fe  5,Fe  7,Fe  2,Fe  8)    143.1699         0.001560   
+    696. D(Fe  5,Fe  7,Fe  2,Fe 12)   -145.2257         0.001560   
+    697. D(Fe  1,Fe  7,Fe  3,Fe 13)   -141.5520         0.001553   
+    698. D(Fe  1,Fe  7,Fe  3,Fe  9)   -178.0556         0.001553   
+    699. D(Fe  4,Fe  7,Fe  2,Fe  5)     35.6303         0.001560   
+    700. D(Fe  4,Fe  7,Fe  2,Fe  1)    106.7092         0.001560   
+    701. D(Fe  4,Fe  7,Fe  3,Fe  6)    -71.6295         0.001553   
+    702. D(Fe  4,Fe  7,Fe  2,Fe  8)    178.8001         0.001560   
+    703. D(Fe  1,Fe  7,Fe  2,Fe  8)     72.0909         0.001560   
+    704. D(Fe  4,Fe  7,Fe  3,Fe  0)   -141.8608         0.001553   
+    705. D(Fe  5,Fe  7,Fe  3,Fe  6)    -34.1691         0.001553   
+    706. D(Fe  5,Fe  7,Fe  3,Fe  9)    110.9020         0.001553   
+    707. D(Fe  5,Fe  7,Fe  3,Fe  0)   -104.4004         0.001553   
+    708. D(Fe  5,Fe  7,Fe  3,Fe 10)   -174.1805         0.001553   
+    709. D(Fe  6,Fe  7,Fe  2,Fe  5)    -36.9910         0.001560   
+    710. D(Fe  6,Fe  7,Fe  3,Fe  9)    145.0711         0.001553   
+    711. D(Fe 12,Fe  7,Fe  1,Fe  8)    -34.8322         0.001554   
+    712. D(Fe  6,Fe  7,Fe  3,Fe  4)     71.6295         0.001553   
+    713. D(Fe 12,Fe  7,Fe  1,Fe  6)   -177.4351         0.001554   
+    714. D(Fe 12,Fe  7,Fe  1,Fe  5)    110.8891         0.001554   
+    715. D(Fe  8,Fe  7,Fe  3,Fe  0)     37.0359         0.001553   
+    716. D(Fe  4,Fe  7,Fe  3,Fe 13)    109.9451         0.001553   
+    717. D(Fe  0,Fe  7,Fe  2,Fe 12)    108.6518         0.001560   
+    718. D(Fe  8,Fe  7,Fe  1,Fe  0)    -72.0298         0.001554   
+    719. D(Fe 10,Fe  7,Fe  1,Fe  5)   -176.5378         0.001554   
+    720. D(Fe 12,Fe  7,Fe  1,Fe  2)     36.6298         0.001554   
+    721. D(Fe  8,Fe  7,Fe  1,Fe  2)     71.4620         0.001554   
+    722. D(Fe  8,Fe  7,Fe  1,Fe  6)   -142.6030         0.001554   
+    723. D(Fe 10,Fe  7,Fe  1,Fe  2)    109.2030         0.001554   
+    724. D(Fe 10,Fe  7,Fe  1,Fe  6)   -104.8620         0.001554   
+    725. D(Fe  8,Fe  7,Fe  3,Fe 13)    -71.1582         0.001553   
+    726. D(Fe  6,Fe  7,Fe  1,Fe  8)    142.6030         0.001554   
+    727. D(Fe  9,Fe  7,Fe  3,Fe  4)    -73.4416         0.001553   
+    728. D(Fe  3,Fe  7,Fe  6,Fe  0)     72.0298         0.001554   
+    729. D(Fe  9,Fe  7,Fe  3,Fe 10)     74.9175         0.001553   
+    730. D(Fe  4,Fe  7,Fe  0,Fe  1)   -108.6152         0.001546   
+    731. D(Fe  4,Fe  7,Fe  0,Fe  6)    -35.4702         0.001546   
+    732. D(Fe  5,Fe  7,Fe  1,Fe  2)    -74.2593         0.001554   
+    733. D(Fe  1,Fe  7,Fe  6,Fe  5)     71.6757         0.001554   
+    734. D(Fe  4,Fe  7,Fe  1,Fe  8)    176.5293         0.001554   
+    735. D(Fe  1,Fe  7,Fe  6,Fe  3)   -142.6028         0.001554   
+    736. D(Fe 12,Fe  7,Fe  3,Fe  0)    107.6328         0.001553   
+    737. D(Fe  0,Fe  7,Fe  6,Fe  4)   -143.4918         0.001554   
+    738. D(Fe  5,Fe  7,Fe  1,Fe  8)   -145.7213         0.001554   
+    739. D(Fe  5,Fe  7,Fe  0,Fe  6)     36.5726         0.001546   
+    740. D(Fe  6,Fe  7,Fe  1,Fe  5)    -71.6758         0.001554   
+    741. D(Fe 12,Fe  7,Fe  5,Fe  2)    -36.0647         0.001562   
+    742. D(Fe  0,Fe  7,Fe  4,Fe  3)    -37.0474         0.001560   
+    743. D(Fe  0,Fe  7,Fe  4,Fe  5)    106.1225         0.001560   
+    744. D(Fe  4,Fe  7,Fe  1,Fe  5)    -37.7494         0.001554   
+    745. D(Fe  0,Fe  7,Fe  4,Fe  9)   -108.6516         0.001560   
+    746. D(Fe  4,Fe  7,Fe  3,Fe 10)    148.3591         0.001553   
+    747. D(Fe  1,Fe  7,Fe  4,Fe  5)     36.9912         0.001560   
+    748. D(Fe  5,Fe  7,Fe  0,Fe  3)    109.0396         0.001546   
+    749. D(Fe  8,Fe  7,Fe  5,Fe  6)   -106.3270         0.001562   
+    750. D(Fe  2,Fe  7,Fe  0,Fe  3)   -178.9179         0.001546   
+    751. D(Fe  2,Fe  7,Fe  4,Fe  5)    -35.6302         0.001560   
+    752. D(Fe  2,Fe  7,Fe  4,Fe  6)   -106.7091         0.001560   
+    753. D(Fe  2,Fe  7,Fe  4,Fe  9)    109.5957         0.001560   
+    754. D(Fe  4,Fe  7,Fe  1,Fe  0)    104.4995         0.001554   
+    755. D(Fe  3,Fe  7,Fe  1,Fe  6)    -36.8074         0.001554   
+    756. D(Fe  3,Fe  7,Fe  4,Fe  9)    -71.6043         0.001560   
+    757. D(Fe  5,Fe  7,Fe  4,Fe  3)   -143.1699         0.001560   
+    758. D(Fe  6,Fe  7,Fe  0,Fe  1)    -73.1450         0.001546   
+    759. D(Fe  3,Fe  7,Fe  5,Fe  2)    177.1330         0.001562   
+    760. D(Fe  6,Fe  7,Fe  4,Fe  3)    -72.0909         0.001560   
+    761. D(Fe  6,Fe  7,Fe  4,Fe  5)     71.0789         0.001560   
+    762. D(Fe  3,Fe  7,Fe  1,Fe  0)     33.7658         0.001554   
+    763. D(Fe  2,Fe  7,Fe  1,Fe  5)     74.2593         0.001554   
+    764. D(Fe  8,Fe  7,Fe  0,Fe  3)   -141.9210         0.001546   
+    765. D(Fe  8,Fe  7,Fe  0,Fe  6)    145.6120         0.001546   
+    766. D(Fe  8,Fe  7,Fe  0,Fe 10)    -70.9605         0.001546   
+    767. D(Fe 10,Fe  7,Fe  4,Fe  5)    174.1882         0.001560   
+    768. D(Fe 10,Fe  7,Fe  4,Fe  6)    103.1092         0.001560   
+    769. D(Fe 10,Fe  7,Fe  4,Fe  9)    -40.5860         0.001560   
+    770. D(Fe  0,Fe  7,Fe  1,Fe  8)     72.0298         0.001554   
+    771. D(Fe  9,Fe  7,Fe  0,Fe  6)   -107.5266         0.001546   
+    772. D(Fe  9,Fe  7,Fe  0,Fe 10)     35.9010         0.001546   
+    773. D(Fe 12,Fe  7,Fe  0,Fe  6)   -179.3283         0.001546   
+    774. D(Fe  0,Fe  7,Fe  1,Fe  5)   -142.2489         0.001554   
+    775. D(Fe 10,Fe  7,Fe  0,Fe  3)    -70.9606         0.001546   
+    776. D(Fe 10,Fe  7,Fe  0,Fe  6)   -143.4275         0.001546   
+    777. D(Fe 10,Fe  7,Fe  0,Fe  1)    143.4275         0.001546   
+    778. D(Fe  9,Fe  7,Fe  0,Fe  8)    106.8615         0.001546   
+    779. D(Fe 12,Fe  7,Fe  0,Fe  1)    107.5267         0.001546   
+    780. D(Fe  0,Fe  7,Fe  1,Fe  2)    143.4918         0.001554   
+    781. D(Fe 12,Fe  7,Fe  0,Fe  3)   -106.8614         0.001546   
+    782. D(Fe  0,Fe  7,Fe  1,Fe  6)    -70.5732         0.001554   
+    783. D(Fe  9,Fe  7,Fe  0,Fe  1)    179.3285         0.001546   
+    784. D(Fe  2,Fe  7,Fe  1,Fe  6)    145.9350         0.001554   
+    785. D(Fe  2,Fe  7,Fe  1,Fe  0)   -143.4918         0.001554   
+    786. D(Fe 12,Fe  7,Fe  0,Fe  8)     35.0597         0.001546   
+    787. D(Fe  2,Fe  7,Fe  1,Fe  8)    -71.4620         0.001554   
+    788. D(Fe  6,Fe  7,Fe  0,Fe 10)    143.4275         0.001546   
+    789. D(Fe 12,Fe  7,Fe  0,Fe 10)    -35.9008         0.001546   
+    790. D(Fe  9,Fe  7,Fe  0,Fe  3)    -35.0596         0.001546   
+    791. D(Fe 10,Fe  7,Fe  0,Fe  8)     70.9605         0.001546   
+    792. D(Fe  6,Fe  7,Fe  0,Fe  8)   -145.6120         0.001546   
+    793. D(Fe  3,Fe  7,Fe  1,Fe  5)   -108.4831         0.001554   
+    794. D(Fe  8,Fe  7,Fe  0,Fe  1)     72.4670         0.001546   
+    795. D(Fe  6,Fe  7,Fe  0,Fe  3)     72.4670         0.001546   
+    796. D(Fe  3,Fe  7,Fe  1,Fe  8)    105.7956         0.001554   
+    797. D(Fe  5,Fe  7,Fe  0,Fe 10)   -179.9999         0.001546   
+    798. D(Fe  5,Fe  7,Fe  0,Fe  8)   -109.0394         0.001546   
+    799. D(Fe  5,Fe  7,Fe  0,Fe  1)    -36.5724         0.001546   
+    800. D(Fe  4,Fe  7,Fe  1,Fe  6)     33.9263         0.001554   
+    801. D(Fe  5,Fe  7,Fe  1,Fe  6)     71.6758         0.001554   
+    802. D(Fe  3,Fe  7,Fe  1,Fe  2)    177.2576         0.001554   
+    803. D(Fe  5,Fe  7,Fe  1,Fe  0)    142.2489         0.001554   
+    804. D(Fe  4,Fe  7,Fe  1,Fe  2)   -112.0087         0.001554   
+    805. D(Fe  6,Fe  7,Fe  1,Fe  0)     70.5732         0.001554   
+    806. D(Fe  4,Fe  7,Fe  0,Fe  8)    178.9178         0.001546   
+    807. D(Fe 12,Fe  7,Fe  5,Fe  4)    110.2040         0.001562   
+    808. D(Fe  6,Fe  7,Fe  1,Fe  2)   -145.9350         0.001554   
+    809. D(Fe  4,Fe  7,Fe  0,Fe  3)     36.9968         0.001546   
+    810. D(Fe  4,Fe  7,Fe  0,Fe 10)    107.9573         0.001546   
+    811. D(Fe 10,Fe  7,Fe  1,Fe  0)    -34.2888         0.001554   
+    812. D(Fe  2,Fe  7,Fe  0,Fe  1)     35.4702         0.001546   
+    813. D(Fe  4,Fe  7,Fe  2,Fe 12)   -109.5955         0.001560   
+    814. D(Fe  3,Fe  7,Fe  0,Fe  6)    -72.4670         0.001546   
+    815. D(Fe 10,Fe  7,Fe  6,Fe  3)    -37.7410         0.001554   
+    816. D(Fe  8,Fe  7,Fe  1,Fe  5)    145.7213         0.001554   
+    817. D(Fe  2,Fe  7,Fe  0,Fe  8)    -36.9969         0.001546   
+    818. D(Fe  2,Fe  7,Fe  0,Fe 10)   -107.9573         0.001546   
+    819. D(Fe 10,Fe  7,Fe  1,Fe  8)     37.7409         0.001554   
+    820. D(Fe  3,Fe  7,Fe  0,Fe  1)   -145.6119         0.001546   
+    821. D(Fe  2,Fe  7,Fe  0,Fe  6)    108.6151         0.001546   
+    822. D(Fe 10,Fe  7,Fe  6,Fe  4)   -109.2029         0.001554   
+    823. D(Fe 10,Fe  7,Fe  6,Fe  1)    104.8618         0.001554   
+    824. D(Fe  3,Fe  7,Fe  0,Fe  8)    141.9210         0.001546   
+    825. D(Fe 10,Fe  7,Fe  6,Fe  0)     34.2888         0.001554   
+    826. D(Fe  1,Fe  7,Fe  0,Fe 10)   -143.4275         0.001546   
+    827. D(Fe  9,Fe  7,Fe  6,Fe  3)     34.8322         0.001554   
+    828. D(Fe  9,Fe  7,Fe  6,Fe  1)    177.4349         0.001554   
+    829. D(Fe  8,Fe  7,Fe  6,Fe  4)   -177.2575         0.001554   
+    830. D(Fe  8,Fe  7,Fe  6,Fe  1)     36.8072         0.001554   
+    831. D(Fe  8,Fe  7,Fe  6,Fe  0)    -33.7658         0.001554   
+    832. D(Fe  5,Fe  7,Fe  6,Fe  4)     74.2595         0.001554   
+    833. D(Fe  8,Fe  7,Fe  6,Fe  3)   -105.7956         0.001554   
+    834. D(Fe  1,Fe  7,Fe  0,Fe  6)     73.1450         0.001546   
+    835. D(Fe  5,Fe  7,Fe  6,Fe  1)    -71.6757         0.001554   
+    836. D(Fe  9,Fe  7,Fe  6,Fe  0)    106.8619         0.001554   
+    837. D(Fe  9,Fe  7,Fe  6,Fe  4)    -36.6298         0.001554   
+    838. D(Fe  4,Fe  7,Fe  6,Fe  5)    -74.2595         0.001554   
+    839. D(Fe  1,Fe  7,Fe  0,Fe  8)    -72.4670         0.001546   
+    840. D(Fe  8,Fe  7,Fe  6,Fe  5)    108.4829         0.001554   
+    841. D(Fe  5,Fe  7,Fe  6,Fe  3)    145.7215         0.001554   
+    842. D(Fe  4,Fe  7,Fe  6,Fe  3)     71.4620         0.001554   
+    843. D(Fe  4,Fe  7,Fe  6,Fe  1)   -145.9352         0.001554   
+    844. D(Fe  9,Fe  7,Fe  6,Fe  5)   -110.8894         0.001554   
+    845. D(Fe  4,Fe  7,Fe  6,Fe  0)    143.4918         0.001554   
+    846. D(Fe  3,Fe  7,Fe  6,Fe  5)   -145.7215         0.001554   
+    847. D(Fe  3,Fe  7,Fe  0,Fe 10)     70.9606         0.001546   
+    848. D(Fe  1,Fe  7,Fe  0,Fe  3)    145.6119         0.001546   
+    849. D(Fe 10,Fe  7,Fe  6,Fe  5)    176.5375         0.001554   
+    850. D(Fe  5,Fe  7,Fe  6,Fe  0)   -142.2487         0.001554   
+    851. D(Fe 12,Fe  8,Fe  7,Fe 10)     74.9175         0.001553   
+    852. D(Fe 12,Fe  8,Fe  7,Fe  5)   -110.9019         0.001553   
+    853. D(Fe 12,Fe  8,Fe  7,Fe  0)    144.6976         0.001553   
+    854. D(Fe 12,Fe  8,Fe  7,Fe  6)    178.0556         0.001553   
+    855. D(Fe 11,Fe  8,Fe  7,Fe 12)    -36.5037         0.001553   
+    856. D(Fe 11,Fe  8,Fe  7,Fe 10)     38.4138         0.001553   
+    857. D(Fe 11,Fe  8,Fe  7,Fe  9)      0.5613         0.001553   
+    858. D(Fe 11,Fe  8,Fe  7,Fe  6)    141.5519         0.001553   
+    859. D(Fe 11,Fe  8,Fe  7,Fe  3)     71.1580         0.001553   
+    860. D(Fe 12,Fe  8,Fe  7,Fe  9)     37.0650         0.001553   
+    861. D(Fe 12,Fe  8,Fe  7,Fe  3)    107.6617         0.001553   
+    862. D(Fe 10,Fe  8,Fe  7,Fe 12)    -74.9175         0.001553   
+    863. D(Fe 10,Fe  8,Fe  7,Fe  9)    -37.8525         0.001553   
+    864. D(Fe 10,Fe  8,Fe  7,Fe  6)    103.1381         0.001553   
+    865. D(Fe 10,Fe  8,Fe  7,Fe  3)     32.7443         0.001553   
+    866. D(Fe 10,Fe  8,Fe  7,Fe  1)    140.0113         0.001553   
+    867. D(Fe 10,Fe  8,Fe  7,Fe  0)     69.7802         0.001553   
+    868. D(Fe 12,Fe  8,Fe  7,Fe  2)    -73.4417         0.001553   
+    869. D(Fe  2,Fe  8,Fe  7,Fe  9)    110.5066         0.001553   
+    870. D(Fe 12,Fe  8,Fe  0,Fe  1)   -100.4365         0.001518   
+    871. D(Fe  2,Fe  8,Fe  7,Fe  1)    -71.6296         0.001553   
+    872. D(Fe  0,Fe  8,Fe  1,Fe  2)   -139.4507         0.001518   
+    873. D(Fe  1,Fe  8,Fe  7,Fe  9)   -177.8638         0.001553   
+    874. D(Fe  1,Fe  8,Fe  7,Fe  6)    -36.8732         0.001553   
+    875. D(Fe  1,Fe  8,Fe  7,Fe  2)     71.6296         0.001553   
+    876. D(Fe  0,Fe  8,Fe  7,Fe 12)   -144.6976         0.001553   
+    877. D(Fe  0,Fe  8,Fe  7,Fe 10)    -69.7802         0.001553   
+    878. D(Fe  0,Fe  8,Fe  7,Fe  9)   -107.6326         0.001553   
+    879. D(Fe 12,Fe  8,Fe  7,Fe  1)   -145.0712         0.001553   
+    880. D(Fe  0,Fe  8,Fe  7,Fe  5)    104.4004         0.001553   
+    881. D(Fe  0,Fe  8,Fe  7,Fe  2)    141.8607         0.001553   
+    882. D(Fe  0,Fe  8,Fe  7,Fe  1)     70.2311         0.001553   
+    883. D(Fe 12,Fe  8,Fe  4,Fe  5)   -108.0789         0.001500   
+    884. D(Fe 10,Fe  8,Fe  1,Fe  7)    -35.0118         0.001518   
+    885. D(Fe 11,Fe  8,Fe  4,Fe  5)   -145.7383         0.001500   
+    886. D(Fe 10,Fe  8,Fe  4,Fe  6)    105.8658         0.001500   
+    887. D(Fe 10,Fe  8,Fe  4,Fe  5)    176.9807         0.001500   
+    888. D(Fe  2,Fe  8,Fe  4,Fe  5)    -35.7132         0.001500   
+    889. D(Fe 12,Fe  8,Fe  1,Fe  2)    -38.4993         0.001518   
+    890. D(Fe  1,Fe  8,Fe  4,Fe  9)    178.7105         0.001500   
+    891. D(Fe  1,Fe  8,Fe  4,Fe  5)     35.2740         0.001500   
+    892. D(Fe  0,Fe  8,Fe  2,Fe  5)     -1.6395         0.001521   
+    893. D(Fe  0,Fe  8,Fe  4,Fe  5)    106.1483         0.001500   
+    894. D(Fe  1,Fe  8,Fe  2,Fe  7)    -69.3206         0.001521   
+    895. D(Fe 12,Fe  8,Fe  2,Fe  5)    100.0798         0.001521   
+    896. D(Fe 12,Fe  8,Fe  2,Fe  1)    137.3842         0.001521   
+    897. D(Fe 11,Fe  8,Fe  2,Fe  1)    161.4252         0.001521   
+    898. D(Fe  7,Fe  8,Fe  2,Fe 12)    -68.0636         0.001521   
+    899. D(Fe 10,Fe  8,Fe  2,Fe  5)     60.5970         0.001521   
+    900. D(Fe 10,Fe  8,Fe  2,Fe  1)     97.9014         0.001521   
+    901. D(Fe 10,Fe  8,Fe  2,Fe  7)     28.5807         0.001521   
+    902. D(Fe  7,Fe  8,Fe  2,Fe  5)     32.0162         0.001521   
+    903. D(Fe  1,Fe  8,Fe  2,Fe 12)   -137.3842         0.001521   
+    904. D(Fe 11,Fe  8,Fe  2,Fe 12)     24.0410         0.001521   
+    905. D(Fe 12,Fe  8,Fe  2,Fe  7)     68.0636         0.001521   
+    906. D(Fe  1,Fe  8,Fe  2,Fe  5)    -37.3044         0.001521   
+    907. D(Fe  0,Fe  8,Fe  4,Fe  3)    -38.1385         0.001500   
+    908. D(Fe  0,Fe  8,Fe  2,Fe 12)   -101.7193         0.001521   
+    909. D(Fe  0,Fe  8,Fe  2,Fe  7)    -33.6557         0.001521   
+    910. D(Fe 10,Fe  8,Fe  2,Fe 12)    -39.4829         0.001521   
+    911. D(Fe  7,Fe  8,Fe  2,Fe  1)     69.3206         0.001521   
+    912. D(Fe  1,Fe  8,Fe  4,Fe  3)   -109.0127         0.001500   
+    913. D(Fe 11,Fe  8,Fe  2,Fe  5)    124.1208         0.001521   
+    914. D(Fe  0,Fe  8,Fe  2,Fe  1)     35.6649         0.001521   
+    915. D(Fe 12,Fe  8,Fe  1,Fe  7)     30.6254         0.001518   
+    916. D(Fe 12,Fe  8,Fe  1,Fe  6)     63.5111         0.001518   
+    917. D(Fe  1,Fe  8,Fe  4,Fe  6)    -35.8409         0.001500   
+    918. D(Fe  0,Fe  8,Fe  4,Fe  9)   -110.4153         0.001500   
+    919. D(Fe 11,Fe  8,Fe  2,Fe  7)     92.1046         0.001521   
+    920. D(Fe 12,Fe  8,Fe  1,Fe  5)      0.2520         0.001518   
+    921. D(Fe  2,Fe  8,Fe  4,Fe  6)   -106.8281         0.001500   
+    922. D(Fe  2,Fe  8,Fe  4,Fe  3)   -179.9999         0.001500   
+    923. D(Fe 12,Fe  8,Fe  1,Fe  0)    100.9514         0.001518   
+    924. D(Fe 11,Fe  8,Fe  1,Fe  7)     -5.0631         0.001518   
+    925. D(Fe  2,Fe  8,Fe  4,Fe  9)    107.7233         0.001500   
+    926. D(Fe  0,Fe  8,Fe  4,Fe  6)     35.0333         0.001500   
+    927. D(Fe 11,Fe  8,Fe  1,Fe  6)     27.8226         0.001518   
+    928. D(Fe 11,Fe  8,Fe  1,Fe  5)    -35.4365         0.001518   
+    929. D(Fe 10,Fe  8,Fe  4,Fe  9)    -39.5828         0.001500   
+    930. D(Fe 11,Fe  8,Fe  1,Fe  2)    -74.1878         0.001518   
+    931. D(Fe 11,Fe  8,Fe  4,Fe  3)     69.9749         0.001500   
+    932. D(Fe 11,Fe  8,Fe  1,Fe  0)     65.2629         0.001518   
+    933. D(Fe 11,Fe  8,Fe  4,Fe  9)     -2.3019         0.001500   
+    934. D(Fe 10,Fe  8,Fe  1,Fe  6)     -2.1260         0.001518   
+    935. D(Fe 11,Fe  8,Fe  4,Fe  6)    143.1467         0.001500   
+    936. D(Fe 10,Fe  8,Fe  1,Fe  5)    -65.3851         0.001518   
+    937. D(Fe 10,Fe  8,Fe  1,Fe  2)   -104.1364         0.001518   
+    938. D(Fe 10,Fe  8,Fe  4,Fe  3)     32.6940         0.001500   
+    939. D(Fe 10,Fe  8,Fe  1,Fe  0)     35.3143         0.001518   
+    940. D(Fe  7,Fe  8,Fe  1,Fe  6)     32.8858         0.001518   
+    941. D(Fe 12,Fe  8,Fe  4,Fe  9)     35.3575         0.001500   
+    942. D(Fe  7,Fe  8,Fe  1,Fe  5)    -30.3734         0.001518   
+    943. D(Fe  0,Fe  8,Fe  7,Fe  3)    -37.0359         0.001553   
+    944. D(Fe  7,Fe  8,Fe  1,Fe  2)    -69.1247         0.001518   
+    945. D(Fe  7,Fe  8,Fe  1,Fe  0)     70.3260         0.001518   
+    946. D(Fe  2,Fe  8,Fe  1,Fe  7)     69.1247         0.001518   
+    947. D(Fe  0,Fe  8,Fe  7,Fe  6)     33.3580         0.001553   
+    948. D(Fe  2,Fe  8,Fe  1,Fe  6)    102.0104         0.001518   
+    949. D(Fe  2,Fe  8,Fe  1,Fe  5)     38.7513         0.001518   
+    950. D(Fe 12,Fe  8,Fe  4,Fe  6)   -179.1939         0.001500   
+    951. D(Fe  2,Fe  8,Fe  1,Fe  0)    139.4507         0.001518   
+    952. D(Fe  0,Fe  8,Fe  1,Fe  7)    -70.3260         0.001518   
+    953. D(Fe  1,Fe  8,Fe  7,Fe  3)   -107.2670         0.001553   
+    954. D(Fe  0,Fe  8,Fe  1,Fe  6)    -37.4403         0.001518   
+    955. D(Fe  0,Fe  8,Fe  1,Fe  5)   -100.6994         0.001518   
+    956. D(Fe  1,Fe  8,Fe  7,Fe  5)     34.1693         0.001553   
+    957. D(Fe  1,Fe  8,Fe  7,Fe  0)    -70.2311         0.001553   
+    958. D(Fe  1,Fe  8,Fe  7,Fe 10)   -140.0113         0.001553   
+    959. D(Fe 12,Fe  8,Fe  0,Fe 10)     39.1098         0.001518   
+    960. D(Fe  1,Fe  8,Fe  7,Fe 12)    145.0712         0.001553   
+    961. D(Fe 12,Fe  8,Fe  0,Fe  7)    -31.0002         0.001518   
+    962. D(Fe 12,Fe  8,Fe  0,Fe  6)    -61.7610         0.001518   
+    963. D(Fe  2,Fe  8,Fe  7,Fe  5)    -37.4603         0.001553   
+    964. D(Fe  2,Fe  8,Fe  7,Fe  6)   -108.5028         0.001553   
+    965. D(Fe  2,Fe  8,Fe  7,Fe  3)   -178.8966         0.001553   
+    966. D(Fe  2,Fe  8,Fe  7,Fe 10)    148.3591         0.001553   
+    967. D(Fe 11,Fe  8,Fe  0,Fe 10)    -23.1615         0.001518   
+    968. D(Fe 12,Fe  8,Fe  0,Fe  3)      2.3269         0.001518   
+    969. D(Fe 11,Fe  8,Fe  0,Fe  7)    -93.2715         0.001518   
+    970. D(Fe 11,Fe  8,Fe  0,Fe  6)   -124.0323         0.001518   
+    971. D(Fe 11,Fe  8,Fe  0,Fe  3)    -59.9444         0.001518   
+    972. D(Fe  2,Fe  8,Fe  7,Fe 12)     73.4417         0.001553   
+    973. D(Fe 11,Fe  8,Fe  0,Fe  1)   -162.7078         0.001518   
+    974. D(Fe 10,Fe  8,Fe  0,Fe  7)    -70.1100         0.001518   
+    975. D(Fe 10,Fe  8,Fe  0,Fe  6)   -100.8708         0.001518   
+    976. D(Fe 10,Fe  8,Fe  0,Fe  3)    -36.7829         0.001518   
+    977. D(Fe 10,Fe  8,Fe  7,Fe  5)    174.1806         0.001553   
+    978. D(Fe 10,Fe  8,Fe  0,Fe  1)   -139.5463         0.001518   
+    979. D(Fe  7,Fe  8,Fe  0,Fe 10)     70.1100         0.001518   
+    980. D(Fe  2,Fe  8,Fe  7,Fe  0)   -141.8607         0.001553   
+    981. D(Fe 11,Fe  8,Fe  7,Fe  0)    108.1939         0.001553   
+    982. D(Fe 11,Fe  8,Fe  7,Fe  1)    178.4251         0.001553   
+    983. D(Fe 11,Fe  8,Fe  7,Fe  2)   -109.9453         0.001553   
+    984. D(Fe  2,Fe  8,Fe  0,Fe 10)    103.5006         0.001518   
+    985. D(Fe 11,Fe  8,Fe  7,Fe  5)   -147.4056         0.001553   
+    986. D(Fe  1,Fe  8,Fe  0,Fe 10)    139.5463         0.001518   
+    987. D(Fe  2,Fe  8,Fe  0,Fe  3)     66.7177         0.001518   
+    988. D(Fe  2,Fe  8,Fe  0,Fe  1)    -36.0458         0.001518   
+    989. D(Fe  2,Fe  8,Fe  0,Fe  7)     33.3905         0.001518   
+    990. D(Fe  1,Fe  8,Fe  0,Fe  7)     69.4363         0.001518   
+    991. D(Fe 10,Fe  8,Fe  7,Fe  2)   -148.3591         0.001553   
+    992. D(Fe  1,Fe  8,Fe  0,Fe  3)    102.7634         0.001518   
+    993. D(Fe  7,Fe  8,Fe  0,Fe  1)    -69.4363         0.001518   
+    994. D(Fe  2,Fe  8,Fe  0,Fe  6)      2.6298         0.001518   
+    995. D(Fe  7,Fe  8,Fe  0,Fe  6)    -30.7608         0.001518   
+    996. D(Fe 12,Fe  8,Fe  4,Fe  3)    107.6343         0.001500   
+    997. D(Fe  7,Fe  8,Fe  0,Fe  3)     33.3271         0.001518   
+    998. D(Fe  1,Fe  8,Fe  0,Fe  6)     38.6755         0.001518   
+    999. D(Fe 14,Fe  9,Fe  7,Fe 12)     39.1682         0.001570   
+   1000. D(Fe 14,Fe  9,Fe  7,Fe 10)    -34.2195         0.001570   
+   1001. D(Fe 14,Fe  9,Fe  7,Fe  6)   -138.2631         0.001570   
+   1002. D(Fe 14,Fe  9,Fe  7,Fe  5)    149.3858         0.001570   
+   1003. D(Fe 14,Fe  9,Fe  7,Fe  4)   -174.3220         0.001570   
+   1004. D(Fe 14,Fe  9,Fe  7,Fe  2)     73.6863         0.001570   
+   1005. D(Fe 14,Fe  9,Fe  7,Fe  0)    -68.5337         0.001570   
+   1006. D(Fe 13,Fe  9,Fe  7,Fe 12)    104.0160         0.001570   
+   1007. D(Fe 13,Fe  9,Fe  7,Fe  8)     67.0892         0.001570   
+   1008. D(Fe 13,Fe  9,Fe  7,Fe  6)    -73.4153         0.001570   
+   1009. D(Fe 13,Fe  9,Fe  7,Fe  5)   -145.7664         0.001570   
+   1010. D(Fe 13,Fe  9,Fe  7,Fe  4)   -109.4742         0.001570   
+   1011. D(Fe 13,Fe  9,Fe  7,Fe  3)    -38.6152         0.001570   
+   1012. D(Fe 13,Fe  9,Fe  7,Fe  2)    138.5341         0.001570   
+   1013. D(Fe 13,Fe  9,Fe  7,Fe  0)     -3.6859         0.001570   
+   1014. D(Fe 12,Fe  9,Fe  7,Fe  8)    -36.9267         0.001570   
+   1015. D(Fe 12,Fe  9,Fe  7,Fe  6)   -177.4312         0.001570   
+   1016. D(Fe 12,Fe  9,Fe  7,Fe  5)    110.2176         0.001570   
+   1017. D(Fe 12,Fe  9,Fe  7,Fe  3)   -142.6312         0.001570   
+   1018. D(Fe 12,Fe  9,Fe  7,Fe  2)     34.5181         0.001570   
+   1019. D(Fe 12,Fe  9,Fe  7,Fe  0)   -107.7019         0.001570   
+   1020. D(Fe 10,Fe  9,Fe  7,Fe  8)     36.4609         0.001570   
+   1021. D(Fe 10,Fe  9,Fe  7,Fe  6)   -104.0436         0.001570   
+   1022. D(Fe 10,Fe  9,Fe  7,Fe  5)   -176.3948         0.001570   
+   1023. D(Fe 10,Fe  9,Fe  7,Fe  4)   -140.1026         0.001570   
+   1024. D(Fe 10,Fe  9,Fe  7,Fe  3)    -69.2436         0.001570   
+   1025. D(Fe 10,Fe  9,Fe  7,Fe  2)    107.9057         0.001570   
+   1026. D(Fe 10,Fe  9,Fe  7,Fe  0)    -34.3143         0.001570   
+   1027. D(Fe  4,Fe  9,Fe  7,Fe 10)    140.1026         0.001570   
+   1028. D(Fe  4,Fe  9,Fe  7,Fe  8)    176.5635         0.001570   
+   1029. D(Fe  4,Fe  9,Fe  7,Fe  6)     36.0590         0.001570   
+   1030. D(Fe  4,Fe  9,Fe  7,Fe  3)     70.8590         0.001570   
+   1031. D(Fe  4,Fe  9,Fe  7,Fe  2)   -111.9917         0.001570   
+   1032. D(Fe  4,Fe  9,Fe  7,Fe  0)    105.7883         0.001570   
+   1033. D(Fe  3,Fe  9,Fe  7,Fe 12)    142.6312         0.001570   
+   1034. D(Fe  3,Fe  9,Fe  7,Fe 10)     69.2436         0.001570   
+   1035. D(Fe  3,Fe  9,Fe  7,Fe  8)    105.7044         0.001570   
+   1036. D(Fe  3,Fe  9,Fe  7,Fe  6)    -34.8000         0.001570   
+   1037. D(Fe  3,Fe  9,Fe  7,Fe  5)   -107.1512         0.001570   
+   1038. D(Fe  3,Fe  9,Fe  7,Fe  4)    -70.8590         0.001570   
+   1039. D(Fe  3,Fe  9,Fe  7,Fe  2)    177.1493         0.001570   
+   1040. D(Fe  3,Fe  9,Fe  7,Fe  0)     34.9293         0.001570   
+   1041. D(Fe 14,Fe  9,Fe  4,Fe  6)    -14.3067         0.001515   
+   1042. D(Fe 14,Fe  9,Fe  4,Fe  5)     48.1181         0.001515   
+   1043. D(Fe 14,Fe  9,Fe  4,Fe  3)    -52.6085         0.001515   
+   1044. D(Fe 13,Fe  9,Fe  4,Fe  6)     63.4138         0.001515   
+   1045. D(Fe 13,Fe  9,Fe  4,Fe  5)    125.8386         0.001515   
+   1046. D(Fe 13,Fe  9,Fe  4,Fe  3)     25.1119         0.001515   
+   1047. D(Fe 12,Fe  9,Fe  4,Fe  6)    -61.9236         0.001515   
+   1048. D(Fe 12,Fe  9,Fe  4,Fe  5)      0.5012         0.001515   
+   1049. D(Fe 12,Fe  9,Fe  4,Fe  3)   -100.2255         0.001515   
+   1050. D(Fe 10,Fe  9,Fe  4,Fe  7)     34.2110         0.001515   
+   1051. D(Fe 10,Fe  9,Fe  4,Fe  6)      2.0097         0.001515   
+   1052. D(Fe 10,Fe  9,Fe  4,Fe  5)     64.4345         0.001515   
+   1053. D(Fe 10,Fe  9,Fe  4,Fe  3)    -36.2922         0.001515   
+   1054. D(Fe  7,Fe  9,Fe  4,Fe  5)     30.2235         0.001515   
+   1055. D(Fe  7,Fe  9,Fe  4,Fe  3)    -70.5032         0.001515   
+   1056. D(Fe  3,Fe  9,Fe  4,Fe  7)     70.5032         0.001515   
+   1057. D(Fe  3,Fe  9,Fe  4,Fe  6)     38.3019         0.001515   
+   1058. D(Fe  3,Fe  9,Fe  4,Fe  5)    100.7267         0.001515   
+   1059. D(Fe 14,Fe  9,Fe  3,Fe 13)    -41.1321         0.001521   
+   1060. D(Fe 14,Fe  9,Fe  3,Fe 10)     27.1785         0.001521   
+   1061. D(Fe 14,Fe  9,Fe  3,Fe  7)     96.0473         0.001521   
+   1062. D(Fe 14,Fe  9,Fe  3,Fe  6)    126.8873         0.001521   
+   1063. D(Fe 14,Fe  9,Fe  3,Fe  4)    164.8358         0.001521   
+   1064. D(Fe 14,Fe  9,Fe  3,Fe  0)     64.6310         0.001521   
+   1065. D(Fe  7,Fe  9,Fe  4,Fe  6)    -32.2013         0.001515   
+   1066. D(Fe 13,Fe  9,Fe  3,Fe 10)     68.3106         0.001521   
+   1067. D(Fe 13,Fe  9,Fe  3,Fe  7)    137.1794         0.001521   
+   1068. D(Fe 13,Fe  9,Fe  3,Fe  6)    168.0194         0.001521   
+   1069. D(Fe 13,Fe  9,Fe  3,Fe  4)   -154.0321         0.001521   
+   1070. D(Fe 13,Fe  9,Fe  3,Fe  0)    105.7631         0.001521   
+   1071. D(Fe 12,Fe  9,Fe  3,Fe 13)   -104.3104         0.001521   
+   1072. D(Fe 12,Fe  9,Fe  3,Fe 10)    -35.9998         0.001521   
+   1073. D(Fe 12,Fe  9,Fe  4,Fe  7)    -29.7223         0.001515   
+   1074. D(Fe 12,Fe  9,Fe  3,Fe  7)     32.8690         0.001521   
+   1075. D(Fe 10,Fe  9,Fe  1,Fe  0)    -35.0532         0.001500   
+   1076. D(Fe 10,Fe  9,Fe  3,Fe 13)    -68.3106         0.001521   
+   1077. D(Fe 13,Fe  9,Fe  4,Fe  7)     95.6151         0.001515   
+   1078. D(Fe 10,Fe  9,Fe  3,Fe  0)     37.4525         0.001521   
+   1079. D(Fe  7,Fe  9,Fe  3,Fe 13)   -137.1794         0.001521   
+   1080. D(Fe  7,Fe  9,Fe  3,Fe  6)     30.8400         0.001521   
+   1081. D(Fe 14,Fe  9,Fe  4,Fe  7)     17.8947         0.001515   
+   1082. D(Fe  7,Fe  9,Fe  3,Fe  4)     68.7885         0.001521   
+   1083. D(Fe 12,Fe  9,Fe  1,Fe  8)    -36.1005         0.001500   
+   1084. D(Fe 12,Fe  9,Fe  1,Fe  6)    179.9998         0.001500   
+   1085. D(Fe  4,Fe  9,Fe  3,Fe  7)    -68.7885         0.001521   
+   1086. D(Fe 13,Fe  9,Fe  1,Fe  6)    -75.3389         0.001500   
+   1087. D(Fe 14,Fe  9,Fe  1,Fe  6)   -139.8827         0.001500   
+   1088. D(Fe 14,Fe  9,Fe  1,Fe  5)    148.8794         0.001500   
+   1089. D(Fe 14,Fe  9,Fe  1,Fe  0)    -68.7869         0.001500   
+   1090. D(Fe 13,Fe  9,Fe  1,Fe  8)     68.5608         0.001500   
+   1091. D(Fe 14,Fe  9,Fe  1,Fe  2)     75.4303         0.001500   
+   1092. D(Fe 14,Fe  9,Fe  1,Fe  8)      4.0170         0.001500   
+   1093. D(Fe  4,Fe  9,Fe  7,Fe  5)    -36.2922         0.001570   
+   1094. D(Fe 13,Fe  9,Fe  1,Fe  5)   -146.5768         0.001500   
+   1095. D(Fe 13,Fe  9,Fe  1,Fe  2)    139.9741         0.001500   
+   1096. D(Fe 13,Fe  9,Fe  1,Fe  0)     -4.2431         0.001500   
+   1097. D(Fe  4,Fe  9,Fe  7,Fe 12)   -146.5098         0.001570   
+   1098. D(Fe  4,Fe  9,Fe  3,Fe 13)    154.0321         0.001521   
+   1099. D(Fe  7,Fe  9,Fe  3,Fe  0)    -31.4163         0.001521   
+   1100. D(Fe  4,Fe  9,Fe  3,Fe 10)   -137.6573         0.001521   
+   1101. D(Fe 12,Fe  9,Fe  1,Fe  5)    108.7618         0.001500   
+   1102. D(Fe 12,Fe  9,Fe  1,Fe  2)     35.3127         0.001500   
+   1103. D(Fe 12,Fe  9,Fe  1,Fe  0)   -108.9044         0.001500   
+   1104. D(Fe 10,Fe  9,Fe  1,Fe  8)     37.7507         0.001500   
+   1105. D(Fe 10,Fe  9,Fe  7,Fe 12)     73.3876         0.001570   
+   1106. D(Fe  7,Fe  9,Fe  3,Fe 10)    -68.8688         0.001521   
+   1107. D(Fe 10,Fe  9,Fe  1,Fe  6)   -106.1490         0.001500   
+   1108. D(Fe 10,Fe  9,Fe  3,Fe  4)    137.6573         0.001521   
+   1109. D(Fe 12,Fe  9,Fe  7,Fe  4)    146.5098         0.001570   
+   1110. D(Fe 10,Fe  9,Fe  1,Fe  5)   -177.3869         0.001500   
+   1111. D(Fe 10,Fe  9,Fe  1,Fe  2)    109.1639         0.001500   
+   1112. D(Fe 12,Fe  9,Fe  3,Fe  0)      1.4527         0.001521   
+   1113. D(Fe 12,Fe  9,Fe  7,Fe 10)    -73.3876         0.001570   
+   1114. D(Fe 10,Fe  9,Fe  3,Fe  7)     68.8688         0.001521   
+   1115. D(Fe  4,Fe  9,Fe  1,Fe  8)    178.7150         0.001500   
+   1116. D(Fe 12,Fe  9,Fe  3,Fe  4)    101.6575         0.001521   
+   1117. D(Fe  4,Fe  9,Fe  1,Fe  6)     34.8153         0.001500   
+   1118. D(Fe  4,Fe  9,Fe  1,Fe  5)    -36.4226         0.001500   
+   1119. D(Fe  4,Fe  9,Fe  1,Fe  2)   -109.8718         0.001500   
+   1120. D(Fe  4,Fe  9,Fe  1,Fe  0)    105.9111         0.001500   
+   1121. D(Fe 13,Fe  9,Fe  7,Fe 10)     30.6283         0.001570   
+   1122. D(Fe  3,Fe  9,Fe  1,Fe  8)    107.7836         0.001500   
+   1123. D(Fe 12,Fe  9,Fe  3,Fe  6)     63.7090         0.001521   
+   1124. D(Fe 10,Fe  9,Fe  3,Fe  6)     99.7088         0.001521   
+   1125. D(Fe 14,Fe  9,Fe  7,Fe  3)   -103.4630         0.001570   
+   1126. D(Fe  4,Fe  9,Fe  3,Fe  6)    -37.9485         0.001521   
+   1127. D(Fe  3,Fe  9,Fe  1,Fe  0)     34.9797         0.001500   
+   1128. D(Fe  3,Fe  9,Fe  1,Fe  5)   -107.3540         0.001500   
+   1129. D(Fe 14,Fe  9,Fe  7,Fe  8)      2.2414         0.001570   
+   1130. D(Fe  3,Fe  9,Fe  1,Fe  2)    179.1969         0.001500   
+   1131. D(Fe  3,Fe  9,Fe  1,Fe  6)    -36.1161         0.001500   
+   1132. D(Fe  4,Fe  9,Fe  3,Fe  0)   -100.2048         0.001521   
+   1133. D(Fe  0,Fe 10,Fe  9,Fe 13)   -112.8429         0.001514   
+   1134. D(Fe  0,Fe 10,Fe  9,Fe 12)    101.0772         0.001514   
+   1135. D(Fe  0,Fe 10,Fe  9,Fe  7)     32.1857         0.001514   
+   1136. D(Fe  0,Fe 10,Fe  9,Fe  3)    -39.1354         0.001514   
+   1137. D(Fe 14,Fe 10,Fe  8,Fe 12)     28.6264         0.001534   
+   1138. D(Fe 14,Fe 10,Fe  8,Fe 11)    -39.1181         0.001534   
+   1139. D(Fe 14,Fe 10,Fe  8,Fe  2)     67.4975         0.001534   
+   1140. D(Fe 14,Fe 10,Fe  8,Fe  1)    130.6907         0.001534   
+   1141. D(Fe 14,Fe 10,Fe  8,Fe  0)    166.0922         0.001534   
+   1142. D(Fe 13,Fe 10,Fe  8,Fe 12)    -40.0701         0.001534   
+   1143. D(Fe 13,Fe 10,Fe  8,Fe 11)   -107.8146         0.001534   
+   1144. D(Fe 13,Fe 10,Fe  8,Fe  7)     27.1844         0.001534   
+   1145. D(Fe 13,Fe 10,Fe  8,Fe  2)     -1.1990         0.001534   
+   1146. D(Fe 13,Fe 10,Fe  8,Fe  0)     97.3957         0.001534   
+   1147. D(Fe 12,Fe 10,Fe  8,Fe 11)    -67.7445         0.001534   
+   1148. D(Fe 12,Fe 10,Fe  8,Fe  7)     67.2545         0.001534   
+   1149. D(Fe 12,Fe 10,Fe  8,Fe  1)    102.0643         0.001534   
+   1150. D(Fe 12,Fe 10,Fe  8,Fe  0)    137.4658         0.001534   
+   1151. D(Fe 11,Fe 10,Fe  8,Fe 12)     67.7445         0.001534   
+   1152. D(Fe 11,Fe 10,Fe  8,Fe  2)    106.6156         0.001534   
+   1153. D(Fe 11,Fe 10,Fe  8,Fe  1)    169.8088         0.001534   
+   1154. D(Fe 11,Fe 10,Fe  8,Fe  0)   -154.7897         0.001534   
+   1155. D(Fe  9,Fe 10,Fe  8,Fe 12)    -34.8047         0.001534   
+   1156. D(Fe  9,Fe 10,Fe  8,Fe 11)   -102.5492         0.001534   
+   1157. D(Fe  9,Fe 10,Fe  8,Fe  7)     32.4498         0.001534   
+   1158. D(Fe  9,Fe 10,Fe  8,Fe  2)      4.0664         0.001534   
+   1159. D(Fe  9,Fe 10,Fe  8,Fe  0)    102.6611         0.001534   
+   1160. D(Fe  7,Fe 10,Fe  8,Fe 12)    -67.2545         0.001534   
+   1161. D(Fe  7,Fe 10,Fe  8,Fe 11)   -134.9990         0.001534   
+   1162. D(Fe  7,Fe 10,Fe  8,Fe  1)     34.8098         0.001534   
+   1163. D(Fe  7,Fe 10,Fe  8,Fe  0)     70.2113         0.001534   
+   1164. D(Fe  3,Fe 10,Fe  8,Fe 12)    -98.4793         0.001534   
+   1165. D(Fe  3,Fe 10,Fe  8,Fe  7)    -31.2248         0.001534   
+   1166. D(Fe  3,Fe 10,Fe  8,Fe  2)    -59.6082         0.001534   
+   1167. D(Fe  3,Fe 10,Fe  8,Fe  1)      3.5850         0.001534   
+   1168. D(Fe  3,Fe 10,Fe  8,Fe  0)     38.9865         0.001534   
+   1169. D(Fe  0,Fe 10,Fe  8,Fe 12)   -137.4658         0.001534   
+   1170. D(Fe  0,Fe 10,Fe  8,Fe 11)    154.7897         0.001534   
+   1171. D(Fe  0,Fe 10,Fe  8,Fe  7)    -70.2113         0.001534   
+   1172. D(Fe  0,Fe 10,Fe  8,Fe  1)    -35.4015         0.001534   
+   1173. D(Fe 14,Fe 10,Fe  7,Fe 12)    -35.4321         0.001567   
+   1174. D(Fe 14,Fe 10,Fe  7,Fe  9)     35.4323         0.001567   
+   1175. D(Fe 14,Fe 10,Fe  7,Fe  6)    145.3962         0.001567   
+   1176. D(Fe 14,Fe 10,Fe  7,Fe  5)   -179.9986         0.001567   
+   1177. D(Fe 14,Fe 10,Fe  7,Fe  4)     75.6617         0.001567   
+   1178. D(Fe 14,Fe 10,Fe  7,Fe  2)    -75.6618         0.001567   
+   1179. D(Fe 14,Fe 10,Fe  7,Fe  1)   -145.3963         0.001567   
+   1180. D(Fe 14,Fe 10,Fe  7,Fe  0)    180.0000         0.001567   
+   1181. D(Fe 13,Fe 10,Fe  7,Fe 12)   -101.6121         0.001567   
+   1182. D(Fe 13,Fe 10,Fe  7,Fe  9)    -30.7476         0.001567   
+   1183. D(Fe 13,Fe 10,Fe  7,Fe  8)   -173.2147         0.001567   
+   1184. D(Fe 13,Fe 10,Fe  7,Fe  6)     79.2163         0.001567   
+   1185. D(Fe 13,Fe 10,Fe  7,Fe  4)      9.4817         0.001567   
+   1186. D(Fe 13,Fe 10,Fe  7,Fe  3)     40.8547         0.001567   
+   1187. D(Fe 13,Fe 10,Fe  7,Fe  2)   -141.8418         0.001567   
+   1188. D(Fe 13,Fe 10,Fe  7,Fe  0)    113.8200         0.001567   
+   1189. D(Fe 12,Fe 10,Fe  7,Fe  9)     70.8645         0.001567   
+   1190. D(Fe 12,Fe 10,Fe  7,Fe  8)    -71.6026         0.001567   
+   1191. D(Fe 12,Fe 10,Fe  7,Fe  5)   -144.5665         0.001567   
+   1192. D(Fe 12,Fe 10,Fe  7,Fe  4)    111.0938         0.001567   
+   1193. D(Fe 12,Fe 10,Fe  7,Fe  3)    142.4668         0.001567   
+   1194. D(Fe 12,Fe 10,Fe  7,Fe  2)    -40.2297         0.001567   
+   1195. D(Fe 12,Fe 10,Fe  7,Fe  1)   -109.9642         0.001567   
+   1196. D(Fe 12,Fe 10,Fe  7,Fe  0)   -144.5679         0.001567   
+   1197. D(Fe 11,Fe 10,Fe  7,Fe 12)     30.7479         0.001567   
+   1198. D(Fe 11,Fe 10,Fe  7,Fe  8)    -40.8548         0.001567   
+   1199. D(Fe 11,Fe 10,Fe  7,Fe  6)   -148.4238         0.001567   
+   1200. D(Fe 11,Fe 10,Fe  7,Fe  5)   -113.8186         0.001567   
+   1201. D(Fe 11,Fe 10,Fe  7,Fe  3)    173.2147         0.001567   
+   1202. D(Fe 11,Fe 10,Fe  7,Fe  2)     -9.4818         0.001567   
+   1203. D(Fe 11,Fe 10,Fe  7,Fe  1)    -79.2163         0.001567   
+   1204. D(Fe  9,Fe 10,Fe  7,Fe 12)    -70.8645         0.001567   
+   1205. D(Fe  9,Fe 10,Fe  7,Fe  8)   -142.4671         0.001567   
+   1206. D(Fe  9,Fe 10,Fe  7,Fe  6)    109.9639         0.001567   
+   1207. D(Fe  9,Fe 10,Fe  7,Fe  5)    144.5691         0.001567   
+   1208. D(Fe  9,Fe 10,Fe  7,Fe  4)     40.2294         0.001567   
+   1209. D(Fe  9,Fe 10,Fe  7,Fe  3)     71.6024         0.001567   
+   1210. D(Fe  9,Fe 10,Fe  7,Fe  2)   -111.0941         0.001567   
+   1211. D(Fe  9,Fe 10,Fe  7,Fe  0)    144.5676         0.001567   
+   1212. D(Fe  8,Fe 10,Fe  7,Fe 12)     71.6026         0.001567   
+   1213. D(Fe  8,Fe 10,Fe  7,Fe  9)    142.4671         0.001567   
+   1214. D(Fe  8,Fe 10,Fe  7,Fe  5)    -72.9638         0.001567   
+   1215. D(Fe  8,Fe 10,Fe  7,Fe  4)   -177.3036         0.001567   
+   1216. D(Fe  8,Fe 10,Fe  7,Fe  3)   -145.9306         0.001567   
+   1217. D(Fe  8,Fe 10,Fe  7,Fe  1)    -38.3616         0.001567   
+   1218. D(Fe  8,Fe 10,Fe  7,Fe  0)    -72.9653         0.001567   
+   1219. D(Fe  3,Fe 10,Fe  7,Fe 12)   -142.4668         0.001567   
+   1220. D(Fe  3,Fe 10,Fe  7,Fe  9)    -71.6024         0.001567   
+   1221. D(Fe  3,Fe 10,Fe  7,Fe  8)    145.9306         0.001567   
+   1222. D(Fe  3,Fe 10,Fe  7,Fe  6)     38.3615         0.001567   
+   1223. D(Fe  3,Fe 10,Fe  7,Fe  5)     72.9667         0.001567   
+   1224. D(Fe  3,Fe 10,Fe  7,Fe  4)    -31.3730         0.001567   
+   1225. D(Fe  3,Fe 10,Fe  7,Fe  2)    177.3035         0.001567   
+   1226. D(Fe  3,Fe 10,Fe  7,Fe  1)    107.5690         0.001567   
+   1227. D(Fe  3,Fe 10,Fe  7,Fe  0)     72.9653         0.001567   
+   1228. D(Fe  0,Fe 10,Fe  7,Fe 12)    144.5679         0.001567   
+   1229. D(Fe  0,Fe 10,Fe  7,Fe  9)   -144.5676         0.001567   
+   1230. D(Fe  0,Fe 10,Fe  7,Fe  8)     72.9653         0.001567   
+   1231. D(Fe  0,Fe 10,Fe  7,Fe  6)    -34.6038         0.001567   
+   1232. D(Fe  0,Fe 10,Fe  7,Fe  5)      0.0014         0.001567   
+   1233. D(Fe  8,Fe 10,Fe  7,Fe  2)     31.3730         0.001567   
+   1234. D(Fe  0,Fe 10,Fe  7,Fe  4)   -104.3383         0.001567   
+   1235. D(Fe  0,Fe 10,Fe  7,Fe  3)    -72.9653         0.001567   
+   1236. D(Fe  0,Fe 10,Fe  7,Fe  2)    104.3382         0.001567   
+   1237. D(Fe  8,Fe 10,Fe  7,Fe  6)   -107.5690         0.001567   
+   1238. D(Fe  0,Fe 10,Fe  7,Fe  1)     34.6037         0.001567   
+   1239. D(Fe 14,Fe 10,Fe  3,Fe 13)     39.1180         0.001534   
+   1240. D(Fe 14,Fe 10,Fe  3,Fe  9)    -28.6264         0.001534   
+   1241. D(Fe  9,Fe 10,Fe  7,Fe  1)    179.1714         0.001567   
+   1242. D(Fe 14,Fe 10,Fe  3,Fe  7)    -95.8809         0.001534   
+   1243. D(Fe 14,Fe 10,Fe  3,Fe  6)   -130.6907         0.001534   
+   1244. D(Fe 14,Fe 10,Fe  3,Fe  4)    -67.4974         0.001534   
+   1245. D(Fe 14,Fe 10,Fe  3,Fe  0)   -166.0922         0.001534   
+   1246. D(Fe 13,Fe 10,Fe  3,Fe  9)    -67.7444         0.001534   
+   1247. D(Fe 13,Fe 10,Fe  3,Fe  7)   -134.9989         0.001534   
+   1248. D(Fe 13,Fe 10,Fe  3,Fe  6)   -169.8087         0.001534   
+   1249. D(Fe 11,Fe 10,Fe  7,Fe  0)   -113.8200         0.001567   
+   1250. D(Fe 13,Fe 10,Fe  3,Fe  4)   -106.6154         0.001534   
+   1251. D(Fe 13,Fe 10,Fe  3,Fe  0)    154.7897         0.001534   
+   1252. D(Fe 12,Fe 10,Fe  3,Fe 13)    102.5489         0.001534   
+   1253. D(Fe 11,Fe 10,Fe  7,Fe  4)    141.8417         0.001567   
+   1254. D(Fe 12,Fe 10,Fe  3,Fe  9)     34.8045         0.001534   
+   1255. D(Fe 12,Fe 10,Fe  3,Fe  7)    -32.4500         0.001534   
+   1256. D(Fe 12,Fe 10,Fe  3,Fe  6)    -67.2598         0.001534   
+   1257. D(Fe 11,Fe 10,Fe  7,Fe  9)    101.6123         0.001567   
+   1258. D(Fe 12,Fe 10,Fe  3,Fe  4)     -4.0665         0.001534   
+   1259. D(Fe 12,Fe 10,Fe  3,Fe  0)   -102.6614         0.001534   
+   1260. D(Fe 11,Fe 10,Fe  3,Fe 13)    107.8142         0.001534   
+   1261. D(Fe 11,Fe 10,Fe  3,Fe  9)     40.0697         0.001534   
+   1262. D(Fe 11,Fe 10,Fe  3,Fe  7)    -27.1848         0.001534   
+   1263. D(Fe 11,Fe 10,Fe  3,Fe  6)    -61.9945         0.001534   
+   1264. D(Fe 11,Fe 10,Fe  3,Fe  4)      1.1988         0.001534   
+   1265. D(Fe 12,Fe 10,Fe  7,Fe  6)   -179.1717         0.001567   
+   1266. D(Fe 11,Fe 10,Fe  3,Fe  0)    -97.3961         0.001534   
+   1267. D(Fe  9,Fe 10,Fe  3,Fe 13)     67.7444         0.001534   
+   1268. D(Fe  9,Fe 10,Fe  3,Fe  7)    -67.2545         0.001534   
+   1269. D(Fe 13,Fe 10,Fe  7,Fe  1)    148.4237         0.001567   
+   1270. D(Fe  9,Fe 10,Fe  3,Fe  6)   -102.0643         0.001534   
+   1271. D(Fe  9,Fe 10,Fe  3,Fe  4)    -38.8710         0.001534   
+   1272. D(Fe  9,Fe 10,Fe  3,Fe  0)   -137.4658         0.001534   
+   1273. D(Fe 13,Fe 10,Fe  7,Fe  5)    113.8214         0.001567   
+   1274. D(Fe  8,Fe 10,Fe  3,Fe 13)    166.2238         0.001534   
+   1275. D(Fe  8,Fe 10,Fe  3,Fe  9)     98.4794         0.001534   
+   1276. D(Fe  8,Fe 10,Fe  3,Fe  7)     31.2249         0.001534   
+   1277. D(Fe  8,Fe 10,Fe  3,Fe  6)     -3.5849         0.001534   
+   1278. D(Fe  8,Fe 10,Fe  3,Fe  4)     59.6084         0.001534   
+   1279. D(Fe  8,Fe 10,Fe  3,Fe  0)    -38.9865         0.001534   
+   1280. D(Fe  7,Fe 10,Fe  3,Fe 13)    134.9989         0.001534   
+   1281. D(Fe 14,Fe 10,Fe  7,Fe  3)    107.0347         0.001567   
+   1282. D(Fe  7,Fe 10,Fe  3,Fe  9)     67.2545         0.001534   
+   1283. D(Fe  7,Fe 10,Fe  3,Fe  6)    -34.8098         0.001534   
+   1284. D(Fe  7,Fe 10,Fe  3,Fe  4)     28.3835         0.001534   
+   1285. D(Fe 14,Fe 10,Fe  7,Fe  8)   -107.0348         0.001567   
+   1286. D(Fe  7,Fe 10,Fe  3,Fe  0)    -70.2113         0.001534   
+   1287. D(Fe  0,Fe 10,Fe  3,Fe 13)   -154.7897         0.001534   
+   1288. D(Fe  0,Fe 10,Fe  3,Fe  9)    137.4658         0.001534   
+   1289. D(Fe  0,Fe 10,Fe  8,Fe  2)    -98.5947         0.001534   
+   1290. D(Fe  0,Fe 10,Fe  3,Fe  7)     70.2113         0.001534   
+   1291. D(Fe  0,Fe 10,Fe  3,Fe  6)     35.4016         0.001534   
+   1292. D(Fe  0,Fe 10,Fe  3,Fe  4)     98.5949         0.001534   
+   1293. D(Fe 14,Fe 10,Fe  0,Fe  8)    -69.1742         0.001539   
+   1294. D(Fe 14,Fe 10,Fe  0,Fe  7)     -0.0001         0.001539   
+   1295. D(Fe 14,Fe 10,Fe  0,Fe  6)     32.5456         0.001539   
+   1296. D(Fe 14,Fe 10,Fe  0,Fe  3)     69.1739         0.001539   
+   1297. D(Fe  3,Fe 10,Fe  8,Fe 11)   -166.2238         0.001534   
+   1298. D(Fe 14,Fe 10,Fe  0,Fe  1)    -32.5459         0.001539   
+   1299. D(Fe 13,Fe 10,Fe  0,Fe  8)   -163.7733         0.001539   
+   1300. D(Fe 13,Fe 10,Fe  0,Fe  7)    -94.5992         0.001539   
+   1301. D(Fe  7,Fe 10,Fe  8,Fe  2)    -28.3834         0.001534   
+   1302. D(Fe 13,Fe 10,Fe  0,Fe  6)    -62.0535         0.001539   
+   1303. D(Fe 13,Fe 10,Fe  0,Fe  3)    -25.4252         0.001539   
+   1304. D(Fe 13,Fe 10,Fe  0,Fe  1)   -127.1450         0.001539   
+   1305. D(Fe  9,Fe 10,Fe  8,Fe  1)     67.2596         0.001534   
+   1306. D(Fe 12,Fe 10,Fe  0,Fe  8)    -38.1707         0.001539   
+   1307. D(Fe 12,Fe 10,Fe  0,Fe  7)     31.0034         0.001539   
+   1308. D(Fe 12,Fe 10,Fe  0,Fe  6)     63.5491         0.001539   
+   1309. D(Fe 12,Fe 10,Fe  0,Fe  3)    100.1774         0.001539   
+   1310. D(Fe 12,Fe 10,Fe  0,Fe  1)     -1.5424         0.001539   
+   1311. D(Fe 11,Fe 10,Fe  0,Fe  8)     25.4253         0.001539   
+   1312. D(Fe 11,Fe 10,Fe  0,Fe  7)     94.5994         0.001539   
+   1313. D(Fe 11,Fe 10,Fe  8,Fe  7)    134.9990         0.001534   
+   1314. D(Fe 11,Fe 10,Fe  0,Fe  6)    127.1451         0.001539   
+   1315. D(Fe 11,Fe 10,Fe  0,Fe  3)    163.7734         0.001539   
+   1316. D(Fe 11,Fe 10,Fe  0,Fe  1)     62.0536         0.001539   
+   1317. D(Fe 12,Fe 10,Fe  8,Fe  2)     38.8711         0.001534   
+   1318. D(Fe  9,Fe 10,Fe  0,Fe  8)   -100.1776         0.001539   
+   1319. D(Fe  9,Fe 10,Fe  0,Fe  7)    -31.0035         0.001539   
+   1320. D(Fe  9,Fe 10,Fe  0,Fe  6)      1.5422         0.001539   
+   1321. D(Fe 13,Fe 10,Fe  8,Fe  1)     61.9942         0.001534   
+   1322. D(Fe  9,Fe 10,Fe  0,Fe  3)     38.1705         0.001539   
+   1323. D(Fe  9,Fe 10,Fe  0,Fe  1)    -63.5493         0.001539   
+   1324. D(Fe  8,Fe 10,Fe  0,Fe  7)     69.1741         0.001539   
+   1325. D(Fe  8,Fe 10,Fe  0,Fe  6)    101.7198         0.001539   
+   1326. D(Fe  8,Fe 10,Fe  0,Fe  3)    138.3480         0.001539   
+   1327. D(Fe  8,Fe 10,Fe  0,Fe  1)     36.6283         0.001539   
+   1328. D(Fe  7,Fe 10,Fe  0,Fe  8)    -69.1741         0.001539   
+   1329. D(Fe 14,Fe 10,Fe  8,Fe  7)     95.8809         0.001534   
+   1330. D(Fe  7,Fe 10,Fe  0,Fe  6)     32.5457         0.001539   
+   1331. D(Fe  7,Fe 10,Fe  0,Fe  3)     69.1740         0.001539   
+   1332. D(Fe  7,Fe 10,Fe  0,Fe  1)    -32.5458         0.001539   
+   1333. D(Fe  0,Fe 10,Fe  9,Fe  4)     -2.1972         0.001514   
+   1334. D(Fe  3,Fe 10,Fe  0,Fe  8)   -138.3480         0.001539   
+   1335. D(Fe  3,Fe 10,Fe  0,Fe  7)    -69.1740         0.001539   
+   1336. D(Fe  3,Fe 10,Fe  0,Fe  6)    -36.6282         0.001539   
+   1337. D(Fe  0,Fe 10,Fe  9,Fe 14)    171.8233         0.001514   
+   1338. D(Fe  3,Fe 10,Fe  0,Fe  1)   -101.7198         0.001539   
+   1339. D(Fe 14,Fe 10,Fe  9,Fe 13)     75.3338         0.001514   
+   1340. D(Fe 14,Fe 10,Fe  9,Fe 12)    -70.7461         0.001514   
+   1341. D(Fe 14,Fe 10,Fe  9,Fe  7)   -139.6376         0.001514   
+   1342. D(Fe 14,Fe 10,Fe  9,Fe  4)   -174.0204         0.001514   
+   1343. D(Fe 14,Fe 10,Fe  9,Fe  3)    149.0414         0.001514   
+   1344. D(Fe 13,Fe 10,Fe  9,Fe 12)   -146.0799         0.001514   
+   1345. D(Fe 13,Fe 10,Fe  9,Fe  7)    145.0286         0.001514   
+   1346. D(Fe 13,Fe 10,Fe  9,Fe  4)    110.6457         0.001514   
+   1347. D(Fe 12,Fe 10,Fe  9,Fe 14)     70.7461         0.001514   
+   1348. D(Fe 12,Fe 10,Fe  9,Fe 13)    146.0799         0.001514   
+   1349. D(Fe 12,Fe 10,Fe  9,Fe  7)    -68.8915         0.001514   
+   1350. D(Fe 12,Fe 10,Fe  9,Fe  3)   -140.2126         0.001514   
+   1351. D(Fe 11,Fe 10,Fe  9,Fe 14)     40.6216         0.001514   
+   1352. D(Fe 11,Fe 10,Fe  9,Fe 13)    115.9554         0.001514   
+   1353. D(Fe 11,Fe 10,Fe  9,Fe 12)    -30.1245         0.001514   
+   1354. D(Fe 11,Fe 10,Fe  9,Fe  7)    -99.0160         0.001514   
+   1355. D(Fe 11,Fe 10,Fe  9,Fe  4)   -133.3988         0.001514   
+   1356. D(Fe 11,Fe 10,Fe  9,Fe  3)   -170.3370         0.001514   
+   1357. D(Fe  8,Fe 10,Fe  9,Fe 14)    106.1908         0.001514   
+   1358. D(Fe  8,Fe 10,Fe  9,Fe 13)   -178.4754         0.001514   
+   1359. D(Fe  8,Fe 10,Fe  9,Fe 12)     35.4447         0.001514   
+   1360. D(Fe  8,Fe 10,Fe  9,Fe  7)    -33.4468         0.001514   
+   1361. D(Fe 12,Fe 10,Fe  9,Fe  4)   -103.2744         0.001514   
+   1362. D(Fe  8,Fe 10,Fe  9,Fe  4)    -67.8296         0.001514   
+   1363. D(Fe  8,Fe 10,Fe  9,Fe  3)   -104.7678         0.001514   
+   1364. D(Fe  7,Fe 10,Fe  9,Fe 14)    139.6376         0.001514   
+   1365. D(Fe 13,Fe 10,Fe  9,Fe  3)     73.7075         0.001514   
+   1366. D(Fe  7,Fe 10,Fe  9,Fe 13)   -145.0286         0.001514   
+   1367. D(Fe  7,Fe 10,Fe  9,Fe 12)     68.8915         0.001514   
+   1368. D(Fe  7,Fe 10,Fe  9,Fe  4)    -34.3829         0.001514   
+   1369. D(Fe 13,Fe 10,Fe  9,Fe 14)    -75.3338         0.001514   
+   1370. D(Fe  7,Fe 10,Fe  9,Fe  3)    -71.3211         0.001514   
+   1371. D(Fe  3,Fe 10,Fe  9,Fe 14)   -149.0414         0.001514   
+   1372. D(Fe  3,Fe 10,Fe  9,Fe 13)    -73.7075         0.001514   
+   1373. D(Fe  3,Fe 10,Fe  9,Fe 12)    140.2126         0.001514   
+   1374. D(Fe  3,Fe 10,Fe  9,Fe  7)     71.3211         0.001514   
+   1375. D(Fe  3,Fe 10,Fe  9,Fe  4)     36.9382         0.001514   
+   1376. D(Fe 14,Fe 11,Fe 10,Fe 13)     24.8570         0.001539   
+   1377. D(Fe 14,Fe 11,Fe 10,Fe 12)    -69.0653         0.001539   
+   1378. D(Fe 14,Fe 11,Fe 10,Fe  8)   -139.1539         0.001539   
+   1379. D(Fe 14,Fe 11,Fe 10,Fe  7)    -99.3832         0.001539   
+   1380. D(Fe 14,Fe 11,Fe 10,Fe  3)    -74.9701         0.001539   
+   1381. D(Fe 14,Fe 11,Fe 10,Fe  0)   -164.5901         0.001539   
+   1382. D(Fe 12,Fe 11,Fe 10,Fe 14)     69.0653         0.001539   
+   1383. D(Fe 12,Fe 11,Fe 10,Fe 13)     93.9223         0.001539   
+   1384. D(Fe 12,Fe 11,Fe 10,Fe  9)     30.1210         0.001539   
+   1385. D(Fe 12,Fe 11,Fe 10,Fe  7)    -30.3179         0.001539   
+   1386. D(Fe 12,Fe 11,Fe 10,Fe  3)     -5.9048         0.001539   
+   1387. D(Fe 12,Fe 11,Fe 10,Fe  0)    -95.5248         0.001539   
+   1388. D(Fe  8,Fe 11,Fe 10,Fe 13)    164.0109         0.001539   
+   1389. D(Fe  8,Fe 11,Fe 10,Fe 12)     70.0886         0.001539   
+   1390. D(Fe  8,Fe 11,Fe 10,Fe  9)    100.2096         0.001539   
+   1391. D(Fe  8,Fe 11,Fe 10,Fe  7)     39.7707         0.001539   
+   1392. D(Fe  8,Fe 11,Fe 10,Fe  3)     64.1838         0.001539   
+   1393. D(Fe  8,Fe 11,Fe 10,Fe  0)    -25.4362         0.001539   
+   1394. D(Fe 14,Fe 11,Fe  8,Fe 12)    -39.4422         0.001518   
+   1395. D(Fe 14,Fe 11,Fe  8,Fe 10)     35.5168         0.001518   
+   1396. D(Fe 14,Fe 11,Fe  8,Fe  7)     -3.0801         0.001518   
+   1397. D(Fe  8,Fe 11,Fe 10,Fe 14)    139.1539         0.001539   
+   1398. D(Fe 14,Fe 11,Fe  8,Fe  2)    -64.2495         0.001518   
+   1399. D(Fe 14,Fe 11,Fe  8,Fe  1)      1.3629         0.001518   
+   1400. D(Fe 14,Fe 11,Fe  8,Fe  0)     58.7253         0.001518   
+   1401. D(Fe 12,Fe 11,Fe 10,Fe  8)    -70.0886         0.001539   
+   1402. D(Fe 12,Fe 11,Fe  8,Fe 10)     74.9590         0.001518   
+   1403. D(Fe 12,Fe 11,Fe  8,Fe  7)     36.3621         0.001518   
+   1404. D(Fe 12,Fe 11,Fe  8,Fe  2)    -24.8073         0.001518   
+   1405. D(Fe 12,Fe 11,Fe  8,Fe  1)     40.8051         0.001518   
+   1406. D(Fe 12,Fe 11,Fe  8,Fe  0)     98.1674         0.001518   
+   1407. D(Fe 10,Fe 11,Fe  8,Fe 12)    -74.9590         0.001518   
+   1408. D(Fe 10,Fe 11,Fe  8,Fe  7)    -38.5969         0.001518   
+   1409. D(Fe 14,Fe 11,Fe 10,Fe  9)    -38.9443         0.001539   
+   1410. D(Fe 10,Fe 11,Fe  8,Fe  2)    -99.7663         0.001518   
+   1411. D(Fe 10,Fe 11,Fe  8,Fe  1)    -34.1539         0.001518   
+   1412. D(Fe 10,Fe 11,Fe  8,Fe  0)     23.2085         0.001518   
+   1413. D(Fe 14,Fe 12,Fe 11,Fe 10)    -66.9501         0.001533   
+   1414. D(Fe 14,Fe 12,Fe 11,Fe  8)   -135.1996         0.001533   
+   1415. D(Fe 10,Fe 12,Fe 11,Fe 14)     66.9501         0.001533   
+   1416. D(Fe  9,Fe 12,Fe 11,Fe 14)     35.5218         0.001533   
+   1417. D(Fe  9,Fe 12,Fe 11,Fe 10)    -31.4283         0.001533   
+   1418. D(Fe  9,Fe 12,Fe 11,Fe  8)    -99.6778         0.001533   
+   1419. D(Fe  8,Fe 12,Fe 11,Fe 14)    135.1996         0.001533   
+   1420. D(Fe  8,Fe 12,Fe 11,Fe 10)     68.2495         0.001533   
+   1421. D(Fe  7,Fe 12,Fe 11,Fe 14)     97.4793         0.001533   
+   1422. D(Fe  7,Fe 12,Fe 11,Fe 10)     30.5292         0.001533   
+   1423. D(Fe  2,Fe 12,Fe 11,Fe 14)    159.8409         0.001533   
+   1424. D(Fe  2,Fe 12,Fe 11,Fe 10)     92.8908         0.001533   
+   1425. D(Fe  2,Fe 12,Fe 11,Fe  8)     24.6413         0.001533   
+   1426. D(Fe 14,Fe 12,Fe 10,Fe 11)     75.3338         0.001514   
+   1427. D(Fe 14,Fe 12,Fe 10,Fe  9)    -70.7464         0.001514   
+   1428. D(Fe 14,Fe 12,Fe 10,Fe  8)    149.0413         0.001514   
+   1429. D(Fe 14,Fe 12,Fe 10,Fe  3)   -106.1907         0.001514   
+   1430. D(Fe 14,Fe 12,Fe 10,Fe  0)   -171.8232         0.001514   
+   1431. D(Fe 11,Fe 12,Fe 10,Fe 14)    -75.3338         0.001514   
+   1432. D(Fe 11,Fe 12,Fe 10,Fe 13)   -115.9556         0.001514   
+   1433. D(Fe 11,Fe 12,Fe 10,Fe  9)   -146.0802         0.001514   
+   1434. D(Fe 11,Fe 12,Fe 10,Fe  8)     73.7075         0.001514   
+   1435. D(Fe 11,Fe 12,Fe 10,Fe  7)    145.0285         0.001514   
+   1436. D(Fe 11,Fe 12,Fe 10,Fe  0)    112.8430         0.001514   
+   1437. D(Fe  9,Fe 12,Fe 10,Fe 14)     70.7464         0.001514   
+   1438. D(Fe  9,Fe 12,Fe 10,Fe 13)     30.1246         0.001514   
+   1439. D(Fe  9,Fe 12,Fe 10,Fe  8)   -140.2123         0.001514   
+   1440. D(Fe  9,Fe 12,Fe 10,Fe  7)    -68.8913         0.001514   
+   1441. D(Fe  9,Fe 12,Fe 10,Fe  3)    -35.4443         0.001514   
+   1442. D(Fe  9,Fe 12,Fe 10,Fe  0)   -101.0768         0.001514   
+   1443. D(Fe  8,Fe 12,Fe 10,Fe 14)   -149.0413         0.001514   
+   1444. D(Fe  8,Fe 12,Fe 10,Fe 13)    170.3369         0.001514   
+   1445. D(Fe  8,Fe 12,Fe 10,Fe 11)    -73.7075         0.001514   
+   1446. D(Fe  8,Fe 12,Fe 10,Fe  9)    140.2123         0.001514   
+   1447. D(Fe  8,Fe 12,Fe 10,Fe  7)     71.3210         0.001514   
+   1448. D(Fe  8,Fe 12,Fe 10,Fe  3)    104.7679         0.001514   
+   1449. D(Fe  8,Fe 12,Fe 10,Fe  0)     39.1355         0.001514   
+   1450. D(Fe  7,Fe 12,Fe 10,Fe 13)     99.0159         0.001514   
+   1451. D(Fe  7,Fe 12,Fe 10,Fe 11)   -145.0285         0.001514   
+   1452. D(Fe  7,Fe 12,Fe 10,Fe  9)     68.8913         0.001514   
+   1453. D(Fe  7,Fe 12,Fe 10,Fe  3)     33.4470         0.001514   
+   1454. D(Fe  7,Fe 12,Fe 10,Fe  0)    -32.1855         0.001514   
+   1455. D(Fe  2,Fe 12,Fe 10,Fe 14)    174.0205         0.001514   
+   1456. D(Fe  2,Fe 12,Fe 10,Fe 11)   -110.6456         0.001514   
+   1457. D(Fe  2,Fe 12,Fe 10,Fe  9)    103.2741         0.001514   
+   1458. D(Fe  2,Fe 12,Fe 10,Fe  8)    -36.9382         0.001514   
+   1459. D(Fe  2,Fe 12,Fe 10,Fe  7)     34.3828         0.001514   
+   1460. D(Fe  2,Fe 12,Fe 10,Fe  3)     67.8298         0.001514   
+   1461. D(Fe  2,Fe 12,Fe 10,Fe  0)      2.1973         0.001514   
+   1462. D(Fe 14,Fe 12,Fe  9,Fe 13)     36.5283         0.001522   
+   1463. D(Fe 14,Fe 12,Fe  9,Fe  7)    134.8666         0.001522   
+   1464. D(Fe 14,Fe 12,Fe  9,Fe  4)    164.5206         0.001522   
+   1465. D(Fe 14,Fe 12,Fe  9,Fe  3)    101.6618         0.001522   
+   1466. D(Fe 11,Fe 12,Fe  9,Fe 13)     -0.0005         0.001522   
+   1467. D(Fe 11,Fe 12,Fe  9,Fe 10)     30.3862         0.001522   
+   1468. D(Fe 11,Fe 12,Fe  9,Fe  7)     98.3378         0.001522   
+   1469. D(Fe 11,Fe 12,Fe  9,Fe  3)     65.1330         0.001522   
+   1470. D(Fe 10,Fe 12,Fe  9,Fe 14)    -66.9150         0.001522   
+   1471. D(Fe 10,Fe 12,Fe  9,Fe 13)    -30.3867         0.001522   
+   1472. D(Fe 10,Fe 12,Fe  9,Fe  7)     67.9516         0.001522   
+   1473. D(Fe 10,Fe 12,Fe  9,Fe  4)     97.6056         0.001522   
+   1474. D(Fe 10,Fe 12,Fe  9,Fe  3)     34.7468         0.001522   
+   1475. D(Fe  8,Fe 12,Fe  9,Fe 14)   -101.6619         0.001522   
+   1476. D(Fe  8,Fe 12,Fe  9,Fe 10)    -34.7468         0.001522   
+   1477. D(Fe  8,Fe 12,Fe  9,Fe  7)     33.2048         0.001522   
+   1478. D(Fe  8,Fe 12,Fe  9,Fe  4)     62.8587         0.001522   
+   1479. D(Fe  7,Fe 12,Fe  9,Fe 14)   -134.8666         0.001522   
+   1480. D(Fe  7,Fe 12,Fe  9,Fe 13)    -98.3383         0.001522   
+   1481. D(Fe  7,Fe 12,Fe  9,Fe 10)    -67.9516         0.001522   
+   1482. D(Fe  7,Fe 12,Fe  9,Fe  3)    -33.2048         0.001522   
+   1483. D(Fe  2,Fe 12,Fe  9,Fe 14)   -164.5202         0.001522   
+   1484. D(Fe  2,Fe 12,Fe  9,Fe 13)   -127.9919         0.001522   
+   1485. D(Fe  2,Fe 12,Fe  9,Fe 10)    -97.6052         0.001522   
+   1486. D(Fe  2,Fe 12,Fe  9,Fe  7)    -29.6536         0.001522   
+   1487. D(Fe  2,Fe 12,Fe  9,Fe  4)      0.0004         0.001522   
+   1488. D(Fe  2,Fe 12,Fe  9,Fe  3)    -62.8584         0.001522   
+   1489. D(Fe 14,Fe 12,Fe  8,Fe 10)    -27.1785         0.001521   
+   1490. D(Fe 14,Fe 12,Fe  8,Fe  7)    -96.0473         0.001521   
+   1491. D(Fe 14,Fe 12,Fe  8,Fe  2)   -164.8356         0.001521   
+   1492. D(Fe 14,Fe 12,Fe  8,Fe  0)    -64.6311         0.001521   
+   1493. D(Fe 11,Fe 12,Fe  8,Fe 10)    -68.3104         0.001521   
+   1494. D(Fe 11,Fe 12,Fe  8,Fe  7)   -137.1792         0.001521   
+   1495. D(Fe 11,Fe 12,Fe  8,Fe  1)   -168.0192         0.001521   
+   1496. D(Fe 11,Fe 12,Fe  8,Fe  0)   -105.7630         0.001521   
+   1497. D(Fe 10,Fe 12,Fe  8,Fe 11)     68.3104         0.001521   
+   1498. D(Fe 10,Fe 12,Fe  8,Fe  7)    -68.8688         0.001521   
+   1499. D(Fe 10,Fe 12,Fe  8,Fe  2)   -137.6571         0.001521   
+   1500. D(Fe 10,Fe 12,Fe  8,Fe  1)    -99.7087         0.001521   
+   1501. D(Fe 10,Fe 12,Fe  8,Fe  0)    -37.4525         0.001521   
+   1502. D(Fe  9,Fe 12,Fe  8,Fe 10)     35.9999         0.001521   
+   1503. D(Fe  9,Fe 12,Fe  8,Fe  7)    -32.8689         0.001521   
+   1504. D(Fe  9,Fe 12,Fe  8,Fe  2)   -101.6572         0.001521   
+   1505. D(Fe  9,Fe 12,Fe  8,Fe  0)     -1.4527         0.001521   
+   1506. D(Fe  7,Fe 12,Fe  8,Fe 11)    137.1792         0.001521   
+   1507. D(Fe  7,Fe 12,Fe  8,Fe 10)     68.8688         0.001521   
+   1508. D(Fe  7,Fe 12,Fe  8,Fe  1)    -30.8399         0.001521   
+   1509. D(Fe  7,Fe 12,Fe  8,Fe  0)     31.4163         0.001521   
+   1510. D(Fe  2,Fe 12,Fe  8,Fe 11)   -154.0325         0.001521   
+   1511. D(Fe  2,Fe 12,Fe  8,Fe 10)    137.6571         0.001521   
+   1512. D(Fe  2,Fe 12,Fe  8,Fe  7)     68.7882         0.001521   
+   1513. D(Fe  2,Fe 12,Fe  8,Fe  1)     37.9483         0.001521   
+   1514. D(Fe  2,Fe 12,Fe  8,Fe  0)    100.2045         0.001521   
+   1515. D(Fe 14,Fe 12,Fe  7,Fe 10)     34.2194         0.001570   
+   1516. D(Fe 14,Fe 12,Fe  7,Fe  9)    -39.1683         0.001570   
+   1517. D(Fe 14,Fe 12,Fe  7,Fe  8)    103.4627         0.001570   
+   1518. D(Fe 14,Fe 12,Fe  7,Fe  5)   -149.3861         0.001570   
+   1519. D(Fe 14,Fe 12,Fe  7,Fe  4)    -73.6865         0.001570   
+   1520. D(Fe 14,Fe 12,Fe  7,Fe  3)     -2.2418         0.001570   
+   1521. D(Fe  7,Fe 12,Fe  8,Fe  2)    -68.7882         0.001521   
+   1522. D(Fe 14,Fe 12,Fe  7,Fe  2)    174.3217         0.001570   
+   1523. D(Fe 14,Fe 12,Fe  7,Fe  1)    138.2627         0.001570   
+   1524. D(Fe 14,Fe 12,Fe  7,Fe  0)     68.5334         0.001570   
+   1525. D(Fe  9,Fe 12,Fe  8,Fe  1)    -63.7089         0.001521   
+   1526. D(Fe 11,Fe 12,Fe  7,Fe 10)    -30.6282         0.001570   
+   1527. D(Fe 11,Fe 12,Fe  7,Fe  9)   -104.0159         0.001570   
+   1528. D(Fe 11,Fe 12,Fe  7,Fe  8)     38.6151         0.001570   
+   1529. D(Fe  9,Fe 12,Fe  8,Fe 11)    104.3103         0.001521   
+   1530. D(Fe 11,Fe 12,Fe  7,Fe  5)    145.7663         0.001570   
+   1531. D(Fe 11,Fe 12,Fe  7,Fe  4)   -138.5341         0.001570   
+   1532. D(Fe 11,Fe 12,Fe  7,Fe  3)    -67.0894         0.001570   
+   1533. D(Fe 11,Fe 12,Fe  7,Fe  2)    109.4741         0.001570   
+   1534. D(Fe 11,Fe 12,Fe  7,Fe  1)     73.4151         0.001570   
+   1535. D(Fe 11,Fe 12,Fe  7,Fe  0)      3.6858         0.001570   
+   1536. D(Fe 10,Fe 12,Fe  7,Fe  9)    -73.3876         0.001570   
+   1537. D(Fe 11,Fe 12,Fe  8,Fe  2)    154.0325         0.001521   
+   1538. D(Fe 10,Fe 12,Fe  7,Fe  8)     69.2434         0.001570   
+   1539. D(Fe 10,Fe 12,Fe  7,Fe  5)    176.3945         0.001570   
+   1540. D(Fe 10,Fe 12,Fe  7,Fe  4)   -107.9058         0.001570   
+   1541. D(Fe 14,Fe 12,Fe  8,Fe  1)   -126.8872         0.001521   
+   1542. D(Fe 10,Fe 12,Fe  7,Fe  3)    -36.4612         0.001570   
+   1543. D(Fe 10,Fe 12,Fe  7,Fe  2)    140.1023         0.001570   
+   1544. D(Fe 10,Fe 12,Fe  7,Fe  1)    104.0434         0.001570   
+   1545. D(Fe 14,Fe 12,Fe  8,Fe 11)     41.1319         0.001521   
+   1546. D(Fe 10,Fe 12,Fe  7,Fe  0)     34.3141         0.001570   
+   1547. D(Fe  9,Fe 12,Fe  7,Fe 10)     73.3876         0.001570   
+   1548. D(Fe  9,Fe 12,Fe  7,Fe  8)    142.6310         0.001570   
+   1549. D(Fe  9,Fe 12,Fe  7,Fe  5)   -110.2178         0.001570   
+   1550. D(Fe  9,Fe 12,Fe  7,Fe  4)    -34.5182         0.001570   
+   1551. D(Fe  9,Fe 12,Fe  7,Fe  3)     36.9265         0.001570   
+   1552. D(Fe  9,Fe 12,Fe  7,Fe  2)   -146.5100         0.001570   
+   1553. D(Fe  7,Fe 12,Fe  9,Fe  4)     29.6540         0.001522   
+   1554. D(Fe  9,Fe 12,Fe  7,Fe  1)    177.4310         0.001570   
+   1555. D(Fe  9,Fe 12,Fe  7,Fe  0)    107.7017         0.001570   
+   1556. D(Fe  8,Fe 12,Fe  7,Fe 10)    -69.2434         0.001570   
+   1557. D(Fe  8,Fe 12,Fe  9,Fe  3)     -0.0000         0.001522   
+   1558. D(Fe  8,Fe 12,Fe  7,Fe  9)   -142.6310         0.001570   
+   1559. D(Fe  8,Fe 12,Fe  7,Fe  5)    107.1512         0.001570   
+   1560. D(Fe  8,Fe 12,Fe  7,Fe  4)   -177.1492         0.001570   
+   1561. D(Fe  8,Fe 12,Fe  9,Fe 13)    -65.1335         0.001522   
+   1562. D(Fe  8,Fe 12,Fe  7,Fe  3)   -105.7045         0.001570   
+   1563. D(Fe  8,Fe 12,Fe  7,Fe  2)     70.8590         0.001570   
+   1564. D(Fe  8,Fe 12,Fe  7,Fe  1)     34.8000         0.001570   
+   1565. D(Fe  8,Fe 12,Fe  7,Fe  0)    -34.9293         0.001570   
+   1566. D(Fe  2,Fe 12,Fe  7,Fe 10)   -140.1023         0.001570   
+   1567. D(Fe  2,Fe 12,Fe  7,Fe  9)    146.5100         0.001570   
+   1568. D(Fe  2,Fe 12,Fe  7,Fe  8)    -70.8590         0.001570   
+   1569. D(Fe 11,Fe 12,Fe  9,Fe  4)    127.9918         0.001522   
+   1570. D(Fe  2,Fe 12,Fe  7,Fe  5)     36.2922         0.001570   
+   1571. D(Fe  2,Fe 12,Fe  7,Fe  4)    111.9918         0.001570   
+   1572. D(Fe  2,Fe 12,Fe  7,Fe  3)   -176.5635         0.001570   
+   1573. D(Fe 11,Fe 12,Fe  9,Fe 14)    -36.5288         0.001522   
+   1574. D(Fe  2,Fe 12,Fe  7,Fe  1)    -36.0590         0.001570   
+   1575. D(Fe  2,Fe 12,Fe  7,Fe  0)   -105.7883         0.001570   
+   1576. D(Fe 14,Fe 12,Fe  6,Fe  5)   -148.8799         0.001500   
+   1577. D(Fe 14,Fe 12,Fe  9,Fe 10)     66.9150         0.001522   
+   1578. D(Fe 14,Fe 12,Fe  6,Fe  4)    -75.4304         0.001500   
+   1579. D(Fe 14,Fe 12,Fe  6,Fe  3)     -4.0171         0.001500   
+   1580. D(Fe 14,Fe 12,Fe  6,Fe  1)    139.8822         0.001500   
+   1581. D(Fe 14,Fe 12,Fe  6,Fe  0)     68.7868         0.001500   
+   1582. D(Fe 11,Fe 12,Fe  6,Fe  5)    146.5765         0.001500   
+   1583. D(Fe 11,Fe 12,Fe  6,Fe  4)   -139.9740         0.001500   
+   1584. D(Fe 11,Fe 12,Fe  6,Fe  3)    -68.5608         0.001500   
+   1585. D(Fe  2,Fe 12,Fe 10,Fe 13)    133.3988         0.001514   
+   1586. D(Fe 11,Fe 12,Fe  6,Fe  1)     75.3386         0.001500   
+   1587. D(Fe 11,Fe 12,Fe  6,Fe  0)      4.2431         0.001500   
+   1588. D(Fe 10,Fe 12,Fe  6,Fe  5)    177.3864         0.001500   
+   1589. D(Fe  7,Fe 12,Fe 10,Fe  8)    -71.3210         0.001514   
+   1590. D(Fe 10,Fe 12,Fe  6,Fe  4)   -109.1641         0.001500   
+   1591. D(Fe 10,Fe 12,Fe  6,Fe  3)    -37.7508         0.001500   
+   1592. D(Fe 10,Fe 12,Fe  6,Fe  1)    106.1485         0.001500   
+   1593. D(Fe  7,Fe 12,Fe 10,Fe 14)    139.6377         0.001514   
+   1594. D(Fe 10,Fe 12,Fe  6,Fe  0)     35.0530         0.001500   
+   1595. D(Fe  9,Fe 12,Fe  6,Fe  5)   -108.7623         0.001500   
+   1596. D(Fe  9,Fe 12,Fe  6,Fe  4)    -35.3128         0.001500   
+   1597. D(Fe  9,Fe 12,Fe  6,Fe  3)     36.1004         0.001500   
+   1598. D(Fe  9,Fe 12,Fe  6,Fe  1)    179.9998         0.001500   
+   1599. D(Fe  9,Fe 12,Fe  6,Fe  0)    108.9043         0.001500   
+   1600. D(Fe  8,Fe 12,Fe  6,Fe  5)    107.3538         0.001500   
+   1601. D(Fe  8,Fe 12,Fe  6,Fe  4)   -179.1967         0.001500   
+   1602. D(Fe  8,Fe 12,Fe  6,Fe  3)   -107.7835         0.001500   
+   1603. D(Fe  8,Fe 12,Fe  6,Fe  1)     36.1159         0.001500   
+   1604. D(Fe  8,Fe 12,Fe  6,Fe  0)    -34.9796         0.001500   
+   1605. D(Fe  9,Fe 12,Fe 10,Fe 11)    146.0802         0.001514   
+   1606. D(Fe  2,Fe 12,Fe  6,Fe  5)     36.4225         0.001500   
+   1607. D(Fe  2,Fe 12,Fe  6,Fe  4)    109.8720         0.001500   
+   1608. D(Fe  2,Fe 12,Fe  6,Fe  3)   -178.7147         0.001500   
+   1609. D(Fe 11,Fe 12,Fe 10,Fe  3)    178.4754         0.001514   
+   1610. D(Fe  2,Fe 12,Fe  6,Fe  1)    -34.8153         0.001500   
+   1611. D(Fe  2,Fe 12,Fe  6,Fe  0)   -105.9108         0.001500   
+   1612. D(Fe 14,Fe 12,Fe  2,Fe  8)     52.6078         0.001515   
+   1613. D(Fe 14,Fe 12,Fe  2,Fe  7)    -17.8954         0.001515   
+   1614. D(Fe 14,Fe 12,Fe  2,Fe  5)    -48.1191         0.001515   
+   1615. D(Fe 14,Fe 12,Fe  2,Fe  1)     14.3060         0.001515   
+   1616. D(Fe 11,Fe 12,Fe  2,Fe  8)    -25.1114         0.001515   
+   1617. D(Fe 14,Fe 12,Fe 10,Fe  7)   -139.6377         0.001514   
+   1618. D(Fe 11,Fe 12,Fe  2,Fe  7)    -95.6146         0.001515   
+   1619. D(Fe 11,Fe 12,Fe  2,Fe  5)   -125.8383         0.001515   
+   1620. D(Fe 11,Fe 12,Fe  2,Fe  1)    -63.4132         0.001515   
+   1621. D(Fe 14,Fe 12,Fe 10,Fe 13)    -40.6218         0.001514   
+   1622. D(Fe 10,Fe 12,Fe  2,Fe  8)     36.2921         0.001515   
+   1623. D(Fe 10,Fe 12,Fe  2,Fe  7)    -34.2111         0.001515   
+   1624. D(Fe 10,Fe 12,Fe  2,Fe  5)    -64.4348         0.001515   
+   1625. D(Fe  7,Fe 12,Fe 11,Fe  8)    -37.7203         0.001533   
+   1626. D(Fe 10,Fe 12,Fe  2,Fe  1)     -2.0097         0.001515   
+   1627. D(Fe  9,Fe 12,Fe  2,Fe  8)    100.2251         0.001515   
+   1628. D(Fe  9,Fe 12,Fe  2,Fe  7)     29.7219         0.001515   
+   1629. D(Fe  9,Fe 12,Fe  2,Fe  5)     -0.5018         0.001515   
+   1630. D(Fe  9,Fe 12,Fe  2,Fe  1)     61.9233         0.001515   
+   1631. D(Fe  8,Fe 12,Fe  2,Fe  7)    -70.5032         0.001515   
+   1632. D(Fe  8,Fe 12,Fe  2,Fe  5)   -100.7270         0.001515   
+   1633. D(Fe 10,Fe 12,Fe 11,Fe  8)    -68.2495         0.001533   
+   1634. D(Fe  8,Fe 12,Fe  2,Fe  1)    -38.3019         0.001515   
+   1635. D(Fe  7,Fe 12,Fe  2,Fe  8)     70.5032         0.001515   
+   1636. D(Fe  7,Fe 12,Fe  2,Fe  5)    -30.2238         0.001515   
+   1637. D(Fe  7,Fe 12,Fe  2,Fe  1)     32.2014         0.001515   
+   1638. D(Fe 14,Fe 13,Fe 10,Fe 12)     38.9443         0.001539   
+   1639. D(Fe 14,Fe 13,Fe 10,Fe 11)    -24.8570         0.001539   
+   1640. D(Fe 14,Fe 13,Fe 10,Fe  9)     69.0656         0.001539   
+   1641. D(Fe 14,Fe 13,Fe 10,Fe  7)     99.3833         0.001539   
+   1642. D(Fe 14,Fe 13,Fe 10,Fe  3)    139.1540         0.001539   
+   1643. D(Fe 14,Fe 13,Fe 10,Fe  0)    164.5901         0.001539   
+   1644. D(Fe  9,Fe 13,Fe 10,Fe 12)    -30.1213         0.001539   
+   1645. D(Fe  9,Fe 13,Fe 10,Fe 11)    -93.9226         0.001539   
+   1646. D(Fe  9,Fe 13,Fe 10,Fe  8)      5.9050         0.001539   
+   1647. D(Fe  9,Fe 13,Fe 10,Fe  7)     30.3177         0.001539   
+   1648. D(Fe  9,Fe 13,Fe 10,Fe  3)     70.0884         0.001539   
+   1649. D(Fe  9,Fe 13,Fe 10,Fe  0)     95.5245         0.001539   
+   1650. D(Fe  3,Fe 13,Fe 10,Fe 14)   -139.1540         0.001539   
+   1651. D(Fe  3,Fe 13,Fe 10,Fe 11)   -164.0109         0.001539   
+   1652. D(Fe  3,Fe 13,Fe 10,Fe  9)    -70.0884         0.001539   
+   1653. D(Fe  3,Fe 13,Fe 10,Fe  8)    -64.1834         0.001539   
+   1654. D(Fe  3,Fe 13,Fe 10,Fe  0)     25.4362         0.001539   
+   1655. D(Fe 14,Fe 13,Fe  9,Fe 12)    -35.5212         0.001533   
+   1656. D(Fe 14,Fe 13,Fe  9,Fe 10)    -66.9499         0.001533   
+   1657. D(Fe 14,Fe 13,Fe  9,Fe  7)    -97.4791         0.001533   
+   1658. D(Fe 14,Fe 13,Fe  9,Fe  4)   -159.8413         0.001533   
+   1659. D(Fe 14,Fe 13,Fe  9,Fe  3)   -135.1994         0.001533   
+   1660. D(Fe 10,Fe 13,Fe  9,Fe 14)     66.9499         0.001533   
+   1661. D(Fe 10,Fe 13,Fe  9,Fe 12)     31.4287         0.001533   
+   1662. D(Fe 10,Fe 13,Fe  9,Fe  7)    -30.5292         0.001533   
+   1663. D(Fe 10,Fe 13,Fe  9,Fe  4)    -92.8914         0.001533   
+   1664. D(Fe 10,Fe 13,Fe  9,Fe  3)    -68.2495         0.001533   
+   1665. D(Fe  3,Fe 13,Fe  9,Fe 14)    135.1994         0.001533   
+   1666. D(Fe  3,Fe 13,Fe  9,Fe 12)     99.6783         0.001533   
+   1667. D(Fe  3,Fe 13,Fe  9,Fe 10)     68.2495         0.001533   
+   1668. D(Fe  3,Fe 13,Fe  9,Fe  7)     37.7203         0.001533   
+   1669. D(Fe  3,Fe 13,Fe 10,Fe  7)    -39.7706         0.001539   
+   1670. D(Fe  3,Fe 13,Fe  9,Fe  4)    -24.6418         0.001533   
+   1671. D(Fe 14,Fe 13,Fe  3,Fe 10)    -35.5166         0.001518   
+   1672. D(Fe 14,Fe 13,Fe  3,Fe  9)     39.4423         0.001518   
+   1673. D(Fe  3,Fe 13,Fe 10,Fe 12)   -100.2096         0.001539   
+   1674. D(Fe 14,Fe 13,Fe  3,Fe  7)      3.0803         0.001518   
+   1675. D(Fe 14,Fe 13,Fe  3,Fe  6)     -1.3620         0.001518   
+   1676. D(Fe 14,Fe 13,Fe  3,Fe  4)     64.2500         0.001518   
+   1677. D(Fe 14,Fe 13,Fe  3,Fe  0)    -58.7251         0.001518   
+   1678. D(Fe 10,Fe 13,Fe  3,Fe  9)     74.9589         0.001518   
+   1679. D(Fe 10,Fe 13,Fe  3,Fe  7)     38.5969         0.001518   
+   1680. D(Fe 10,Fe 13,Fe  3,Fe  6)     34.1546         0.001518   
+   1681. D(Fe  9,Fe 13,Fe 10,Fe 14)    -69.0656         0.001539   
+   1682. D(Fe 10,Fe 13,Fe  3,Fe  4)     99.7666         0.001518   
+   1683. D(Fe 10,Fe 13,Fe  3,Fe  0)    -23.2084         0.001518   
+   1684. D(Fe  9,Fe 13,Fe  3,Fe 10)    -74.9589         0.001518   
+   1685. D(Fe 14,Fe 13,Fe 10,Fe  8)     74.9705         0.001539   
+   1686. D(Fe  9,Fe 13,Fe  3,Fe  7)    -36.3620         0.001518   
+   1687. D(Fe  9,Fe 13,Fe  3,Fe  6)    -40.8043         0.001518   
+   1688. D(Fe  9,Fe 13,Fe  3,Fe  4)     24.8077         0.001518   
+   1689. D(Fe  9,Fe 13,Fe  3,Fe  0)    -98.1674         0.001518   
+   1690. D(Fe 12,Fe 14,Fe 13,Fe 10)    -40.6859         0.001513   
+   1691. D(Fe 12,Fe 14,Fe 13,Fe  3)     -4.5645         0.001513   
+   1692. D(Fe 11,Fe 14,Fe 13,Fe 10)     21.9843         0.001513   
+   1693. D(Fe 11,Fe 14,Fe 13,Fe  9)     98.1156         0.001513   
+   1694. D(Fe 11,Fe 14,Fe 13,Fe  3)     58.1056         0.001513   
+   1695. D(Fe 10,Fe 14,Fe 13,Fe  9)     76.1313         0.001513   
+   1696. D(Fe 10,Fe 14,Fe 13,Fe  3)     36.1214         0.001513   
+   1697. D(Fe  9,Fe 14,Fe 13,Fe 10)    -76.1313         0.001513   
+   1698. D(Fe 13,Fe 14,Fe 12,Fe 11)    106.5795         0.001525   
+   1699. D(Fe 13,Fe 14,Fe 12,Fe 10)     38.5237         0.001525   
+   1700. D(Fe 13,Fe 14,Fe 12,Fe  9)    -34.4001         0.001525   
+   1701. D(Fe 13,Fe 14,Fe 12,Fe  7)      4.1061         0.001525   
+   1702. D(Fe 13,Fe 14,Fe 12,Fe  2)     19.7326         0.001525   
+   1703. D(Fe 11,Fe 14,Fe 12,Fe 10)    -68.0559         0.001525   
+   1704. D(Fe 11,Fe 14,Fe 12,Fe  8)    -40.6536         0.001525   
+   1705. D(Fe 11,Fe 14,Fe 12,Fe  7)   -102.4734         0.001525   
+   1706. D(Fe 11,Fe 14,Fe 12,Fe  2)    -86.8470         0.001525   
+   1707. D(Fe 10,Fe 14,Fe 12,Fe 11)     68.0559         0.001525   
+   1708. D(Fe 10,Fe 14,Fe 12,Fe  9)    -72.9238         0.001525   
+   1709. D(Fe 10,Fe 14,Fe 12,Fe  8)     27.4023         0.001525   
+   1710. D(Fe 10,Fe 14,Fe 12,Fe  7)    -34.4176         0.001525   
+   1711. D(Fe  9,Fe 14,Fe 12,Fe 11)    140.9796         0.001525   
+   1712. D(Fe  9,Fe 14,Fe 12,Fe 10)     72.9238         0.001525   
+   1713. D(Fe  9,Fe 14,Fe 12,Fe  8)    100.3260         0.001525   
+   1714. D(Fe  9,Fe 14,Fe 12,Fe  2)     54.1327         0.001525   
+   1715. D(Fe 13,Fe 14,Fe 11,Fe 12)    -98.1158         0.001513   
+   1716. D(Fe 13,Fe 14,Fe 11,Fe 10)    -21.9843         0.001513   
+   1717. D(Fe 12,Fe 14,Fe 11,Fe 10)     76.1314         0.001513   
+   1718. D(Fe 12,Fe 14,Fe 11,Fe  8)     40.0100         0.001513   
+   1719. D(Fe 10,Fe 14,Fe 11,Fe 12)    -76.1314         0.001513   
+   1720. D(Fe 10,Fe 14,Fe 11,Fe  8)    -36.1215         0.001513   
+   1721. D(Fe  9,Fe 14,Fe 11,Fe 12)    -35.4459         0.001513   
+   1722. D(Fe  9,Fe 14,Fe 11,Fe 10)     40.6855         0.001513   
+   1723. D(Fe  9,Fe 14,Fe 11,Fe  8)      4.5640         0.001513   
+   1724. D(Fe 13,Fe 14,Fe 10,Fe 11)    156.2991         0.001545   
+   1725. D(Fe 13,Fe 14,Fe 10,Fe  9)    -67.3938         0.001545   
+   1726. D(Fe 13,Fe 14,Fe 10,Fe  8)   -165.0626         0.001545   
+   1727. D(Fe 13,Fe 14,Fe 10,Fe  7)   -101.8503         0.001545   
+   1728. D(Fe 13,Fe 14,Fe 10,Fe  3)    -38.6382         0.001545   
+   1729. D(Fe 13,Fe 14,Fe 10,Fe  0)   -101.8503         0.001545   
+   1730. D(Fe 12,Fe 14,Fe 10,Fe 13)    136.3068         0.001545   
+   1731. D(Fe 12,Fe 14,Fe 10,Fe 11)    -67.3941         0.001545   
+   1732. D(Fe 12,Fe 14,Fe 10,Fe  9)     68.9130         0.001545   
+   1733. D(Fe 12,Fe 14,Fe 10,Fe  8)    -28.7558         0.001545   
+   1734. D(Fe 12,Fe 14,Fe 10,Fe  7)     34.4565         0.001545   
+   1735. D(Fe 12,Fe 14,Fe 10,Fe  3)     97.6686         0.001545   
+   1736. D(Fe 12,Fe 14,Fe 10,Fe  0)     34.4566         0.001545   
+   1737. D(Fe 13,Fe 14,Fe 10,Fe 12)   -136.3068         0.001545   
+   1738. D(Fe 11,Fe 14,Fe 10,Fe 13)   -156.2991         0.001545   
+   1739. D(Fe 11,Fe 14,Fe 10,Fe 12)     67.3941         0.001545   
+   1740. D(Fe 11,Fe 14,Fe 10,Fe  9)    136.3071         0.001545   
+   1741. D(Fe 11,Fe 14,Fe 10,Fe  8)     38.6383         0.001545   
+   1742. D(Fe 11,Fe 14,Fe 10,Fe  7)    101.8506         0.001545   
+   1743. D(Fe 11,Fe 14,Fe 10,Fe  3)    165.0627         0.001545   
+   1744. D(Fe 11,Fe 14,Fe 10,Fe  0)    101.8507         0.001545   
+   1745. D(Fe 13,Fe 14,Fe 11,Fe  8)    -58.1058         0.001513   
+   1746. D(Fe  9,Fe 14,Fe 10,Fe 13)     67.3938         0.001545   
+   1747. D(Fe  9,Fe 14,Fe 10,Fe 12)    -68.9130         0.001545   
+   1748. D(Fe  9,Fe 14,Fe 10,Fe 11)   -136.3071         0.001545   
+   1749. D(Fe  9,Fe 14,Fe 12,Fe  7)     38.5062         0.001525   
+   1750. D(Fe  9,Fe 14,Fe 10,Fe  8)    -97.6688         0.001545   
+   1751. D(Fe  9,Fe 14,Fe 10,Fe  7)    -34.4565         0.001545   
+   1752. D(Fe  9,Fe 14,Fe 10,Fe  3)     28.7556         0.001545   
+   1753. D(Fe 10,Fe 14,Fe 12,Fe  2)    -18.7911         0.001525   
+   1754. D(Fe  9,Fe 14,Fe 10,Fe  0)    -34.4564         0.001545   
+   1755. D(Fe 13,Fe 14,Fe  9,Fe 12)    140.9803         0.001525   
+   1756. D(Fe 13,Fe 14,Fe  9,Fe 10)     68.0562         0.001525   
+   1757. D(Fe 13,Fe 14,Fe  9,Fe  7)    102.4740         0.001525   
+   1758. D(Fe 13,Fe 14,Fe  9,Fe  4)     86.8480         0.001525   
+   1759. D(Fe 13,Fe 14,Fe  9,Fe  3)     40.6539         0.001525   
+   1760. D(Fe 12,Fe 14,Fe  9,Fe 13)   -140.9803         0.001525   
+   1761. D(Fe 11,Fe 14,Fe 12,Fe  9)   -140.9796         0.001525   
+   1762. D(Fe 12,Fe 14,Fe  9,Fe 10)    -72.9241         0.001525   
+   1763. D(Fe 12,Fe 14,Fe  9,Fe  7)    -38.5063         0.001525   
+   1764. D(Fe 12,Fe 14,Fe  9,Fe  4)    -54.1322         0.001525   
+   1765. D(Fe 13,Fe 14,Fe 12,Fe  8)     65.9259         0.001525   
+   1766. D(Fe 12,Fe 14,Fe  9,Fe  3)   -100.3264         0.001525   
+   1767. D(Fe 11,Fe 14,Fe  9,Fe 13)   -106.5795         0.001525   
+   1768. D(Fe 11,Fe 14,Fe  9,Fe 12)     34.4008         0.001525   
+   1769. D(Fe  9,Fe 14,Fe 13,Fe  3)    -40.0099         0.001513   
+   1770. D(Fe 11,Fe 14,Fe  9,Fe 10)    -38.5233         0.001525   
+   1771. D(Fe 11,Fe 14,Fe  9,Fe  7)     -4.1056         0.001525   
+   1772. D(Fe 11,Fe 14,Fe  9,Fe  4)    -19.7315         0.001525   
+   1773. D(Fe 11,Fe 14,Fe  9,Fe  3)    -65.9256         0.001525   
+   1774. D(Fe 10,Fe 14,Fe  9,Fe 13)    -68.0562         0.001525   
+   1775. D(Fe 10,Fe 14,Fe  9,Fe 12)     72.9241         0.001525   
+   1776. D(Fe 10,Fe 14,Fe  9,Fe  7)     34.4177         0.001525   
+   1777. D(Fe 12,Fe 14,Fe 13,Fe  9)     35.4454         0.001513   
+   1778. D(Fe 10,Fe 14,Fe  9,Fe  4)     18.7918         0.001525   
+   1779. D(Fe 10,Fe 14,Fe  9,Fe  3)    -27.4023         0.001525   
+    -----------------------------------------------------------------
+
+Number of atoms                         .... 15
+Number of degrees of freedom            .... 1779
+
+Time needed for optimization step       :     7.72 sec
+
+         *************************************************************
+         *                GEOMETRY OPTIMIZATION CYCLE   1            *
+         *************************************************************
+---------------------------------
+CARTESIAN COORDINATES (ANGSTROEM)
+---------------------------------
+  Fe    -5.824750    2.983830    0.552170
+  Fe    -5.136920    0.486160   -0.948170
+  Fe    -5.666940   -1.899090    0.827510
+  Fe    -8.803080    2.973270    1.204410
+  Fe    -9.992090    0.485930   -0.028770
+  Fe    -7.685700   -1.085990   -1.383780
+  Fe    -7.769440    1.937810   -1.469350
+  Fe    -7.293310    0.483610    1.006050
+  Fe    -4.569570    0.638780    2.042550
+  Fe    -9.385010    0.581320    2.979020
+  Fe    -6.768250    2.239600    3.244950
+  Fe    -4.931170    0.835940    5.055290
+  Fe    -6.772030   -0.859570    3.496340
+  Fe    -9.352490    3.273990    4.179970
+  Fe    -7.948490    0.937790    5.580470
+
+----------------------------
+CARTESIAN COORDINATES (A.U.)
+----------------------------
+  NO LB      ZA    FRAG     MASS         X           Y           Z
+   0 Fe   26.0000    0    55.850  -11.007182    5.638622    1.043450
+   1 Fe   26.0000    0    55.850   -9.707372    0.918709   -1.791782
+   2 Fe   26.0000    0    55.850  -10.708965   -3.588760    1.563767
+   3 Fe   26.0000    0    55.850  -16.635410    5.618666    2.276005
+   4 Fe   26.0000    0    55.850  -18.882314    0.918275   -0.054367
+   5 Fe   26.0000    0    55.850  -14.523868   -2.052224   -2.614965
+   6 Fe   26.0000    0    55.850  -14.682114    3.661930   -2.776669
+   7 Fe   26.0000    0    55.850  -13.782359    0.913890    1.901159
+   8 Fe   26.0000    0    55.850   -8.635236    1.207119    3.859860
+   9 Fe   26.0000    0    55.850  -17.735099    1.098536    5.629532
+  10 Fe   26.0000    0    55.850  -12.790139    4.232231    6.132067
+  11 Fe   26.0000    0    55.850   -9.318561    1.579698    9.553114
+  12 Fe   26.0000    0    55.850  -12.797282   -1.624352    6.607125
+  13 Fe   26.0000    0    55.850  -17.673645    6.186944    7.898999
+  14 Fe   26.0000    0    55.850  -15.020469    1.772166   10.545560
+
+--------------------------------
+INTERNAL COORDINATES (ANGSTROEM)
+--------------------------------
+ Fe     0   0   0     0.000000000000     0.00000000     0.00000000
+ Fe     1   0   0     2.993741079887     0.00000000     0.00000000
+ Fe     2   1   0     3.020493043412   108.89887969     0.00000000
+ Fe     1   2   3     3.048930651901   109.19330050   297.05396208
+ Fe     4   1   2     3.020155288739   107.46235123   357.37024548
+ Fe     2   1   3     3.026167738742   108.18355621    65.52762804
+ Fe     1   2   3     2.993746840817    61.27113847   258.68714580
+ Fe     6   2   1     2.885983627985    58.91786810   326.23362919
+ Fe     8   6   2     2.918419018321   116.73799140   325.79206530
+ Fe     8   6   2     2.877041319655   119.17566838   178.98967707
+ Fe     8   6   2     2.893417027271   174.56551974    36.05805119
+ Fe    11   8  10     2.936401750034   107.48633553   101.61231241
+ Fe     8   6   2     2.877048771728   119.17553125   253.12913245
+ Fe    11   8  10     2.936413024440   107.48611911   329.25237295
+ Fe    11   8  10     2.922726364903   105.94616175    35.43232968
+
+---------------------------
+INTERNAL COORDINATES (A.U.)
+---------------------------
+ Fe     0   0   0     0.000000000000     0.00000000     0.00000000
+ Fe     1   0   0     5.657350756855     0.00000000     0.00000000
+ Fe     2   1   0     5.707904641463   108.89887969     0.00000000
+ Fe     1   2   3     5.761643933410   109.19330050   297.05396208
+ Fe     4   1   2     5.707266377631   107.46235123   357.37024548
+ Fe     2   1   3     5.718628261529   108.18355621    65.52762804
+ Fe     1   2   3     5.657361643436    61.27113847   258.68714580
+ Fe     6   2   1     5.453718683873    58.91786810   326.23362919
+ Fe     8   6   2     5.515012688655   116.73799140   325.79206530
+ Fe     8   6   2     5.436820170123   119.17566838   178.98967707
+ Fe     8   6   2     5.467765772766   174.56551974    36.05805119
+ Fe    11   8  10     5.548995126730   107.48633553   101.61231241
+ Fe     8   6   2     5.436834252500   119.17553125   253.12913245
+ Fe    11   8  10     5.549016432271   107.48611911   329.25237295
+ Fe    11   8  10     5.523152394058   105.94616175    35.43232968
+
+---------------------
+BASIS SET INFORMATION
+---------------------
+There are 1 groups of distinct atoms
+
+ Group   1 Type Fe  : 17s11p7d1f contracted to 6s4p4d1f pattern {842111/6311/4111/1}
+
+Atom   0Fe   basis set group =>   1
+Atom   1Fe   basis set group =>   1
+Atom   2Fe   basis set group =>   1
+Atom   3Fe   basis set group =>   1
+Atom   4Fe   basis set group =>   1
+Atom   5Fe   basis set group =>   1
+Atom   6Fe   basis set group =>   1
+Atom   7Fe   basis set group =>   1
+Atom   8Fe   basis set group =>   1
+Atom   9Fe   basis set group =>   1
+Atom  10Fe   basis set group =>   1
+Atom  11Fe   basis set group =>   1
+Atom  12Fe   basis set group =>   1
+Atom  13Fe   basis set group =>   1
+Atom  14Fe   basis set group =>   1
+---------------------------------
+AUXILIARY/J BASIS SET INFORMATION
+---------------------------------
+There are 1 groups of distinct atoms
+
+ Group   1 Type Fe  : 19s5p5d3f3g contracted to 8s5p5d2f3g pattern {121111111/11111/11111/21/111}
+
+Atom   0Fe   basis set group =>   1
+Atom   1Fe   basis set group =>   1
+Atom   2Fe   basis set group =>   1
+Atom   3Fe   basis set group =>   1
+Atom   4Fe   basis set group =>   1
+Atom   5Fe   basis set group =>   1
+Atom   6Fe   basis set group =>   1
+Atom   7Fe   basis set group =>   1
+Atom   8Fe   basis set group =>   1
+Atom   9Fe   basis set group =>   1
+Atom  10Fe   basis set group =>   1
+Atom  11Fe   basis set group =>   1
+Atom  12Fe   basis set group =>   1
+Atom  13Fe   basis set group =>   1
+Atom  14Fe   basis set group =>   1
+------------------------------------------------------------------------------
+                           ORCA GTO INTEGRAL CALCULATION
+                           -- RI-GTO INTEGRALS CHOSEN --
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                   ___                                                        
+                  /   \      - P O W E R E D   B Y -                         
+                 /     \                                                     
+                 |  |  |   _    _      __       _____    __    __             
+                 |  |  |  | |  | |    /  \     |  _  \  |  |  /  |          
+                  \  \/   | |  | |   /    \    | | | |  |  | /  /          
+                 / \  \   | |__| |  /  /\  \   | |_| |  |  |/  /          
+                |  |  |   |  __  | /  /__\  \  |    /   |      \           
+                |  |  |   | |  | | |   __   |  |    \   |  |\   \          
+                \     /   | |  | | |  |  |  |  | |\  \  |  | \   \       
+                 \___/    |_|  |_| |__|  |__|  |_| \__\ |__|  \__/        
+                                                                              
+                      - O R C A' S   B I G   F R I E N D -                    
+                                      &                                       
+                       - I N T E G R A L  F E E D E R -                       
+                                                                              
+ v1 FN, 2020, v2 2021                                                         
+------------------------------------------------------------------------------
+
+
+Reading SHARK input file Fe_test.SHARKINP.tmp ... ok
+----------------------
+SHARK INTEGRAL PACKAGE
+----------------------
+
+Number of atoms                             ...     15
+Number of basis functions                   ...    675
+Number of shells                            ...    225
+Maximum angular momentum                    ...      3
+Integral batch strategy                     ... SHARK/LIBINT Hybrid
+RI-J (if used) integral strategy            ... SPLIT-RIJ (Revised 2003 algorithm where possible)
+Printlevel                                  ...      1
+Contraction scheme used                     ... SEGMENTED contraction
+Coulomb Range Separation                    ... NOT USED
+Exchange Range Separation                   ... NOT USED
+Finite Nucleus Model                        ... NOT USED
+Auxiliary Coulomb fitting basis             ... AVAILABLE
+   # of basis functions in Aux-J            ...   1335
+   # of shells in Aux-J                     ...    345
+   Maximum angular momentum in Aux-J        ...      4
+Auxiliary J/K fitting basis                 ... NOT available
+Auxiliary Correlation fitting basis         ... NOT available
+Auxiliary 'external' fitting basis          ... NOT available
+Integral threshold                          ...     2.500000e-11
+Primitive cut-off                           ...     2.500000e-12
+Primitive pair pre-selection threshold      ...     2.500000e-12
+
+Calculating pre-screening integrals         ... done (  4.2 sec) Dimension = 225
+Organizing shell pair data                  ... done (  1.2 sec)
+Shell pair information
+Total number of shell pairs                 ...     25425
+Shell pairs after pre-screening             ...     17783
+Total number of primitive shell pairs       ...    146955
+Primitive shell pairs kept                  ...     53801
+          la=0 lb=0:   2761 shell pairs
+          la=1 lb=0:   3598 shell pairs
+          la=1 lb=1:   1204 shell pairs
+          la=2 lb=0:   4062 shell pairs
+          la=2 lb=1:   2782 shell pairs
+          la=2 lb=2:   1508 shell pairs
+          la=3 lb=0:    698 shell pairs
+          la=3 lb=1:    458 shell pairs
+          la=3 lb=2:    650 shell pairs
+          la=3 lb=3:     62 shell pairs
+
+Calculating one electron integrals          ... done (  0.7 sec)
+Calculating RI/J V-Matrix + Cholesky decomp.... done (  0.2 sec)
+Calculating Nuclear repulsion               ... done (  0.0 sec) ENN=   9485.104041111052 Eh
+
+SHARK setup successfully completed in  12.5 seconds
+
+Maximum memory used throughout the entire GTOINT-calculation: 543.8 MB
+-------------------------------------------------------------------------------
+                                 ORCA SCF
+-------------------------------------------------------------------------------
+
+------------
+SCF SETTINGS
+------------
+Hamiltonian:
+ Density Functional     Method          .... DFT(GTOs)
+ Exchange Functional    Exchange        .... B88
+   X-Alpha parameter    XAlpha          ....  0.666667
+   Becke's b parameter  XBeta           ....  0.004200
+ Correlation Functional Correlation     .... LYP
+ LDA part of GGA corr.  LDAOpt          .... VWN-5
+ Gradients option       PostSCFGGA      .... off
+ Hybrid DFT is turned on
+   Fraction HF Exchange ScalHFX         ....  0.200000
+   Scaling of DF-GGA-X  ScalDFX         ....  0.720000
+   Scaling of DF-GGA-C  ScalDFC         ....  0.810000
+   Scaling of DF-LDA-C  ScalLDAC        ....  1.000000
+   Perturbative correction              ....  0.000000
+   Density functional embedding theory  .... OFF
+   NL short-range parameter             ....  4.800000
+ RI-approximation to the Coulomb term is turned on
+   Number of AuxJ basis functions       .... 1335
+   RIJ-COSX (HFX calculated with COS-X)).... on
+
+
+General Settings:
+ Integral files         IntName         .... Fe_test
+ Hartree-Fock type      HFTyp           .... RHF
+ Total Charge           Charge          ....    0
+ Multiplicity           Mult            ....    1
+ Number of Electrons    NEL             ....  390
+ Basis Dimension        Dim             ....  675
+ Nuclear Repulsion      ENuc            ....   9485.1040411111 Eh
+
+Convergence Acceleration:
+ DIIS                   CNVDIIS         .... on
+   Start iteration      DIISMaxIt       ....    12
+   Startup error        DIISStart       ....  0.200000
+   # of expansion vecs  DIISMaxEq       ....     5
+   Bias factor          DIISBfac        ....   1.050
+   Max. coefficient     DIISMaxC        ....  10.000
+ Trust-Rad. Augm. Hess. CNVTRAH         .... auto
+   Auto Start mean grad. ratio tolernc. ....  1.125000
+   Auto Start start iteration           ....    20
+   Auto Start num. interpolation iter.  ....    10
+   Max. Number of Micro iterations      ....    16
+   Max. Number of Macro iterations      .... Maxiter - #DIIS iter
+   Number of Davidson start vectors     ....     2
+   Converg. threshold I  (grad. norm)   ....   1.000e-05
+   Converg. threshold II (energy diff.) ....   1.000e-08
+   Grad. Scal. Fac. for Micro threshold ....   0.100
+   Minimum threshold for Micro iter.    ....   0.010
+   NR start threshold (gradient norm)   ....   0.001
+   Initial trust radius                 ....   0.400
+   Minimum AH scaling param. (alpha)    ....   1.000
+   Maximum AH scaling param. (alpha)    .... 1000.000
+   Orbital update algorithm             .... Taylor
+   White noise on init. David. guess    .... on
+   Maximum white noise                  ....   0.010
+   Quad. conv. algorithm                .... NR
+ SOSCF                  CNVSOSCF        .... on
+   Start iteration      SOSCFMaxIt      ....   150
+   Startup grad/error   SOSCFStart      ....  0.003300
+ Level Shifting         CNVShift        .... on
+   Level shift para.    LevelShift      ....    0.2500
+   Turn off err/grad.   ShiftErr        ....    0.0010
+ Zerner damping         CNVZerner       .... off
+ Static damping         CNVDamp         .... on
+   Fraction old density DampFac         ....    0.7000
+   Max. Damping (<1)    DampMax         ....    0.9800
+   Min. Damping (>=0)   DampMin         ....    0.0000
+   Turn off err/grad.   DampErr         ....    0.1000
+ Fernandez-Rico         CNVRico         .... off
+
+SCF Procedure:
+ Maximum # iterations   MaxIter         ....   125
+ SCF integral mode      SCFMode         .... Direct
+   Integral package                     .... SHARK and LIBINT hybrid scheme
+ Reset frequency        DirectResetFreq ....    20
+ Integral Threshold     Thresh          ....  2.500e-11 Eh
+ Primitive CutOff       TCut            ....  2.500e-12 Eh
+
+Convergence Tolerance:
+ Convergence Check Mode ConvCheckMode   .... Total+1el-Energy
+ Convergence forced     ConvForced      .... 0
+ Energy Change          TolE            ....  1.000e-08 Eh
+ 1-El. energy change                    ....  1.000e-05 Eh
+ Orbital Gradient       TolG            ....  1.000e-05
+ Orbital Rotation angle TolX            ....  1.000e-05
+ DIIS Error             TolErr          ....  5.000e-07
+
+
+Diagonalization of the overlap matrix:
+Smallest eigenvalue                        ... 4.176e-04
+Time for diagonalization                   ...    0.470 sec
+Threshold for overlap eigenvalues          ... 1.000e-08
+Number of eigenvalues below threshold      ... 0
+Time for construction of square roots      ...    0.226 sec
+Total time needed                          ...    0.699 sec
+
+Time for model grid setup =    5.187 sec
+
+------------------------------
+INITIAL GUESS: MODEL POTENTIAL
+------------------------------
+Loading Hartree-Fock densities                     ... done
+Calculating cut-offs                               ... done
+Initializing the effective Hamiltonian             ... done
+Setting up the integral package (SHARK)            ... done
+Starting the Coulomb interaction                   ... done (  12.0 sec)
+Reading the grid                                   ... done
+Mapping shells                                     ... done
+Starting the XC term evaluation                    ... done (   6.5 sec)
+  promolecular density results
+     # of electrons  =    390.000386224
+     EX              =   -816.041817567
+     EC              =    -17.992632085
+     EX+EC           =   -834.034449652
+Transforming the Hamiltonian                       ... done (   0.1 sec)
+Diagonalizing the Hamiltonian                      ... done (   0.2 sec)
+Back transforming the eigenvectors                 ... done (   0.0 sec)
+Now organizing SCF variables                       ... done
+                      ------------------
+                      INITIAL GUESS DONE (  24.1 sec)
+                      ------------------
+-------------------
+DFT GRID GENERATION
+-------------------
+
+General Integration Accuracy     IntAcc      ... 4.388
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 4 (Lebedev-302)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... Becke
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Angular grids for H and He will be reduced by one unit
+Partially contracted basis set               ... off
+Rotationally invariant grid construction     ... off
+
+Total number of grid points                  ...   165640
+Total number of batches                      ...     2597
+Average number of points per batch           ...       63
+Average number of grid points per atom       ...    11043
+Time for grid setup =    8.346 sec
+
+--------------------
+COSX GRID GENERATION
+--------------------
+
+GRIDX 1
+-------
+General Integration Accuracy     IntAcc      ... 3.816
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 1 (Lebedev-50)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... Becke
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Angular grids for H and He will be reduced by one unit
+Partially contracted basis set               ... on
+Rotationally invariant grid construction     ... off
+
+Total number of grid points                  ...    17936
+Total number of batches                      ...      290
+Average number of points per batch           ...       61
+Average number of grid points per atom       ...     1196
+UseSFitting                                  ... on
+
+GRIDX 2
+-------
+General Integration Accuracy     IntAcc      ... 4.020
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 2 (Lebedev-110)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... Becke
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Angular grids for H and He will be reduced by one unit
+Partially contracted basis set               ... on
+Rotationally invariant grid construction     ... off
+
+Total number of grid points                  ...    38945
+Total number of batches                      ...      612
+Average number of points per batch           ...       63
+Average number of grid points per atom       ...     2596
+UseSFitting                                  ... on
+
+GRIDX 3
+-------
+General Integration Accuracy     IntAcc      ... 4.338
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 3 (Lebedev-194)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... Becke
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Angular grids for H and He will be reduced by one unit
+Partially contracted basis set               ... on
+Rotationally invariant grid construction     ... off
+
+Total number of grid points                  ...    87255
+Total number of batches                      ...     1371
+Average number of points per batch           ...       63
+Average number of grid points per atom       ...     5817
+UseSFitting                                  ... on
+
+Time for X-Grid setup             =   17.994 sec
+
+--------------
+SCF ITERATIONS
+--------------
+ITER       Energy         Delta-E        Max-DP      RMS-DP      [F,P]     Damp
+               ***  Starting incremental Fock matrix formation  ***
+  0 -18948.1943700377   0.000000000000 6.25783353  0.01600445  0.5706486 0.7000
+  1 -18940.8614949415   7.332875096174 1.90356855  0.01087976  0.5168823 0.7000
+  2 -18934.6865653749   6.174929566598 1.80128446  0.00843350  0.4588775 0.7000
+  3 -18932.6487858145   2.037779560433 1.22050170  0.00662141  0.4666985 0.7000
+  4 -18934.3752870022  -1.726501187713 3.10035844  0.01426036  0.4277256 0.7000
+  5 -18916.7266664337  17.648620568434 2.07386052  0.01109714  0.4645156 0.7000
+  6 -18900.7757010093  15.950965424465 5.35426887  0.01853901  0.4647305 0.7000
+  7 -18877.2998405569  23.475860452421 2.35207159  0.01250636  0.4872188 0.7000
+  8 -18863.3566945787  13.943145978130 3.71158624  0.01562319  0.4890027 0.7000
+  9 -18834.6581627279  28.698531850845 2.66692151  0.01314379  0.5197333 0.7000
+ 10 -18831.9585422330   2.699620494932 2.97803812  0.01368832  0.5204003 0.7000
+ 11 -18813.9761239255  17.982418307460 2.73272803  0.01291707  0.5533349 0.7000
+                               ***Turning on DIIS***
+ 12 -18816.2047407720  -2.228616846489 2.56030927  0.01286868  0.6367522 0.7000
+ 13 -18803.1712334258  13.033507346219 2.74239461  0.01036955  0.5976262 0.7000
+ 14 -18825.3918954412 -22.220662015472 2.16475005  0.00794620  1.0253202 0.7000
+ 15 -18835.6101427581 -10.218247316869 1.55668063  0.00577209  1.3484561 0.7000
+ 16 -18843.6186950451  -8.008552286945 1.10217831  0.00415895  1.6389222 0.7000
+ 17 -18850.9408522709  -7.322157225852 1.86715107  0.01134111  1.8981549 0.7000
+ 18 -18855.0342341950  -4.093381924053 2.44195043  0.01205571  1.3382509 0.7000
+ 19 -18811.6974814646  43.336752730371 1.45978973  0.00688679  0.9388616 0.7000
+               *** Restarting incremental Fock matrix formation ***
+                                   *** Resetting DIIS ***
+
+ WARNING: the maximum gradient error descreased on average only by a factor   0.9
+          during the last 20 iterations
+
+                      *** Initiating the TRAH-SCF procedure ***
+
+
+TRAH GRIDX
+----------
+
+General Integration Accuracy     IntAcc      ... 3.067
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 1 (Lebedev-50)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... Becke
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Angular grids for H and He will be reduced by one unit
+Partially contracted basis set               ... on
+Rotationally invariant grid construction     ... off
+
+Total number of grid points                  ...    12103
+Total number of batches                      ...      198
+Average number of points per batch           ...       61
+Average number of grid points per atom       ...      807
+
+
+TRAH GRID
+---------
+
+General Integration Accuracy     IntAcc      ... 3.467
+Radial Grid Type                 RadialGrid  ... OptM3 with GC (2021)
+Angular Grid (max. ang.)         AngularGrid ... 1 (Lebedev-50)
+Angular grid pruning method      GridPruning ... 4 (adaptive)
+Weight generation scheme         WeightScheme... Becke
+Basis function cutoff            BFCut       ... 1.0000e-11
+Integration weight cutoff        WCut        ... 1.0000e-14
+Angular grids for H and He will be reduced by one unit
+Partially contracted basis set               ... off
+Rotationally invariant grid construction     ... off
+
+Total number of grid points                  ...    63010
+Total number of batches                      ...      992
+Average number of points per batch           ...       63
+Average number of grid points per atom       ...     4201
+
+ --------------------------------------------------------------------------------------------
+   Iter.        energy            ||Error||_2        Shift      TRadius  Mac/Mic        Rej.
+ --------------------------------------------------------------------------------------------
+WARNING: 24483 diagonal Hessian elements are negative!
+    0     -18801.000032637516     4.245982e+01                     0.400 (TRAH MAcro)   No
+WARNING : negative HOMO - LUMO gap : -10.917247
+    0     dE    -1.534166e+01     7.574616e+00    -8.5621e+01      0.400 (TRAH MIcro)
+    0     dE    -1.551812e+01     4.841490e+00    -8.9247e+01      0.400 (TRAH MIcro)
+    0     dE    -1.552195e+01     4.717091e+00    -8.9354e+01      0.400 (TRAH MIcro)
+    0     dE    -1.554122e+01     3.642287e+00    -8.9794e+01      0.400 (TRAH MIcro)
+    0     dE    -1.558475e+01     5.277744e-01    -9.0289e+01      0.400 (TRAH MIcro)
+    0     dE    -1.558652e+01     1.347708e-01    -9.0302e+01      0.400 (TRAH MIcro)
+    0     dE    -1.558663e+01     9.665027e-02    -9.0304e+01      0.400 (TRAH MIcro)
+    0     dE    -1.558660e+01     9.364086e-02    -9.0304e+01      0.400 (TRAH MIcro)
+    0     dE    -1.558659e+01     7.724969e-02    -9.0304e+01      0.400 (TRAH MIcro)
+    0     dE    -1.558661e+01     2.132766e-02    -9.0303e+01      0.400 (TRAH MIcro)
+    0     dE    -1.558664e+01     5.428262e-03    -9.0303e+01      0.400 (TRAH MIcro)
+WARNING: 23293 diagonal Hessian elements are negative!
+    1     -18816.539068450096     3.577026e+01                     0.480 (TRAH MAcro)   No
+WARNING : negative HOMO - LUMO gap : -10.362423
+    1     dE    -1.531257e+01     8.348330e+00    -5.8400e+01      0.480 (TRAH MIcro)
+    1     dE    -1.575676e+01     3.741109e+00    -6.4780e+01      0.480 (TRAH MIcro)
+    1     dE    -1.577181e+01     3.560637e+00    -6.4981e+01      0.480 (TRAH MIcro)
+    1     dE    -1.578051e+01     3.247385e+00    -6.5195e+01      0.480 (TRAH MIcro)
+    1     dE    -1.582221e+01     1.269354e+00    -6.5530e+01      0.480 (TRAH MIcro)
+    1     dE    -1.583532e+01     3.435947e-01    -6.5577e+01      0.480 (TRAH MIcro)
+    1     dE    -1.583628e+01     1.591200e-01    -6.5593e+01      0.480 (TRAH MIcro)
+    1     dE    -1.583636e+01     1.424015e-01    -6.5591e+01      0.480 (TRAH MIcro)
+    1     dE    -1.583638e+01     1.344507e-01    -6.5591e+01      0.480 (TRAH MIcro)
+    1     dE    -1.583639e+01     1.004651e-01    -6.5592e+01      0.480 (TRAH MIcro)
+    1     dE    -1.583645e+01     3.539083e-02    -6.5591e+01      0.480 (TRAH MIcro)
+    1     dE    -1.583645e+01     1.136135e-02    -6.5591e+01      0.480 (TRAH MIcro)
+    1     dE    -1.583642e+01     5.959746e-03    -6.5592e+01      0.480 (TRAH MIcro)
+WARNING: 21641 diagonal Hessian elements are negative!
+    2     -18832.260640745444     3.077525e+01                     0.576 (TRAH MAcro)   No
+WARNING : negative HOMO - LUMO gap : -9.739793
+    2     dE    -1.611940e+01     1.023293e+01    -4.3741e+01      0.576 (TRAH MIcro)
+    2     dE    -1.706525e+01     3.590088e+00    -5.2618e+01      0.576 (TRAH MIcro)
+    2     dE    -1.709254e+01     3.189131e+00    -5.2920e+01      0.576 (TRAH MIcro)
+    2     dE    -1.710312e+01     2.926748e+00    -5.3122e+01      0.576 (TRAH MIcro)
+    2     dE    -1.712816e+01     2.092499e+00    -5.3344e+01      0.576 (TRAH MIcro)
+    2     dE    -1.716075e+01     6.164996e-01    -5.3340e+01      0.576 (TRAH MIcro)
+    2     dE    -1.716556e+01     2.471158e-01    -5.3351e+01      0.576 (TRAH MIcro)
+    2     dE    -1.716599e+01     1.807768e-01    -5.3359e+01      0.576 (TRAH MIcro)
+    2     dE    -1.716603e+01     1.650848e-01    -5.3357e+01      0.576 (TRAH MIcro)
+    2     dE    -1.716609e+01     1.502321e-01    -5.3356e+01      0.576 (TRAH MIcro)
+    2     dE    -1.716616e+01     1.160714e-01    -5.3358e+01      0.576 (TRAH MIcro)
+    2     dE    -1.716618e+01     4.925245e-02    -5.3359e+01      0.576 (TRAH MIcro)
+    2     dE    -1.716622e+01     1.751821e-02    -5.3357e+01      0.576 (TRAH MIcro)
+    2     dE    -1.716623e+01     9.260035e-03    -5.3358e+01      0.576 (TRAH MIcro)
+WARNING: 19746 diagonal Hessian elements are negative!
+    3     -18849.114262042902     2.911823e+01                     0.691 (TRAH MAcro)   No
+WARNING : negative HOMO - LUMO gap : -9.054560
+    3     dE    -1.939703e+01     1.129810e+01    -3.9073e+01      0.691 (TRAH MIcro)
+    3     dE    -2.066985e+01     4.600983e+00    -4.7256e+01      0.691 (TRAH MIcro)
+    3     dE    -2.077362e+01     3.185919e+00    -4.7853e+01      0.691 (TRAH MIcro)
+    3     dE    -2.078338e+01     2.965494e+00    -4.7880e+01      0.691 (TRAH MIcro)
+    3     dE    -2.081307e+01     2.016790e+00    -4.8089e+01      0.691 (TRAH MIcro)
+    3     dE    -2.079634e+01     8.136753e-01    -4.8267e+01      0.690 (TRAH MIcro)
+    3     dE    -2.085144e+01     3.335007e-01    -4.8133e+01      0.691 (TRAH MIcro)
+    3     dE    -2.085252e+01     2.382215e-01    -4.8112e+01      0.691 (TRAH MIcro)
+    3     dE    -2.085274e+01     2.074761e-01    -4.8114e+01      0.691 (TRAH MIcro)
+    3     dE    -2.085282e+01     1.910695e-01    -4.8118e+01      0.691 (TRAH MIcro)
+    3     dE    -2.085291e+01     1.541390e-01    -4.8119e+01      0.691 (TRAH MIcro)
+    3     dE    -2.085297e+01     7.030096e-02    -4.8117e+01      0.691 (TRAH MIcro)
+    3     dE    -2.085308e+01     2.556326e-02    -4.8116e+01      0.691 (TRAH MIcro)
+    3     dE    -2.085303e+01     1.236341e-02    -4.8117e+01      0.691 (TRAH MIcro)
+WARNING: 16982 diagonal Hessian elements are negative!
+    4     -18869.267863359681     3.022875e+01                     0.829 (TRAH MAcro)   No
+WARNING : negative HOMO - LUMO gap : -8.165371
+    4     dE    -2.496782e+01     1.146947e+01    -3.6139e+01      0.829 (TRAH MIcro)
+    4     dE    -2.627867e+01     6.661152e+00    -4.2026e+01      0.829 (TRAH MIcro)
+    4     dE    -2.646381e+01     3.896301e+00    -4.3398e+01      0.827 (TRAH MIcro)
+    4     dE    -2.660545e+01     3.234730e+00    -4.3348e+01      0.829 (TRAH MIcro)
+    4     dE    -2.661845e+01     2.953323e+00    -4.3332e+01      0.829 (TRAH MIcro)
+    4     dE    -2.665718e+01     1.708636e+00    -4.3415e+01      0.829 (TRAH MIcro)
+    4     dE    -2.659821e+01     5.408681e-01    -4.3605e+01      0.827 (TRAH MIcro)
+    4     dE    -2.661423e+01     3.071610e-01    -4.3610e+01      0.827 (TRAH MIcro)
+    4     dE    -2.661513e+01     2.732115e-01    -4.3611e+01      0.827 (TRAH MIcro)
+    4     dE    -2.661331e+01     2.440331e-01    -4.3611e+01      0.827 (TRAH MIcro)
+    4     dE    -2.661027e+01     1.840662e-01    -4.3611e+01      0.827 (TRAH MIcro)
+    4     dE    -2.660992e+01     9.287166e-02    -4.3611e+01      0.827 (TRAH MIcro)
+    4     dE    -2.661208e+01     3.303132e-02    -4.3612e+01      0.827 (TRAH MIcro)
+    4     dE    -2.661312e+01     1.534347e-02    -4.3612e+01      0.827 (TRAH MIcro)
+WARNING: 12875 diagonal Hessian elements are negative!
+    5     -18894.375127315532     3.065841e+01                     0.995 (TRAH MAcro)   No
+WARNING : negative HOMO - LUMO gap : -6.636515
+    5     dE    -2.683552e+01     9.589608e+00    -2.8650e+01      0.935 (TRAH MIcro)
+    5     dE    -2.960700e+01     6.799337e+00    -3.0369e+01      0.995 (TRAH MIcro)
+    5     dE    -2.992774e+01     4.954425e+00    -3.1653e+01      0.995 (TRAH MIcro)
+    5     dE    -3.002675e+01     4.082913e+00    -3.1901e+01      0.995 (TRAH MIcro)
+    5     dE    -3.006636e+01     3.574194e+00    -3.1930e+01      0.995 (TRAH MIcro)
+    5     dE    -3.012087e+01     2.488580e+00    -3.1996e+01      0.995 (TRAH MIcro)
+    5     dE    -3.017563e+01     9.897583e-01    -3.2119e+01      0.995 (TRAH MIcro)
+    5     dE    -3.019119e+01     4.882689e-01    -3.2151e+01      0.995 (TRAH MIcro)
+    5     dE    -3.019342e+01     3.934558e-01    -3.2149e+01      0.995 (TRAH MIcro)
+    5     dE    -3.019413e+01     3.344670e-01    -3.2139e+01      0.995 (TRAH MIcro)
+    5     dE    -3.018338e+01     2.712030e-01    -3.2138e+01      0.995 (TRAH MIcro)
+    5     dE    -3.017656e+01     1.939009e-01    -3.2139e+01      0.995 (TRAH MIcro)
+    5     dE    -3.017878e+01     1.029415e-01    -3.2139e+01      0.995 (TRAH MIcro)
+    5     dE    -3.018565e+01     3.836533e-02    -3.2139e+01      0.995 (TRAH MIcro)
+WARNING: 7804 diagonal Hessian elements are negative!
+    6     -18921.784182743639     2.406096e+01                     1.194 (TRAH MAcro)   No
+WARNING : negative HOMO - LUMO gap : -4.103632
+    6     dE    -1.538129e+01     6.777463e+00    -1.8970e+01      0.788 (TRAH MIcro)
+    6     dE    -1.701549e+01     5.223425e+00    -1.9627e+01      0.857 (TRAH MIcro)
+    6     dE    -1.799076e+01     4.369523e+00    -1.9873e+01      0.900 (TRAH MIcro)
+    6     dE    -1.840643e+01     3.499794e+00    -1.9995e+01      0.917 (TRAH MIcro)
+    6     dE    -1.861731e+01     2.002815e+00    -2.0104e+01      0.923 (TRAH MIcro)
+    6     dE    -1.865346e+01     9.123152e-01    -2.0162e+01      0.922 (TRAH MIcro)
+    6     dE    -1.860721e+01     5.825229e-01    -2.0178e+01      0.919 (TRAH MIcro)
+    6     dE    -1.855702e+01     4.483514e-01    -2.0183e+01      0.916 (TRAH MIcro)
+    6     dE    -1.852971e+01     3.410782e-01    -2.0185e+01      0.914 (TRAH MIcro)
+    6     dE    -1.852007e+01     2.729706e-01    -2.0186e+01      0.914 (TRAH MIcro)
+    6     dE    -1.852040e+01     1.925744e-01    -2.0186e+01      0.914 (TRAH MIcro)
+    6     dE    -1.852609e+01     1.079356e-01    -2.0186e+01      0.914 (TRAH MIcro)
+    6     dE    -1.852997e+01     6.419569e-02    -2.0187e+01      0.914 (TRAH MIcro)
+    6     dE    -1.853157e+01     4.304003e-02    -2.0187e+01      0.914 (TRAH MIcro)
+WARNING: 4406 diagonal Hessian elements are negative!
+    7     -18938.909943581326     1.428587e+01                     1.433 (TRAH MAcro)   No
+WARNING : negative HOMO - LUMO gap : -1.899420
+    7     dE    -6.816720e+00     5.032836e+00    -9.4709e+00      0.663 (TRAH MIcro)
+    7     dE    -7.677213e+00     3.628337e+00    -9.9551e+00      0.736 (TRAH MIcro)
+    7     dE    -8.350556e+00     2.599946e+00    -1.0211e+01      0.797 (TRAH MIcro)
+    7     dE    -8.603577e+00     1.553421e+00    -1.0343e+01      0.815 (TRAH MIcro)
+    7     dE    -8.625779e+00     7.444852e-01    -1.0402e+01      0.812 (TRAH MIcro)
+    7     dE    -8.601035e+00     5.382467e-01    -1.0415e+01      0.807 (TRAH MIcro)
+    7     dE    -8.588342e+00     4.445341e-01    -1.0419e+01      0.805 (TRAH MIcro)
+    7     dE    -8.584882e+00     2.668815e-01    -1.0421e+01      0.805 (TRAH MIcro)
+    7     dE    -8.587479e+00     1.482314e-01    -1.0423e+01      0.805 (TRAH MIcro)
+    7     dE    -8.590958e+00     8.472052e-02    -1.0423e+01      0.805 (TRAH MIcro)
+    7     dE    -8.593404e+00     4.831775e-02    -1.0423e+01      0.806 (TRAH MIcro)
+    7     dE    -8.594671e+00     3.502373e-02    -1.0423e+01      0.806 (TRAH MIcro)
+    7     dE    -8.595175e+00     2.167150e-02    -1.0423e+01      0.806 (TRAH MIcro)
+    7     dE    -8.595287e+00     1.283989e-02    -1.0423e+01      0.806 (TRAH MIcro)
+WARNING: 2094 diagonal Hessian elements are negative!
+    8     -18947.027160921793     6.848528e+00                     1.720 (TRAH MAcro)   No
+WARNING : negative HOMO - LUMO gap : -0.774906
+    8     dE    -2.353479e+00     3.149186e+00    -3.6609e+00      0.535 (TRAH MIcro)
+    8     dE    -2.805071e+00     2.684544e+00    -4.0222e+00      0.628 (TRAH MIcro)
+    8     dE    -3.325391e+00     1.205217e+00    -4.2994e+00      0.740 (TRAH MIcro)
+    8     dE    -3.406750e+00     6.485188e-01    -4.3612e+00      0.750 (TRAH MIcro)
+    8     dE    -3.405544e+00     4.938319e-01    -4.3792e+00      0.745 (TRAH MIcro)
+    8     dE    -3.404836e+00     2.262605e-01    -4.3844e+00      0.744 (TRAH MIcro)
+    8     dE    -3.403334e+00     8.932436e-02    -4.3861e+00      0.743 (TRAH MIcro)
+    8     dE    -3.402299e+00     4.377381e-02    -4.3866e+00      0.742 (TRAH MIcro)
+    8     dE    -3.402344e+00     2.940666e-02    -4.3867e+00      0.742 (TRAH MIcro)
+    8     dE    -3.402514e+00     1.437012e-02    -4.3867e+00      0.742 (TRAH MIcro)
+    8     dE    -3.402415e+00     9.579257e-03    -4.3867e+00      0.742 (TRAH MIcro)
+WARNING: 832 diagonal Hessian elements are negative!
+    9     -18950.262777591819     2.713100e+00                     2.064 (TRAH MAcro)   No
+WARNING : negative HOMO - LUMO gap : -0.259279
+    9     dE    -6.538299e-01     2.242104e+00    -1.1179e+00      0.412 (TRAH MIcro)
+    9     dE    -8.093734e-01     2.197491e+00    -1.2965e+00      0.499 (TRAH MIcro)
+    9     dE    -1.095580e+00     1.141800e+00    -1.5301e+00      0.657 (TRAH MIcro)
+    9     dE    -1.188826e+00     5.074833e-01    -1.5863e+00      0.706 (TRAH MIcro)
+    9     dE    -1.201134e+00     3.408089e-01    -1.5933e+00      0.713 (TRAH MIcro)
+    9     dE    -1.209839e+00     1.190601e-01    -1.5976e+00      0.717 (TRAH MIcro)
+    9     dE    -1.211001e+00     8.433820e-02    -1.5982e+00      0.718 (TRAH MIcro)
+    9     dE    -1.212278e+00     4.315128e-02    -1.5985e+00      0.719 (TRAH MIcro)
+    9     dE    -1.213023e+00     2.988239e-02    -1.5986e+00      0.719 (TRAH MIcro)
+    9     dE    -1.213862e+00     1.439863e-02    -1.5987e+00      0.720 (TRAH MIcro)
+    9     dE    -1.214102e+00     1.243413e-02    -1.5987e+00      0.720 (TRAH MIcro)
+    9     dE    -1.214431e+00     5.670874e-03    -1.5987e+00      0.721 (TRAH MIcro)
+WARNING: 198 diagonal Hessian elements are negative!
+   10     -18951.429708112206     1.058665e+00                     2.477 (TRAH MAcro)   No
+WARNING : negative HOMO - LUMO gap : -0.055649
+   10     dE    -1.285755e-01     1.975490e+00    -2.4416e-01      0.231 (TRAH MIcro)
+   10     dE    -2.275421e-01     1.772942e+00    -3.9151e-01      0.403 (TRAH MIcro)
+   10     dE    -3.439189e-01     1.453996e+00    -5.2027e-01      0.568 (TRAH MIcro)
+   10     dE    -4.732223e-01     8.811404e-01    -6.2122e-01      0.724 (TRAH MIcro)
+   10     dE    -5.048996e-01     5.748066e-01    -6.4231e-01      0.756 (TRAH MIcro)
+   10     dE    -5.322030e-01     2.746302e-01    -6.5840e-01      0.785 (TRAH MIcro)
+   10     dE    -5.377038e-01     1.877112e-01    -6.6162e-01      0.791 (TRAH MIcro)
+   10     dE    -5.425846e-01     1.942634e-01    -6.6507e-01      0.795 (TRAH MIcro)
+   10     dE    -5.458610e-01     1.258600e-01    -6.6669e-01      0.798 (TRAH MIcro)
+   10     dE    -5.474547e-01     1.139653e-01    -6.6726e-01      0.801 (TRAH MIcro)
+   10     dE    -5.505515e-01     6.706425e-02    -6.6813e-01      0.805 (TRAH MIcro)
+   10     dE    -5.512387e-01     5.412354e-02    -6.6823e-01      0.806 (TRAH MIcro)
+   10     dE    -5.532312e-01     3.062736e-02    -6.6839e-01      0.810 (TRAH MIcro)
+   10     dE    -5.537101e-01     2.153737e-02    -6.6842e-01      0.810 (TRAH MIcro)
+WARNING: 30 diagonal Hessian elements are negative!
+   11     -18951.970448734093     5.242455e-01                     2.972 (TRAH MAcro)   No
+WARNING : negative HOMO - LUMO gap : -0.028706
+   11     dE    -5.542148e-02     1.632779e+00    -1.0645e-01      0.203 (TRAH MIcro)
+   11     dE    -9.233020e-02     1.874620e+00    -1.6642e-01      0.331 (TRAH MIcro)
+   11     dE    -2.210463e-01     1.585734e+00    -3.0755e-01      0.661 (TRAH MIcro)
+   11     dE    -3.229787e-01     1.057881e+00    -3.7833e-01      0.841 (TRAH MIcro)
+   11     dE    -3.508304e-01     8.354845e-01    -3.9386e-01      0.884 (TRAH MIcro)
+   11     dE    -3.891061e-01     3.827474e-01    -4.1303e-01      0.940 (TRAH MIcro)
+   11     dE    -3.984968e-01     2.047235e-01    -4.1725e-01      0.954 (TRAH MIcro)
+   11     dE    -4.038775e-01     2.380049e-01    -4.1952e-01      0.962 (TRAH MIcro)
+   11     dE    -4.184785e-01     1.897188e-01    -4.2457e-01      0.986 (TRAH MIcro)
+   11     dE    -4.210029e-01     1.813027e-01    -4.2522e-01      0.990 (TRAH MIcro)
+   11     dE    -4.267847e-01     1.342238e-01    -4.2638e-01      1.001 (TRAH MIcro)
+   11     dE    -4.297877e-01     7.375103e-02    -4.2690e-01      1.007 (TRAH MIcro)
+   11     dE    -4.315636e-01     8.008921e-02    -4.2712e-01      1.010 (TRAH MIcro)
+   11     dE    -4.358395e-01     5.950942e-02    -4.2760e-01      1.019 (TRAH MIcro)
+WARNING: 9 diagonal Hessian elements are negative!
+   12     -18952.380686927740     4.158116e-01                     3.566 (TRAH MAcro)   No
+WARNING : negative HOMO - LUMO gap : -0.019880
+   12     dE    -1.027465e-02     2.829468e+00    -2.0499e-02      0.049 (TRAH MIcro)
+   12     dE    -5.524032e-02     6.267180e+00    -1.0012e-01      0.322 (TRAH MIcro)
+   12     dE    -2.137675e-01     4.317787e+00    -2.5450e-01      0.825 (TRAH MIcro)
+   12     dE    -3.194842e-01     1.089661e+00    -3.1461e-01      1.015 (TRAH MIcro)
+   12     dE    -3.299265e-01     7.182497e-01    -3.2142e-01      1.026 (TRAH MIcro)
+   12     dE    -3.374906e-01     4.808126e-01    -3.3135e-01      1.018 (TRAH MIcro)
+   12     dE    -3.518127e-01     3.289427e-01    -3.4268e-01      1.026 (TRAH MIcro)
+   12     dE    -3.554561e-01     2.594876e-01    -3.4475e-01      1.031 (TRAH MIcro)
+   12     dE    -3.594003e-01     1.390845e-01    -3.4657e-01      1.036 (TRAH MIcro)
+   12     dE    -3.603451e-01     1.356034e-01    -3.4686e-01      1.038 (TRAH MIcro)
+   12     dE    -3.630433e-01     1.369814e-01    -3.4745e-01      1.044 (TRAH MIcro)
+   12     dE    -3.645324e-01     9.545796e-02    -3.4768e-01      1.047 (TRAH MIcro)
+   12     dE    -3.685171e-01     6.622649e-02    -3.4810e-01      1.057 (TRAH MIcro)
+   12     dE    -3.693873e-01     6.767912e-02    -3.4818e-01      1.059 (TRAH MIcro)
+WARNING: 4 diagonal Hessian elements are negative!
+   13     -18952.714909619383     3.708877e-01                     4.280 (TRAH MAcro)   No
+WARNING : negative HOMO - LUMO gap : -0.016580
+   13     dE    -3.146249e-03     1.863289e+00    -6.2907e-03      0.017 (TRAH MIcro)
+   13     dE    -1.123168e-01     1.444658e+00    -1.4854e-01      0.716 (TRAH MIcro)
+   13     dE    -2.116467e-01     4.108924e-01    -2.0953e-01      1.010 (TRAH MIcro)
+   13     dE    -2.183364e-01     9.695096e-01    -2.1457e-01      1.017 (TRAH MIcro)
+   13     dE    -2.216518e-01     1.261803e+00    -2.2575e-01      0.982 (TRAH MIcro)
+   13     dE    -2.287331e-01     3.165763e-01    -2.3931e-01      0.955 (TRAH MIcro)
+   13     dE    -2.306537e-01     2.659502e-01    -2.4168e-01      0.953 (TRAH MIcro)
+   13     dE    -2.336988e-01     2.214342e-01    -2.4437e-01      0.955 (TRAH MIcro)
+   13     dE    -2.349685e-01     1.604277e-01    -2.4511e-01      0.958 (TRAH MIcro)
+   13     dE    -2.364278e-01     1.308865e-01    -2.4566e-01      0.962 (TRAH MIcro)
+   13     dE    -2.385952e-01     9.379756e-02    -2.4628e-01      0.968 (TRAH MIcro)
+   13     dE    -2.399392e-01     1.573319e-01    -2.4655e-01      0.973 (TRAH MIcro)
+   13     dE    -2.413754e-01     9.295287e-02    -2.4686e-01      0.978 (TRAH MIcro)
+   13     dE    -2.419920e-01     6.624085e-02    -2.4698e-01      0.980 (TRAH MIcro)
+WARNING: 1 diagonal Hessian elements are negative!
+   14     -18952.928839731539     3.328443e-01                     5.136 (TRAH MAcro)   No
+WARNING : negative HOMO - LUMO gap : -0.008967
+   14     dE    -3.166465e-03     3.374199e-01    -6.3306e-03      0.019 (TRAH MIcro)
+   14     dE    -5.333997e-02     7.346292e-01    -7.7003e-02      0.621 (TRAH MIcro)
+   14     dE    -1.367332e-01     4.586366e-01    -1.2745e-01      1.070 (TRAH MIcro)
+   14     dE    -1.522049e-01     2.638716e-01    -1.3349e-01      1.132 (TRAH MIcro)
+   14     dE    -1.597788e-01     2.658153e-01    -1.3599e-01      1.162 (TRAH MIcro)
+   14     dE    -1.713222e-01     2.957785e-01    -1.4041e-01      1.200 (TRAH MIcro)
+   14     dE    -1.869260e-01     2.335155e-01    -1.4555e-01      1.252 (TRAH MIcro)
+   14     dE    -1.918008e-01     2.120170e-01    -1.4668e-01      1.271 (TRAH MIcro)
+   14     dE    -1.983188e-01     1.707147e-01    -1.4799e-01      1.296 (TRAH MIcro)
+   14     dE    -2.020428e-01     1.339279e-01    -1.4858e-01      1.311 (TRAH MIcro)
+   14     dE    -2.077876e-01     1.051678e-01    -1.4932e-01      1.335 (TRAH MIcro)
+   14     dE    -2.111300e-01     7.869468e-02    -1.4970e-01      1.349 (TRAH MIcro)
+   14     dE    -2.138183e-01     7.639216e-02    -1.4995e-01      1.361 (TRAH MIcro)
+   14     dE    -2.148216e-01     6.728201e-02    -1.5005e-01      1.365 (TRAH MIcro)
+ ---------------------------------
+          TRAH Step control 
+ ---------------------------------
+  predicted energy change = -0.214822
+  actual energy  change   = 0.037535
+  energy change ratio     = -0.174729
+  old trust radius        = 5.135674
+  new trust radius        = 3.594972
+  reject step?            =  1
+   15     -18952.928839731539     3.708877e-01                     3.595 (TRAH MAcro)  Yes
+WARNING: 1 diagonal Hessian elements are negative!
+   16     -18952.928839731554     3.328443e-01                     3.595 (TRAH MAcro)   No
+WARNING : negative HOMO - LUMO gap : -0.008967
+   16     dE    -3.166436e-03     3.374583e-01    -6.3306e-03      0.019 (TRAH MIcro)
+   16     dE    -5.333990e-02     7.348349e-01    -7.7003e-02      0.621 (TRAH MIcro)
+   16     dE    -1.367321e-01     4.585950e-01    -1.2745e-01      1.070 (TRAH MIcro)
+   16     dE    -1.522047e-01     2.639237e-01    -1.3349e-01      1.132 (TRAH MIcro)
+   16     dE    -1.597790e-01     2.657525e-01    -1.3599e-01      1.162 (TRAH MIcro)
+   16     dE    -1.713231e-01     2.959250e-01    -1.4041e-01      1.200 (TRAH MIcro)
+   16     dE    -1.869269e-01     2.335810e-01    -1.4555e-01      1.252 (TRAH MIcro)
+   16     dE    -1.918020e-01     2.121889e-01    -1.4668e-01      1.271 (TRAH MIcro)
+   16     dE    -1.983202e-01     1.707025e-01    -1.4799e-01      1.296 (TRAH MIcro)
+   16     dE    -2.020434e-01     1.338874e-01    -1.4858e-01      1.311 (TRAH MIcro)
+   16     dE    -2.077892e-01     1.051830e-01    -1.4932e-01      1.335 (TRAH MIcro)
+   16     dE    -2.111305e-01     7.866948e-02    -1.4970e-01      1.349 (TRAH MIcro)
+   16     dE    -2.138198e-01     7.650395e-02    -1.4995e-01      1.361 (TRAH MIcro)
+   16     dE    -2.148227e-01     6.726484e-02    -1.5005e-01      1.365 (TRAH MIcro)
+ ---------------------------------
+          TRAH Step control 
+ ---------------------------------
+  predicted energy change = -0.214823
+  actual energy  change   = 0.037536
+  energy change ratio     = -0.174731
+  old trust radius        = 3.594972
+  new trust radius        = 2.516480
+  reject step?            =  1
+   17     -18952.928839731554     3.708877e-01                     2.516 (TRAH MAcro)  Yes
+WARNING: 1 diagonal Hessian elements are negative!
+   18     -18952.928839731558     3.328443e-01                     2.516 (TRAH MAcro)   No
+WARNING : negative HOMO - LUMO gap : -0.008967
+   18     dE    -3.166438e-03     3.374329e-01    -6.3306e-03      0.019 (TRAH MIcro)
+   18     dE    -5.333771e-02     7.346120e-01    -7.7001e-02      0.621 (TRAH MIcro)
+   18     dE    -1.367322e-01     4.586589e-01    -1.2745e-01      1.070 (TRAH MIcro)
+   18     dE    -1.522049e-01     2.639367e-01    -1.3349e-01      1.132 (TRAH MIcro)
+   18     dE    -1.597790e-01     2.658558e-01    -1.3599e-01      1.162 (TRAH MIcro)
+   18     dE    -1.713221e-01     2.958233e-01    -1.4041e-01      1.200 (TRAH MIcro)
+   18     dE    -1.869263e-01     2.335106e-01    -1.4555e-01      1.252 (TRAH MIcro)
+   18     dE    -1.918012e-01     2.120051e-01    -1.4668e-01      1.271 (TRAH MIcro)
+   18     dE    -1.983190e-01     1.706974e-01    -1.4799e-01      1.296 (TRAH MIcro)
+   18     dE    -2.020430e-01     1.338970e-01    -1.4858e-01      1.311 (TRAH MIcro)
+   18     dE    -2.077883e-01     1.050685e-01    -1.4932e-01      1.335 (TRAH MIcro)
+   18     dE    -2.111301e-01     7.867576e-02    -1.4970e-01      1.349 (TRAH MIcro)
+   18     dE    -2.138186e-01     7.651559e-02    -1.4995e-01      1.361 (TRAH MIcro)
+   18     dE    -2.148218e-01     6.731634e-02    -1.5005e-01      1.365 (TRAH MIcro)
+ ---------------------------------
+          TRAH Step control 
+ ---------------------------------
+  predicted energy change = -0.214822
+  actual energy  change   = 0.037536
+  energy change ratio     = -0.174731
+  old trust radius        = 2.516480
+  new trust radius        = 1.761536
+  reject step?            =  1
+   19     -18952.928839731558     3.708877e-01                     1.762 (TRAH MAcro)  Yes
